@@ -11,17 +11,21 @@
                 <?php endforeach;?>
             </select>
         <?php else: ?>
+        <div class="mb-3">
+            <label for="<?= $name?>" class="form-label"> <?= $name?> </label>
             <input
-                    name="<?= $name;?>"
-                    type="<?= $input["type"]?>"
-                    placeholder=" <?= $input["placeholder"]?>"
-            >
+                            name="<?= $name;?>"
+                            type="<?= $input["type"]?>"
+                            placeholder=" <?= $input["placeholder"]?>"
+                            class="form-control"
+                    >
+        </div>
         <?php endif;?>
 
     <?php endforeach; ?>
 
 
 
-    <input type="submit" name="submit" value="<?= $config["config"]["submit"] ?>">
-    <input type="reset" value="<?= $config["config"]["cancel"] ?>">
+    <input type="submit" name="submit" class="btn btn-primary" value="<?= $config["config"]["submit"] ?>">
+    <input type="reset" class="btn btn-danger" value="<?= $config["config"]["cancel"] ?>">
 </form>

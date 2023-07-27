@@ -9,10 +9,10 @@ class User extends Sql {
     protected String $lastname;
     protected String $country;
     protected String $email;
+    protected String $token;
     protected String $password;
     protected Int $status = 0;
-    protected $date_inserted;
-    protected $date_updated;
+    protected Int $role = 0;
 
     /**
      * @return int
@@ -28,6 +28,22 @@ class User extends Sql {
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param Int $role
+     */
+    public function setRole(int $role): void
+    {
+        $this->role = $role;
     }
 
     /**
@@ -52,6 +68,22 @@ class User extends Sql {
     public function getLastname(): string
     {
         return $this->lastname;
+    }
+
+    /**
+     * @return String
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param String $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
     }
 
     /**
@@ -142,6 +174,16 @@ class User extends Sql {
         return $this->date_updated;
     }
 
+    public function verifPwd($password): bool
+    {
+        return password_verify($password,$this->getPassword());
+    }
+
+    public function generateToken(): string
+    {
+       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,9);
+
+    }
 
 
 }
