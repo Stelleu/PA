@@ -1,6 +1,8 @@
 <form
         method="<?= $config["config"]["method"]??"GET" ?>"
-        action="<?= $config["config"]["action"] ?>">
+        action="<?= $config["config"]["action"] ?>"
+        class="<?= $config["config"]["class"]?>"
+>
 
     <?php foreach ($config["inputs"] as $name=>$input):?>
 
@@ -17,7 +19,7 @@
                             name="<?= $name;?>"
                             type="<?= $input["type"]?>"
                             placeholder=" <?= $input["placeholder"]?>"
-                            class="form-control"
+                            class="<?= $input["class"]?>"
                     >
         </div>
         <?php endif;?>
@@ -26,6 +28,8 @@
 
 
 
-    <input type="submit" name="submit" class="btn btn-primary" value="<?= $config["config"]["submit"] ?>">
+    <input type="submit" name="submit" class="btn btn-primary text-center py-2" value="<?= $config["config"]["submit"] ?>">
+    <?php if(!empty($config["config"]["cancel"])) : ?>
     <input type="reset" class="btn btn-danger" value="<?= $config["config"]["cancel"] ?>">
+    <?php endif; ?>
 </form>

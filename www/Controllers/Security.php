@@ -7,19 +7,20 @@ use App\Models\User as ModelUser;
 use App\Core\Verificator;
 
 class Security{
+    protected array $errors = [];
 
     public function login(): void
     {
-        echo "Login";
+
         $form = new LoginUser();
         $view = new View("Auth/login","front");
         $view->assign('form',$form->getConfig());
 
         if ($form->isSubmit()){
-            $errors = Verificator::form($form->getConfig(),$_POST);
+            $this->errors = Verificator::form($form->getConfig(),$_POST);
             $email = $_POST["Email"];
             $pwd = $_POST["Password"];
-            if (empty($errors)){
+            if (empty($this->errors)){
                 $user = new ModelUser();
                 $user = $user->search(['email'=>$pwd]);
                 if (!empty($user) && $user->verifPwd($pwd)){
@@ -35,9 +36,16 @@ class Security{
                         'role'      => $user->getRole(),
                     ];
                     //REDIRECTION DASHBOARD
+                }else{
+                    echo "ouou";
+                    $this->errors[] = "Identifiants incorrects";
                 }
+            }else{
+                $this->errors[] = "Identifiants incorrect";
             }
         }
+        $view->assign('title',"Login");
+        $view->assign('errors',$this->errors);
     }
 
     public function register(): void
@@ -48,11 +56,11 @@ class Security{
 
 
         if($form->isSubmit()){
-            $errors = Verificator::form($form->getConfig(), $_POST);
-            if(empty($errors)){
+            $this->errors = Verificator::form($form->getConfig(), $_POST);
+            if(empty($this->errors)){
                 echo "Insertion en BDD";
             }else{
-                $view->assign('errors', $errors);
+                $view->assign('errors', $this->errors);
             }
         }
         /*

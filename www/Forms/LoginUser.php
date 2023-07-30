@@ -14,17 +14,20 @@ class LoginUser extends Abstract\AForm
                 "action"=>"",
                 "enctype"=>"",
                 "submit"=>"Se connecter",
-                "cancel"=>"Annuler"
+                "cancel"=>"",
+                "class"=>"",
             ],
             "inputs" =>[
                 "Email"=>[
                     "type"=>"email",
                     "placeholder"=>"Votre email",
+                    "class"=>"form-control",
                     "error"=>"Le format de votre email est incorrect"
                 ],
                 "Password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe",
+                    "class"=>"form-control",
                     "error"=>"Votre mot de passe est incorrect"
                 ]
             ]

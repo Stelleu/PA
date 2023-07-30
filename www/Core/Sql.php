@@ -9,7 +9,7 @@ abstract class Sql{
     public function __construct(){
         //Mettre en place un SINGLETON
         try{
-            $this->pdo = new \PDO("pgsql:host=database;port=5432;dbname=esgi" , "esgi" , "Test1234" );
+            $this->pdo = new \PDO("pgsql:host=database;port=5432;dbname=esgi_s2_bdd" , "nimda" , "nimdaesgi" );
         }catch(\Exception $e){
             die("Erreur SQL : ".$e->getMessage());
         }
