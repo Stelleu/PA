@@ -5,10 +5,8 @@
 /dashboard:
   controller: Main
   action: dashboard
-  security: true
-  role:
-    - 0
-    - 1
+  security: false
+  role: []
 
 
 /contact:
@@ -21,7 +19,7 @@
   security: false
   role : []
 
-/logout:
+dash/logout:
   controller: Security
   action: logout
 

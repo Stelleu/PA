@@ -14,7 +14,10 @@ class Main{
         $view = new View("Main/contact", "front");
     }
 
-    public function dashboard(){
-        echo "Mon tableau de bord";
+    public function dashboard(): void
+    {
+        $view = new View("Dash/index");
+        $view->assign("title", 'Home');
+
     }
 }
