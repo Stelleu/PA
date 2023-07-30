@@ -2,14 +2,50 @@
 namespace App\Controllers;
 use App\Core\View;
 use App\Forms\AddUser;
-use App\Models\User;
+use App\Forms\LoginUser;
+use App\Models\User as ModelUser;
 use App\Core\Verificator;
 
 class Security{
+    protected array $errors = [];
 
     public function login(): void
     {
-        echo "Login";
+
+        $form = new LoginUser();
+        $view = new View("Auth/login","front");
+        $view->assign('form',$form->getConfig());
+
+        if ($form->isSubmit()){
+            $this->errors = Verificator::form($form->getConfig(),$_POST);
+            $email = $_POST["Email"];
+            $pwd = $_POST["Password"];
+            if (empty($this->errors)){
+                $user = new ModelUser();
+                $user = $user->search(['email'=>$pwd]);
+                if (!empty($user) && $user->verifPwd($pwd)){
+                    $user->generateToken();
+                    $_SESSION["user"] = [
+                        'id'        => $user->getId(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname'  => $user->getLastname(),
+                        'pwd'       => $user->getPwd(),
+                        'email'     => $user->getEmail(),
+                        'token'     => $user->getToken(),
+                        'status'    => $user->getStatus(),
+                        'role'      => $user->getRole(),
+                    ];
+                    //REDIRECTION DASHBOARD
+                }else{
+                    echo "ouou";
+                    $this->errors[] = "Identifiants incorrects";
+                }
+            }else{
+                $this->errors[] = "Identifiants incorrect";
+            }
+        }
+        $view->assign('title',"Login");
+        $view->assign('errors',$this->errors);
     }
 
     public function register(): void
@@ -17,14 +53,12 @@ class Security{
         $form = new AddUser();
         $view = new View("Auth/register", "front");
         $view->assign('form', $form->getConfig());
-
-
         if($form->isSubmit()){
-            $errors = Verificator::form($form->getConfig(), $_POST);
-            if(empty($errors)){
+            $this->errors = Verificator::form($form->getConfig(), $_POST);
+            if(empty($this->errors)){
                 echo "Insertion en BDD";
             }else{
-                $view->assign('errors', $errors);
+                $view->assign('errors', $this->errors);
             }
         }
         /*
@@ -37,7 +71,9 @@ class Security{
 
     public function logout(): void
     {
-        echo "Logout";
+        session_destroy();
+        //REDIRECTION LOGIN
+
     }
 
 }
