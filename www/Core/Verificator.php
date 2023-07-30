@@ -1,7 +1,8 @@
 <?php
 namespace App\Core;
 
-class Verificator{
+class Verificator
+{
 
     public static function form(array $config, array $data): array
     {
@@ -25,8 +26,6 @@ class Verificator{
                 $listOfErrors[] = $input["error"];
             }
         }
-        $listOfErrors[] = "eour";
-
         return $listOfErrors;
     }
 
@@ -42,5 +41,6 @@ class Verificator{
             && preg_match("/[a-z]/", $password, $match)
             && preg_match("/[A-Z]/", $password, $match);
     }
+
 
 }

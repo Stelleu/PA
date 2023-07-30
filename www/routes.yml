@@ -5,6 +5,11 @@
 /dashboard:
   controller: Main
   action: dashboard
+  security: true
+  role:
+    - 0
+    - 1
+
 
 /contact:
   controller: Main
@@ -13,6 +18,8 @@
 /login:
   controller: Security
   action: login
+  security: false
+  role : []
 
 /logout:
   controller: Security
@@ -21,3 +28,9 @@
 /register:
   controller: Security
   action: register
+
+/{slug}:
+  controller:  Main
+  action: dashboard
+  security: true
+  role: []
