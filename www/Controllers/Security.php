@@ -53,8 +53,6 @@ class Security{
         $form = new AddUser();
         $view = new View("Auth/register", "front");
         $view->assign('form', $form->getConfig());
-
-
         if($form->isSubmit()){
             $this->errors = Verificator::form($form->getConfig(), $_POST);
             if(empty($this->errors)){
@@ -73,7 +71,9 @@ class Security{
 
     public function logout(): void
     {
-        echo "Logout";
+        session_destroy();
+        //REDIRECTION LOGIN
+
     }
 
 }
