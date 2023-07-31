@@ -56,4 +56,17 @@ abstract class Sql{
         return $queryPrepared->fetchObject(get_called_class());
     }
 
+    public function getAll(): array
+    {
+       $sql = 'SELECT * FROM '. $this->table ;
+       $queryPrepared = $this->pdo->prepare($sql);
+       $queryPrepared->execute();
+       $objects = array();
+       while ($object = $queryPrepared->fetchObject($this->table))
+       {
+           $objects[] = $object;
+       }
+       return $objects;
+    }
+
 }

@@ -22,7 +22,7 @@ class Security{
             $pwd = $_POST["Password"];
             if (empty($this->errors)){
                 $user = new ModelUser();
-                $user = $user->search(['email'=>$pwd]);
+                $user = $user->search(['email'=>$email]);
                 if (!empty($user) && $user->verifPwd($pwd)){
                     $user->generateToken();
                     $_SESSION["user"] = [

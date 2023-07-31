@@ -1,18 +1,19 @@
 <?php
 namespace App\Models;
 use App\Core\Sql;
+use Cassandra\Date;
 
 class User extends Sql {
 
     protected Int $id = 0;
     protected String $firstname;
     protected String $lastname;
-    protected String $country;
     protected String $email;
     protected String $token;
     protected String $password;
     protected Int $status = 0;
     protected Int $role = 0;
+    protected String $date_inserted;
 
     /**
      * @return int
@@ -97,22 +98,6 @@ class User extends Sql {
     /**
      * @return String
      */
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param String $country
-     */
-    public function setCountry(string $country): void
-    {
-        $this->country = strtoupper(trim($country));
-    }
-
-    /**
-     * @return String
-     */
     public function getEmail(): string
     {
         return $this->email;
@@ -157,11 +142,15 @@ class User extends Sql {
     {
         $this->status = $status;
     }
+    public function setDateInserted(): void
+    {
+        $this->date_inserted = date("Y-m-d-h:m:s");
+    }
 
     /**
      * @return mixed
      */
-    public function getDateInserted()
+    public function getDateInserted(): mixed
     {
         return $this->date_inserted;
     }
@@ -169,10 +158,6 @@ class User extends Sql {
     /**
      * @return mixed
      */
-    public function getDateUpdated()
-    {
-        return $this->date_updated;
-    }
 
     public function verifPwd($password): bool
     {
