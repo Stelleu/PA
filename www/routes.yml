@@ -1,6 +1,8 @@
 /:
   controller: Main
   action: index
+  security: false
+  role: []
 
 /dashboard:
   controller: Main
@@ -22,6 +24,13 @@
 dash/logout:
   controller: Security
   action: logout
+
+/dash/user:
+  controller: User
+  action: listUser
+  security: false
+  role:
+    - 0
 
 /register:
   controller: Security

@@ -18,6 +18,7 @@ class User extends Sql
         $users = new ModelUser();
         $users = $users->getAll();
         $view->assign("users",$users);
+        $view->assign("title","Users");
     }
 
     public function addUser(): void

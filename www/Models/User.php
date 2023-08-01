@@ -9,11 +9,11 @@ class User extends Sql {
     protected String $firstname;
     protected String $lastname;
     protected String $email;
-    protected String $token;
-    protected String $password;
-    protected Int $status = 0;
+    protected String $pwd;
     protected Int $role = 0;
+    protected String $token;
     protected String $date_inserted;
+    protected Int $status = 0;
 
     /**
      * @return int
@@ -116,15 +116,15 @@ class User extends Sql {
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->pwd;
     }
 
     /**
-     * @param String $password
+     * @param String $pwd
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $pwd): void
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
     }
 
     /**
@@ -159,9 +159,9 @@ class User extends Sql {
      * @return mixed
      */
 
-    public function verifPwd($password): bool
+    public function verifPwd($pwd): bool
     {
-        return password_verify($password,$this->getPassword());
+        return password_verify($pwd,$this->getPassword());
     }
 
     public function generateToken(): string

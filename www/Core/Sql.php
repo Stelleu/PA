@@ -62,7 +62,7 @@ abstract class Sql{
        $queryPrepared = $this->pdo->prepare($sql);
        $queryPrepared->execute();
        $objects = array();
-       while ($object = $queryPrepared->fetchObject($this->table))
+       while ($object = $queryPrepared->fetchObject(get_called_class()))
        {
            $objects[] = $object;
        }

@@ -14,6 +14,7 @@ class AddUser extends AForm {
                 "method"=>$this->getMethod(),
                 "action"=>"",
                 "enctype"=>"",
+                "id"=>"addUser",
                 "submit"=>"S'inscrire",
                 "cancel"=>"Annuler"
             ],
