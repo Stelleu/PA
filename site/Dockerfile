@@ -2,6 +2,9 @@ FROM php:8.2-apache
 
 RUN apt-get update
 
+#CREER UN COMPOSER
+COPY --from=composer:latest /usr/bin/composer usr/local/bin/composer
+
 # Install Postgre PDO
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \

@@ -3,6 +3,7 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\AddUser;
 use App\Forms\LoginUser;
+use App\Models\Mail;
 use App\Models\User as ModelUser;
 use App\Core\Verificator;
 
@@ -73,6 +74,24 @@ class Security{
         session_destroy();
         //REDIRECTION LOGIN
 
+    }
+
+    public function sendMail(): void
+    {
+        $mail = new Mail();
+        $code = new ModelUser();
+        $confMail = new Mail();
+        $confMail->setName($_POST["firstname"]);
+        $confMail->setSubject("Mail de confirmation");
+        $confMail->setAddress($_POST["email"]);
+        $confMail->setMessage('
+                                            <div class="card-body">
+                                            <h5 class="card-title"> Adebc vous souhaite la bienvenue ! </h5>
+                                            <p class="card-text">Une fois votre compte validé vous pourrez commenter autant que vous le souhaitez !.</p>
+                                            <p class="card-text">Oublie pas le respect est OBLIGATOIRE chez nous ;)  .</p>
+                                                <button><a class="btn btn-primary" href="http://193.70.2.69/admin/confirmation?key='.$code->generateCode().'"> Confirmer votre mail. </a></button>
+                                           </div>');
+        $mail = $confMail->mail($confMail->initMail());
     }
 
 }

@@ -93,9 +93,9 @@
                 <td><?= $user->getEmail() ?></td>
                 <td>
                     <?= match ($user->getRole()){
-                        "1" => '<p class="text-info mb-1"> Editor </p>',
-                        "2" => '<p class="text-secondary-emphasis mb-1">Moderator</p>',
-                        "3" => '<p class="text-warning-emphasis  mb-1">Customer</p>',
+                        1 => '<p class="text-info mb-1"> Editor </p>',
+                        2 => '<p class="text-secondary-emphasis mb-1">Moderator</p>',
+                        3 => '<p class="text-warning-emphasis  mb-1">Customer</p>',
                         default => '<p class="text-primary mb-1">Admin</p>'
                     }
                     ?>

@@ -11,7 +11,7 @@ class User extends Sql {
     protected String $email;
     protected String $pwd;
     protected Int $role = 0;
-    protected String $token;
+    protected ?String $token;
     protected String $date_inserted;
     protected Int $status = 0;
 
@@ -144,8 +144,8 @@ class User extends Sql {
     }
     public function setDateInserted(): void
     {
-        $this->date_inserted = date("Y-m-d-h:m:s");
-    }
+        $this->date_inserted = date("Y-m-d H:i:s");
+     }
 
     /**
      * @return mixed
@@ -166,7 +166,12 @@ class User extends Sql {
 
     public function generateToken(): string
     {
-       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,9);
+       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,10);
+
+    }
+    public function generateCode(): string
+    {
+       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,4);
 
     }
 

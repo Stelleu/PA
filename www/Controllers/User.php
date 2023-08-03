@@ -34,10 +34,11 @@ class User extends Sql
     {
             $this->errors = Verificator::form($addUser->getConfig(),$_POST);
             $email = $_POST["Email"];
+            var_dump($_POST);
             if (empty($this->errors)){
                 $user = new ModelUser();
-                $user = $user->search(['email'=>$email]);
-                if (!empty($user))
+                $verifyExistenceUser = $user->search(['email'=>$email]);
+                if (!empty($verifyExistenceUser))
                 {
                     $this->errors[] = "L'utilisateur que vous essayez de créer existe déjà !";
                 }else{
@@ -45,9 +46,11 @@ class User extends Sql
                     $user->setFirstname($_POST["Firstname"]);
                     $user->setLastname($_POST["Lastname"]);
                     $user->setRole($_POST["Role"]);
-                    $user->setPassword($_POST["pwd"]);
+                    $user->setPassword($_POST["Password"]);
                     $user->setDateInserted();
                     $user->save();
+                    //send mail
+                    //(new Security)->sendMail();
                     var_dump($user);
                     return true;
                 };
