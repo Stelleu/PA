@@ -8,7 +8,7 @@ abstract class AForm
     {
         $data = ($this->getMethod() == "post")?$_POST:$_GET;
         if(empty($data["submit"]))
-            return false;
+        return false;
         return true;
     }
 

@@ -49,20 +49,21 @@ $('.dropdown-item').click(function() {
                 }
             })
         }else{
-            var form = $('#kt_modal_add_user_form');
-            var status = document.querySelector('input[type=radio]:checked').value;
-            var formData = form.serialize();
-            formData += '&status='+ encodeURIComponent(status);
-            formData += '&submit='+ encodeURIComponent("S'inscrire");
-            $.ajax({
-                type: "post",
-                url: "users",
-                data : formData,
+            // var form = $('#kt_modal_add_user_form');
+            // var status = document.querySelector('input[type=radio]:checked').value;
+            // var formData = form.serialize();
+            // formData += '&status='+ encodeURIComponent(status);
+            // formData += '&submit='+ encodeURIComponent("S'inscrire");
+            // $.ajax({
+            //     type: "post",
+            //     url: "users",
+            //     data : formData,
+            //
+            // })
+            console.log("ouvre modal");
 
-            })
 
         }
-        console.log("User ID:", userId, "Action:", action);
     });
 // e.preventDefault();
 var form = $('#kt_modal_add_user_form');

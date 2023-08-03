@@ -16,6 +16,7 @@ class LoginUser extends Abstract\AForm
                 "submit"=>"Se connecter",
                 "cancel"=>"",
                 "class"=>"",
+                "id"=>"",
             ],
             "inputs" =>[
                 "Email"=>[

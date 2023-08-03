@@ -1,4 +1,40 @@
 <h2>Users</h2>
+<div class="d-flex justify-content-end my-3">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add User
+    </button>
+</div>
+<?php
+    if (!empty($errors)){
+            echo '<div class="alert alert-danger d-flex align-items-center p-2">
+                    <i class="fs-2hx text-danger me-4"><span class="path1"></span><span class="path2"></span></i>
+                    <div class="d-flex flex-column">
+                       <h4 class="mb-1 text-dark">Something went wrong ! </h4>';
+        foreach ($errors as $error){
+            echo '  <span>'.$error.'</span>
+                    </div>
+                   </div>';
+        }
+    };
+?>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php $this->modal("form",$addUser);?>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="table-responsive small">
     <table class="table  table-sm">
         <thead>

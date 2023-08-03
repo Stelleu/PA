@@ -16,27 +16,30 @@ class User extends Sql
     {
         $view = new View("Dash/usersList");
         $users = new ModelUser();
-        $users = $users->getAll();
-        $view->assign("users",$users);
-        $view->assign("title","Users");
-    }
-
-    public function addUser(): void
-    {
-//        $view = new View("Dash/");
-        $user = new ModelUser();
         $addUser = new AddUser();
-        $view = new View("Dash/usersList");
-        $view->assign('form',$addUser->getConfig());
+        $users = $users->getAll();
+        $view->assign("title","Users");
+        $view->assign("users",$users);
+        $view->assign("addUser",$addUser->getConfig());
         if ($addUser->isSubmit())
         {
+            $verifUser = $this->addUser($addUser);
+            if (!empty($verifUser)){
+                $view->assign("errors",$this->addUser($addUser));
+            };
+        }
+    }
+
+    public function addUser($addUser): bool | array
+    {
             $this->errors = Verificator::form($addUser->getConfig(),$_POST);
             $email = $_POST["Email"];
             if (empty($this->errors)){
+                $user = new ModelUser();
                 $user = $user->search(['email'=>$email]);
                 if (!empty($user))
                 {
-                    json_encode("errors");
+                    $this->errors[] = "L'utilisateur que vous essayez de créer existe déjà !";
                 }else{
                     $user->setEmail($email);
                     $user->setFirstname($_POST["Firstname"]);
@@ -45,9 +48,11 @@ class User extends Sql
                     $user->setPassword($_POST["pwd"]);
                     $user->setDateInserted();
                     $user->save();
-                }
-            }
-        }
+                    var_dump($user);
+                    return true;
+                };
+            };
+        return $this->errors ;
     }
 
     public function deleteUser()

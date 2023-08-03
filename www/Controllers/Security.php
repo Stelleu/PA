@@ -37,7 +37,6 @@ class Security{
                     ];
                     //REDIRECTION DASHBOARD
                 }else{
-                    echo "ouou";
                     $this->errors[] = "Identifiants incorrects";
                 }
             }else{
