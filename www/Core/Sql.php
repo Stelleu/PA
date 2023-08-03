@@ -69,4 +69,11 @@ abstract class Sql{
        return $objects;
     }
 
+    public function delete(): void
+    {
+        $sql = "DELETE FROM ".$this->table." WHERE id = ".$this->getId();
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+    }
+
 }

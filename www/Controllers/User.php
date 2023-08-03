@@ -24,13 +24,13 @@ class User extends Sql
         $view->assign("users", $users);
         $view->assign("addUser", $addUser->getConfig());
         $view->assign("editUser", $editUser->getConfig());
-        if ($addUser->isSubmit()) {
-//            $verifUser = $this->addUser($addUser);
-//            if (!empty($verifUser)) {
-//                $view->assign("errors", $this->addUser($addUser));
-//            };
+        if ($addUser->isSubmit() && $_POST["submit"] == "Add") {
+            $verifUser = $this->addUser($addUser);
+            if (!empty($verifUser)) {
+                $view->assign("errors", $this->addUser($addUser));
+            };
         }
-        if ($editUser->isSubmit()) {
+        if ($editUser->isSubmit()  && $_POST["submit"] == "Save changes" ) {
              $this->editUser();
         }
     }
@@ -61,10 +61,13 @@ class User extends Sql
         return $this->errors;
     }
 
-    public function deleteUser()
+    public function deleteUser(): void
     {
-
+        $userToDelete = new  ModelUser();
+        $userToDelete->setId($_POST["id"]);
+        $userToDelete->delete();
     }
+
     public function editUser(): void
     {
        $users = new ModelUser();
@@ -72,7 +75,7 @@ class User extends Sql
 
         if (isset($_POST['submit']) == "Save changes"){
             //optimiser si temps avec boucle sur l'obj
-                $users->setId($_POST["id"]);
+            $users->setId($_POST["id"]);
             ($user->getPassword() != $_POST["Password"])?? $users->setPassword($_POST["Password"]);
             ($user->getLastname() != $_POST["Password"])?? $users->setLastname($_POST["Lastname"]);
             ($user->getEmail() != $_POST["Password"])?? $users->setEmail($_POST["Email"]);
@@ -80,7 +83,6 @@ class User extends Sql
             $users->save();
 
         }else {
-
             if ($user) {
                 $userInfo = [
                     "id" => $user->getId(),

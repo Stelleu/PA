@@ -21,7 +21,7 @@
                             type="<?= $input["type"]?>"
                             placeholder=" <?= $input["placeholder"]?>"
                             class="<?= $input["class"]?>"
-                     <?= $input["disabled"]?"disabled": " " ?>
+                     <?= $input["disabled"]?"disabled": "" ?>
             >
         </div>
         <?php endif;?>

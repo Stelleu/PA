@@ -23,13 +23,17 @@ class LoginUser extends Abstract\AForm
                     "type"=>"email",
                     "placeholder"=>"Votre email",
                     "class"=>"form-control",
-                    "error"=>"Le format de votre email est incorrect"
+                    "error"=>"Le format de votre email est incorrect",
+                                        "disabled" => false
+
                 ],
                 "Password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe",
                     "class"=>"form-control",
-                    "error"=>"Votre mot de passe est incorrect"
+                    "error"=>"Votre mot de passe est incorrect",
+                                        "disabled" => false
+
                 ]
             ]
         ];

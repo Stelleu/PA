@@ -39,6 +39,12 @@ dash/logout:
   security: false
   role: []
 
+/dash/deleteuser:
+  controller: User
+  action: deleteUser
+  security: false
+  role: []
+
 /register:
   controller: Security
   action: register
