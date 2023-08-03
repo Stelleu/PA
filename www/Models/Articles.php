@@ -6,11 +6,11 @@ use Cassandra\Float_;
 
 class Articles extends \App\Core\Sql
 {
-    protected Int $id = 0;
-    protected String $name;
-    protected String $categorie;
-    protected Float $price ;
-    protected Int $quantities;
+   protected Int $id;
+   protected String $title;
+   protected String $text;
+   protected String $date_updated;
+   protected String $author;
 
     /**
      * @return Int
@@ -31,66 +31,68 @@ class Articles extends \App\Core\Sql
     /**
      * @return String
      */
-    public function getName(): string
+    public function getTitle(): string
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * @param String $name
+     * @param String $title
      */
-    public function setName(string $name): void
+    public function setTitle(string $title): void
     {
-        $this->name = $name;
+        $this->title = $title;
     }
 
     /**
      * @return String
      */
-    public function getCategorie(): string
+    public function getText(): string
     {
-        return $this->categorie;
+        return $this->text;
     }
 
     /**
-     * @param String $categorie
+     * @param String $text
      */
-    public function setCategorie(string $categorie): void
+    public function setText(string $text): void
     {
-        $this->categorie = $categorie;
+        $this->text = $text;
     }
 
     /**
-     * @return Float
+     * @return String
      */
-    public function getPrice(): float
+    public function getDateUpdated(): string
     {
-        return $this->price;
+        return $this->date_updated;
     }
 
     /**
-     * @param Float $price
+     * @param String $date_updated
      */
-    public function setPrice(float $price): void
+    public function setDateUpdated(): void
     {
-        $this->price = $price;
+        $this->date_updated = date("Y-m-d H:i:s");
     }
 
     /**
-     * @return Int
+     * @return String
      */
-    public function getQuantities(): int
+    public function getAuthor(): string
     {
-        return $this->quantities;
+        return $this->author;
     }
 
     /**
-     * @param Int $quantities
+     * @param String $author
      */
-    public function setQuantities(int $quantities): void
+    public function setAuthor(string $author): void
     {
-        $this->quantities = $quantities;
+        $this->author = $author;
     }
+
+
 
 
 
