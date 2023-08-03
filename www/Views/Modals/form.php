@@ -2,6 +2,7 @@
         method="<?= $config["config"]["method"]??"GET" ?>"
         action="<?= $config["config"]["action"] ?>"
         class="<?= $config["config"]["class"]?>"
+        id="<?= $config["config"]["id"]?>"
 >
 
     <?php foreach ($config["inputs"] as $name=>$input):?>
@@ -20,12 +21,13 @@
                             type="<?= $input["type"]?>"
                             placeholder=" <?= $input["placeholder"]?>"
                             class="<?= $input["class"]?>"
+                     <?= $input["disabled"]?"disabled": " " ?>
             >
         </div>
         <?php endif;?>
     <?php endforeach; ?>
 
-    <?php if($config["config"]["id"] == "adminForm") : ?>
+    <?php if($config["config"]["id"] == "adminForm"): ?>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <input type="submit" name="submit" class="btn btn-primary text-center py-2" value="<?= (isset($_POST['edit']))?"Save changes": $config["config"]["submit"] ?>">

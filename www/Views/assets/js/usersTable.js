@@ -1,8 +1,8 @@
-$('.dropdown-item').click(function() {
+document.addEventListener("DOMContentLoaded", function() {
+    $('.dropdown-item').click(function () {
         const userId = $(this).data('user-id');
         const action = $(this).data('action');
-        if (action === "delete")
-        {
+        if (action === "delete") {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -24,11 +24,11 @@ $('.dropdown-item').click(function() {
                     $.ajax({
                         type: "post",
                         url: "deleteUser",
-                        data: { id: userId },
-                        success: function (response){
+                        data: {id: userId},
+                        success: function (response) {
                             swalWithBootstrapButtons.fire(
                                 'Deleted!',
-                                'The user n°'+userId +' has been deleted.',
+                                'The user n°' + userId + ' has been deleted.',
                                 'success'
                             )
                         },
@@ -48,23 +48,42 @@ $('.dropdown-item').click(function() {
                     )
                 }
             })
-        }else{
-            // var form = $('#kt_modal_add_user_form');
-            // var status = document.querySelector('input[type=radio]:checked').value;
-            // var formData = form.serialize();
-            // formData += '&status='+ encodeURIComponent(status);
-            // formData += '&submit='+ encodeURIComponent("S'inscrire");
-            // $.ajax({
-            //     type: "post",
-            //     url: "users",
-            //     data : formData,
-            //
-            // })
-            console.log("ouvre modal");
+        } else {
+            $.ajax({
+                type: "post",
+                url: "editUser",
+                data: {id: userId},
+                success: function (response) {
+                    console.log(response)
+                    const modalElement = document.getElementById("editModal");
+                    const modal = new bootstrap.Modal(modalElement);
+                    const form = document.querySelector('#editForm');
+                    try {
+                        const formData = JSON.parse(response);
+                        const hiddenButton = document.createElement("input");
+                        hiddenButton.type = "hidden";
+                        hiddenButton.name = "id";
+                        hiddenButton.value = userId;
+                        form.appendChild(hiddenButton);
+                        form.elements["id"].value = formData.id;
+                        form.elements["Lastname"].value = formData.lastname;
+                        form.elements["Email"].value = formData.email;
+                        form.elements["Role"].value = formData.role;
+                        form.elements["Password"].value = formData.password;
 
+                        modal.show();
 
+                    } catch (e) {
+                        console.error("Error parsing JSON response:", e);
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
         }
     });
+})
 // e.preventDefault();
 var form = $('#kt_modal_add_user_form');
 var status = document.querySelector('input[type=radio]:checked').value;

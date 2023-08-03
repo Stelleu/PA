@@ -92,7 +92,7 @@ class User extends Sql {
      */
     public function setLastname(string $lastname): void
     {
-        $this->lastname = strtoupper(trim($lastname));
+        $this->lastname =ucwords(strtolower(trim($lastname)));
     }
 
     /**
