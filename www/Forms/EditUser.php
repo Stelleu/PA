@@ -18,7 +18,7 @@ class EditUser extends Abstract\AForm
                 "id"=>"editForm",
             ],
             "inputs"=>[
-                "id"=>[
+                "UserId"=>[
                     "type"=>"text",
                     "class"=>"form-control",
                     "placeholder"=>"",

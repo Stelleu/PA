@@ -125,7 +125,6 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#" data-user-id="<?= $user->getId() ?>" data-action="edit">Edit</a>
                             <a class="dropdown-item" href="#" data-user-id="<?= $user->getId() ?>" data-action="delete">Delete</a>
-                            <!-- Ajoutez d'autres liens d'action avec les attributs data-* pour les informations spécifiques à chaque utilisateur -->
                         </div>
                     </div>
                 </td>

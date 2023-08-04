@@ -27,6 +27,17 @@
         <?php endif;?>
     <?php endforeach; ?>
 
+    <?php foreach ($config["textarea"] as $name=>$input):?>
+        <div class="mb-3">
+            <label for="<?= $name?>" class="form-label"> <?= $name?> </label>
+            <textarea
+                            name="<?= $name;?>"
+                            class="<?= $input["class"]?>"
+                            rows="<?= $input["rows"] ?>"
+            ></textarea>
+        </div>
+    <?php endforeach; ?>
+
     <?php if($config["config"]["id"] == "adminForm"): ?>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

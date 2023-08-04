@@ -2,15 +2,47 @@
 
 namespace App\Models;
 
-use Cassandra\Float_;
-
-class Articles extends \App\Core\Sql
+class Article extends \App\Core\Sql
 {
-   protected Int $id;
+   protected Int $id = 0;
    protected String $title;
    protected String $text;
    protected String $date_updated;
-   protected String $author;
+   protected Int $author;
+   protected Int $lastUpdate;
+   protected Int $categorie;
+
+    /**
+     * @return Int
+     */
+    public function getCategorie(): int
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * @param Int $categorie
+     */
+    public function setCategorie(int $categorie): void
+    {
+        $this->categorie = $categorie;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getLastUpdate(): int
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
+     * @param Int $lastUpdate
+     */
+    public function setLastUpdate(int $lastUpdate): void
+    {
+        $this->lastUpdate = $lastUpdate;
+    }
 
     /**
      * @return Int
@@ -77,17 +109,17 @@ class Articles extends \App\Core\Sql
     }
 
     /**
-     * @return String
+     * @return Int
      */
-    public function getAuthor(): string
+    public function getAuthor(): Int
     {
         return $this->author;
     }
 
     /**
-     * @param String $author
+     * @param Int $author
      */
-    public function setAuthor(string $author): void
+    public function setAuthor(int $author): void
     {
         $this->author = $author;
     }

@@ -75,13 +75,14 @@ class User extends Sql
 
         if (isset($_POST['submit']) == "Save changes"){
             //optimiser si temps avec boucle sur l'obj
+            var_dump($_POST);
+            echo $user->getLastname() != $_POST["Lastname"];
             $users->setId($_POST["id"]);
-            ($user->getPassword() != $_POST["Password"])?? $users->setPassword($_POST["Password"]);
-            ($user->getLastname() != $_POST["Password"])?? $users->setLastname($_POST["Lastname"]);
-            ($user->getEmail() != $_POST["Password"])?? $users->setEmail($_POST["Email"]);
-            ($user->getRole() != $_POST["Password"])?? $users->setRole($_POST["Role"]);
+            ($user->getPassword() != $_POST["Password"])? $users->setPassword($_POST["Password"]):$user->setPassword($user->getPassword());
+            ($user->getLastname() != $_POST["Lastname"])? $users->setLastname($_POST["Lastname"]):$user->setLastname($user->getLastname());
+            ($user->getEmail() != $_POST["Email"])? $users->setEmail($_POST["Email"]):$user->setEmail($user->getEmail());
+            ($user->getRole() != $_POST["Role"])? $users->setRole($_POST["Role"]):$user->setRole($user->getRole());
             $users->save();
-
         }else {
             if ($user) {
                 $userInfo = [

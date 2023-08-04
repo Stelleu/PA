@@ -26,17 +26,21 @@ class Security{
                 $user = $user->search(['email'=>$email]);
                 if (!empty($user) && $user->verifPwd($pwd)){
                     $user->generateToken();
+                    $user->save();
                     $_SESSION["user"] = [
                         'id'        => $user->getId(),
                         'firstname' => $user->getFirstname(),
                         'lastname'  => $user->getLastname(),
-                        'pwd'       => $user->getPwd(),
+                        'pwd'       => $user->getPassword(),
                         'email'     => $user->getEmail(),
                         'token'     => $user->getToken(),
                         'status'    => $user->getStatus(),
                         'role'      => $user->getRole(),
                     ];
+
                     //REDIRECTION DASHBOARD
+                    $redirectURL = "dash/home";
+//                    echo' window.location.href = "' . $redirectURL . '"';
                 }else{
                     $this->errors[] = "Identifiants incorrects";
                 }

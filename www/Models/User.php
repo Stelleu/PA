@@ -164,15 +164,13 @@ class User extends Sql {
         return password_verify($pwd,$this->getPassword());
     }
 
-    public function generateToken(): string
+    public function generateToken():void
     {
-       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,10);
-
+        $this->token = substr(md5(uniqid().rand(1000000, 9999999)),0,10);
     }
     public function generateCode(): string
     {
-       return $token = substr(md5(uniqid().rand(1000000, 9999999)),0,4);
-
+       return $code = substr(md5(uniqid().rand(1000000, 9999999)),0,4);
     }
 
 

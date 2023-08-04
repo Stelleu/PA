@@ -4,14 +4,15 @@ namespace App\Controllers;
 
 use App\Core\Verificator;
 use App\Core\View;
-use App\Models\Articles as ModelArticle;
+use App\Forms\AddArticle;
+use App\Models\Article as ModelArticle;
 use App\Models\User as ModelUser;
 
-class Articles extends \App\Core\Sql
+class Article extends \App\Core\Sql
 {
     private array $errors = [];
 
-    public function listArticles():void
+    public function listArticle():void
     {
         $view = new View("Dash/articlesList");
         $articles = new ModelArticle();
@@ -36,13 +37,25 @@ class Articles extends \App\Core\Sql
                 $this->errors[] = "L'article que vous essayez de créer existe déjà !";
             } else {
                $article->setTitle($_POST["Title"]);
-               $article->setText($_POST["Text"]);
-               $article->setAuthor($_SESSION["user"]["id"]);
+               $article->setText($_POST["Article"]);
+               $article->setAuthor($_POST["Auteur"]);
+               $article->setLastUpdate($_SESSION["user"]["id"]);
+               $article->setCategorie($_POST['Categorie']);
                $article->setDateUpdated();
                 return true;
             };
         };
         return $this->errors;
+    }
+
+    public function newArticle():void
+    {
+        $view = new View("Dash/article");
+        $articles = new ModelArticle();
+        $addArticle = new AddArticle();
+        $view->assign("title", "New Article");
+        $view->assign("articles", $articles);
+        $view->assign("addArticle", $addArticle->getConfig());
     }
 
 }

@@ -32,6 +32,19 @@ dash/logout:
   role:
     - 0
 
+/dash/article:
+  controller: Article
+  action: listArticle
+  security: false
+  role:
+    - 0
+/dash/addarticle:
+  controller: Article
+  action: newArticle
+  security: false
+  role:
+    - 0
+
 
 /dash/edituser:
   controller: User

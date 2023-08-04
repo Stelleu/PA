@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="https://sweetalert2.github.io/styles/bootstrap4-buttons.css">
- </head>
+    <link href="../Views/assets/simple-image.css" rel="stylesheet"/>
+</head>
 <body>
     <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
             <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Company name</a>
@@ -46,25 +47,25 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li class="nav-item">
-                                <a href="dash/home" class="nav-link active" aria-current="page">
+                                <a href="/home" class="nav-link active" aria-current="page">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="dash/orders" class="nav-link text-white">
+                                <a href="/dash/orders" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                                     Orders
                                 </a>
                             </li>
                             <li>
-                                <a href="dash/addProduct" class="nav-link text-white">
+                                <a href="/dash/article" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                                    Products
+                                    Articles
                                 </a>
                             </li>
                             <li>
-                                <a href="dash/users" class="nav-link text-white">
+                                <a href="/dash/user" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                                     Customers
                                 </a>
@@ -93,9 +94,152 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <?= ($title == "Users")? '<script src="../Views/assets/js/usersTable.js"></script>':"";?>
+    <?= ($title == "New Article")?'
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="../Views/assets/js/simple-image.js"></script>  
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script><!-- List -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script><!-- Checklist -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script><!-- Quote -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script><!-- Code -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script><!-- Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script><!-- Table -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script><!-- Link -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script><!-- Warning -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script><!-- Raw -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
+
+
+<script>
+  /**
+   * Initialize the Editor
+   */
+  const editor = new EditorJS({
+    autofocus: true,
+    tools: {
+      image: {
+        class: SimpleImage,
+        inlineToolbar: true,
+        config: {
+          placeholder: "Paste image URL"
+        }
+      },
+       header: {
+          class: Header,
+          inlineToolbar: ["marker", "link"],
+          config: {
+            placeholder: "Header"
+          },
+          shortcut: "CMD+SHIFT+H"
+        },
+        list: {
+          class: NestedList,
+          inlineToolbar: true,
+          shortcut: "CMD+SHIFT+L"
+        },
+
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: "Enter a quote",
+            captionPlaceholder: "Quote\'s author",
+          },
+          shortcut: "CMD+SHIFT+O"
+        },
+
+        warning: Warning,
+
+        marker: {
+          class:  Marker,
+          shortcut: "CMD+SHIFT+M"
+        },
+
+        code: {
+          class:  CodeTool,
+          shortcut: "CMD+SHIFT+C"
+        },
+
+        delimiter: Delimiter,
+
+        inlineCode: {
+          class: InlineCode,
+          shortcut: "CMD+SHIFT+C"
+        },
+
+        linkTool: LinkTool,
+
+        raw: RawTool,
+
+        embed: Embed,
+
+        table: {
+          class: Table,
+          inlineToolbar: true,
+          shortcut: "CMD+ALT+T"
+        },
+    },
+
+    data: {
+      time: 1552744582955,
+      blocks: [
+        {
+          type: "image",
+          data: {
+            url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg",
+            caption: "Here is a caption field",
+            withBorder: false,
+            withBackground: false,
+            stretched: false
+          }
+        },
+        {
+          id: "zcKCF1S7X8",
+            type: "header",
+            data: {
+              text: "Editor.js",
+              level: 1
+            }
+          },
+          {
+            id: "b6ji-DvaKb",
+            type: "paragraph",
+            data: {
+              text: "Hey. Meet the new Editor. On this page you can see it in action — try to edit this text. Source code of the page contains the example of connection and configuration."
+            }
+          },
+      ],
+      version: "2.11.10"
+    }
+  });
+
+  /**
+   * Add handler for the Save button
+   */
+  const saveButton = document.getElementById("save-button");
+  const output = document.getElementById("output");
+
+  saveButton.addEventListener("click", () => {
+    editor.save().then( savedData => {
+      output.innerHTML = JSON.stringify(savedData, null, 4);
+    })
+  })
+</script>':"";?>
     <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body>
 ':"";?>
 

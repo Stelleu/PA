@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 'The user n°' + userId + ' has been deleted.',
                                 'success'
                             )
+                            document.location.reload();
                         },
                         error: function (error) {
                             swalWithBootstrapButtons.fire(
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         hiddenButton.name = "id";
                         hiddenButton.value = userId;
                         form.appendChild(hiddenButton);
-                        form.elements["id"].value = formData.id;
+                        form.elements["UserId"].value = userId;
                         form.elements["Lastname"].value = formData.lastname;
                         form.elements["Email"].value = formData.email;
                         form.elements["Role"].value = formData.role;
