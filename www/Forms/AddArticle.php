@@ -5,6 +5,7 @@ namespace App\Forms;
 class AddArticle extends Abstract\AForm
 {
     protected $method = "POST";
+    private array $categorie;
 
     public function getConfig(): array
     {
@@ -14,14 +15,15 @@ class AddArticle extends Abstract\AForm
                 "action"=>"",
                 "enctype"=>"",
                 "class"=>"",
-                "submit"=>"New article",
-                "cancel"=>"Annuler",
+                "submit"=>"",
+                "cancel"=>"",
                 "id"=>"articleForm",
             ],
             "inputs" =>[
                 "Titre"=>[
                     "type"=>"text",
                     "placeholder"=>"Titre",
+                    "id"=>"title",
                     "min"=>2,
                     "max"=>80,
                     "class"=>"form-control",
@@ -32,32 +34,16 @@ class AddArticle extends Abstract\AForm
                 "Auteur"=>[
                     "type"=>"text",
                     "placeholder"=>"",
+                    "id"=>"auteur",
                     "class"=>"form-control",
                     "error"=>"",
                     "disabled" => false
 
                 ],
-                "Categorie"=>[
-                    "type"=>"select",
-                    "class"=>"form-select mb-3",
-                    "options"=>["Open this select menu"=>"","admin"=>"1", "editor"=>"2","moderator"=>"3","user"=>"4"],
-                    "error"=>"Role incorrect",
-                    "disabled" => false
-
-                ]
             ],
-            "textarea" => [
-                "Article"=>[
-                    "type"=>"textarea",
-                    "placeholder"=>"",
-                    "rows"=>10,
-                    "min"=> 10,
-                    "class"=>"form-control",
-                    "error"=>"Votre Article doit faire avoir un minimum de 10 caractères",
-                ],
-
-            ]
         ];
     }
+
+
 
 }

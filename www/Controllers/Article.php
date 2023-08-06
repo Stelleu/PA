@@ -6,6 +6,7 @@ use App\Core\Verificator;
 use App\Core\View;
 use App\Forms\AddArticle;
 use App\Models\Article as ModelArticle;
+use App\Models\Category;
 use App\Models\User as ModelUser;
 
 class Article extends \App\Core\Sql
@@ -19,11 +20,8 @@ class Article extends \App\Core\Sql
         $addArticle = new AddArticle();
         $articles = $articles->getAll();
         $view->assign("title", "Articles");
-        $view->assign("articles", $articles);
+$view->assign("articles", $articles);
         $view->assign("addArticle", $addArticle->getConfig());
-        if ($addArticle->isSubmit()){
-
-        }
 
     }
     public function addUser($addArticle): bool|array
@@ -50,12 +48,51 @@ class Article extends \App\Core\Sql
 
     public function newArticle():void
     {
-        $view = new View("Dash/article");
-        $articles = new ModelArticle();
-        $addArticle = new AddArticle();
-        $view->assign("title", "New Article");
-        $view->assign("articles", $articles);
-        $view->assign("addArticle", $addArticle->getConfig());
+            $options = [];
+echo "oui";
+               $view = new View("Dash/article");
+            $articles = new ModelArticle();
+                $addArticle = new AddArticle();
+            $categories = new Category();
+            $categories = $categories->getAll();
+             $view->assign("category",$categories);
+            $view->assign("title", "New Article");
+            $view->assign("articles", $articles);
+            $view->assign("addArticle", $addArticle->getConfig());
+
+    }
+    public function newArticles($requestData): void
+    {
+        $article = new ModelArticle();
+        $article->setDateUpdated();
+        $article->setTitle($requestData["title"]);
+        $article->setAuthor($requestData["author"]);
+        $article->setText(json_encode($requestData["article"]));
+        $article->setCategorie($requestData["category"]);
+        $article->setLastUpdate($_SESSION["user"]["id"]);
+        $article->save();
+        var_dump($article);
+        $response = array("success" => true, "message" => "Article enregistré avec succès");
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
+
+    public function listCategorie():void
+    {
+        $categories = new Category();
+        $view = new View("Dash/categoryList");
+        $categories = $categories->getAll();
+        $view->assign("title", "New categories");
+        $view->assign("categories", $categories);
+        if (!empty($_POST)){
+            $category = new Category();
+            $category->setTitle($_POST['title']);
+            $category->save();
+            header("refresh: 1");
+
+        }
+
     }
 
 }

@@ -10,11 +10,6 @@
   security: false
   role: []
 
-
-/contact:
-  controller: Main
-  action: contact
-
 /login:
   controller: Security
   action: login
@@ -32,6 +27,14 @@ dash/logout:
   role:
     - 0
 
+/dash/categorie:
+  controller: Article
+  action: listCategorie
+  security: false
+  role:
+    - 0
+    - 1
+
 /dash/article:
   controller: Article
   action: listArticle
@@ -44,6 +47,14 @@ dash/logout:
   security: false
   role:
     - 0
+
+/dash/newarticle:
+  controller: Article
+  action: newArticles
+  security: false
+  role:
+    - 0
+    - 1
 
 
 /dash/edituser:

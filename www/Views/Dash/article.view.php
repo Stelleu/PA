@@ -1,7 +1,7 @@
 <h2>New Article</h2>
 <div class="d-flex justify-content-end my-3">
 
-    <a class="btn btn-dark" href="/dash/addArticle" role="button">Add Article</a>
+    <a class="btn btn-dark" id="save-button"  role="button">Save</a>
 </div>
 <?php
 if (!empty($errors)){
@@ -16,7 +16,14 @@ if (!empty($errors)){
     }
 };
 ?>
-<?php $this->modal("form",$addArticle);?>
+<?php $this->modal("form",$addArticle); ?>
+<label for="category" class="form-label"> Categories</label>
+<select name="categorie" class="form-select"  id="categorie">
+    <option selected >Open this select menu</option>
+    <?php  foreach ($category as $option):
+        ?>
+        <option value="<?=  $option->getId() ?>"><?= $option->getTitle()?></option>
+    <?php endforeach;?>
+</select>
 <div id="editorjs"></div>
-<button id="save-button">Save</button>
 <pre id="output"></pre>

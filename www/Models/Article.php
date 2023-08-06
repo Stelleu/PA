@@ -8,8 +8,8 @@ class Article extends \App\Core\Sql
    protected String $title;
    protected String $text;
    protected String $date_updated;
-   protected Int $author;
-   protected Int $lastUpdate;
+   protected String $author;
+   protected Int $last_update;
    protected Int $categorie;
 
     /**
@@ -119,7 +119,7 @@ class Article extends \App\Core\Sql
     /**
      * @param Int $author
      */
-    public function setAuthor(int $author): void
+    public function setAuthor(String $author): void
     {
         $this->author = $author;
     }

@@ -28,7 +28,6 @@ class AddUser extends AForm {
                         "class"=>"form-control",
                         "error"=>"Votre prénom doit faire entre 2 et 60 caractères",
                                         "disabled" => false
-
                     ],
                 "Lastname"=>[
                     "type"=>"text",
