@@ -16,21 +16,29 @@
   security: false
   role : []
 
-dash/logout:
+/dash/home :
+  controller: Main
+  action: dashboard
+  security: true
+  role: []
+
+/dash/logout:
   controller: Security
   action: logout
+  security: true
+  role: [ ]
 
 /dash/user:
   controller: User
   action: listUser
-  security: false
+  security: true
   role:
     - 0
 
 /dash/categorie:
   controller: Article
   action: listCategorie
-  security: false
+  security: true
   role:
     - 0
     - 1
@@ -38,20 +46,20 @@ dash/logout:
 /dash/article:
   controller: Article
   action: listArticle
-  security: false
+  security: true
   role:
     - 0
 /dash/addarticle:
   controller: Article
   action: newArticle
-  security: false
+  security: true
   role:
     - 0
 
 /dash/newarticle:
   controller: Article
   action: newArticles
-  security: false
+  security: true
   role:
     - 0
     - 1
@@ -60,13 +68,13 @@ dash/logout:
 /dash/edituser:
   controller: User
   action: editUser
-  security: false
+  security: true
   role: []
 
 /dash/deleteuser:
   controller: User
   action: deleteUser
-  security: false
+  security: true
   role: []
 
 /register:

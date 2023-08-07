@@ -40,7 +40,8 @@ class Security{
 
                     //REDIRECTION DASHBOARD
                     $redirectURL = "dash/home";
-//                    echo' window.location.href = "' . $redirectURL . '"';
+                    echo '<script>window.location.replace("/dash/home");</script>';
+                    exit;
                 }else{
                     $this->errors[] = "Identifiants incorrects";
                 }
@@ -76,8 +77,8 @@ class Security{
     public function logout(): void
     {
         session_destroy();
-        //REDIRECTION LOGIN
-
+        echo '<script>window.location.replace("/login");</script>';
+        exit;
     }
 
     public function sendMail(): void

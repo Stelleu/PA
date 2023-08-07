@@ -65,11 +65,11 @@ class Router extends RouteVerificator
 
         $controllerInstance = new $controller();
 
-//        if (isset($security) && $security === true && !self::checkConnexion()) {
-//            //REDIRECTION LOGIN
-//            $error = new Error();
-//            $error->errorRedirection(404);
-//        }
+        if (isset($security) && $security === true && !self::checkConnexion()) {
+            //REDIRECTION LOGIN
+            $error = new Error();
+            $error->errorRedirection(404);
+        }
 //        if (isset($role) && !self::checkWhoIAm($role)) {
 //            $error = new Error();
 //            $error->errorRedirection(404);

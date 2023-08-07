@@ -20,7 +20,7 @@ class Article extends \App\Core\Sql
         $addArticle = new AddArticle();
         $articles = $articles->getAll();
         $view->assign("title", "Articles");
-$view->assign("articles", $articles);
+        $view->assign("articles", $articles);
         $view->assign("addArticle", $addArticle->getConfig());
 
     }
@@ -38,7 +38,7 @@ $view->assign("articles", $articles);
                $article->setText($_POST["Article"]);
                $article->setAuthor($_POST["Auteur"]);
                $article->setLastUpdate($_SESSION["user"]["id"]);
-               $article->setCategorie($_POST['Categorie']);
+               $article->setCategory($_POST['Categorie']);
                $article->setDateUpdated();
                 return true;
             };
@@ -49,10 +49,9 @@ $view->assign("articles", $articles);
     public function newArticle():void
     {
             $options = [];
-echo "oui";
-               $view = new View("Dash/article");
+            $view = new View("Dash/article");
             $articles = new ModelArticle();
-                $addArticle = new AddArticle();
+            $addArticle = new AddArticle();
             $categories = new Category();
             $categories = $categories->getAll();
              $view->assign("category",$categories);
@@ -68,7 +67,7 @@ echo "oui";
         $article->setTitle($requestData["title"]);
         $article->setAuthor($requestData["author"]);
         $article->setText(json_encode($requestData["article"]));
-        $article->setCategorie($requestData["category"]);
+        $article->setCategory($requestData["category"]);
         $article->setLastUpdate($_SESSION["user"]["id"]);
         $article->save();
         var_dump($article);

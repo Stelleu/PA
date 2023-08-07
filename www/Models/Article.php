@@ -10,22 +10,22 @@ class Article extends \App\Core\Sql
    protected String $date_updated;
    protected String $author;
    protected Int $last_update;
-   protected Int $categorie;
+   protected Int $category;
 
     /**
      * @return Int
      */
-    public function getCategorie(): int
+    public function getCategory(): int
     {
-        return $this->categorie;
+        return $this->category;
     }
 
     /**
-     * @param Int $categorie
+     * @param Int $category
      */
-    public function setCategorie(int $categorie): void
+    public function setCategory(int $category): void
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
     }
 
     /**

@@ -82,7 +82,7 @@
                                     <li><a class="dropdown-item" href="dash/settings">Settings</a></li>
                                     <li><a class="dropdown-item" href="dash/profil">Profile</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="dash/logout">Sign out</a></li>
+                                    <li><a class="dropdown-item" href="/dash/logout">Sign out</a></li>
                                 </ul>
                             </div>
                     </div>

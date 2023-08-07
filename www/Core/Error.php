@@ -10,6 +10,7 @@ class Error
     {
         http_response_code($codeError);
         $view = new View("Error/".$codeError, "error");
+        $view->assign("title", " Error ".$codeError);
         exit();
 
     }

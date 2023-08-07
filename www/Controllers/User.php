@@ -13,6 +13,7 @@ class User extends Sql
 {
     private array $errors = [];
 
+
     public function listUser(): void
     {
         $view = new View("Dash/usersList");
