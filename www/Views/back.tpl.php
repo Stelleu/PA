@@ -53,9 +53,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/dash/orders" class="nav-link text-white">
+                                <a href="/dash/categorie" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                                    Orders
+                                    Category
                                 </a>
                             </li>
                             <li>
@@ -94,13 +94,12 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <?= ($title == "Users")? '<script src="../Views/assets/js/usersTable.js"></script>':"";?>
+    <?= ($title == "Articles")? '<script src="../Views/assets/js/articlesTable.js"></script>':"";?>
     <?= ($title == "New Article")?'
+ <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script src="../Views/assets/js/simple-image.js"></script>  
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->

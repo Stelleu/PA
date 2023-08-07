@@ -64,6 +64,13 @@
     - 0
     - 1
 
+/dash/deleteArticle:
+  controller: Article
+  action: newArticles
+  security: true
+  role:
+    - 0
+
 
 /dash/edituser:
   controller: User

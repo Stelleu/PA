@@ -96,14 +96,11 @@ class Router extends RouteVerificator
 
         $controllerInstance = new $controller();
         if (method_exists($controllerInstance, $action)) {
-            $controllerInstance->$action($requestData); // Transmettez les données JSON au contrôleur
+            $response =  $controllerInstance->$action($requestData); // Transmettez les données JSON au contrôleur
         } else {
             $this->sendJsonError("L'action $action n'existe pas", 500);
         }
-
-        $response = array("success" => true, "message" => "Opération réussie");
         $this->sendJsonResponse($response);
-
     }
 
     private function sendJsonError($message, $statusCode = 500): void

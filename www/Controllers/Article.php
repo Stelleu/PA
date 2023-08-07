@@ -60,20 +60,25 @@ class Article extends \App\Core\Sql
             $view->assign("addArticle", $addArticle->getConfig());
 
     }
-    public function newArticles($requestData): void
+    public function newArticles($requestData): string|bool
     {
         $article = new ModelArticle();
         $article->setDateUpdated();
-        $article->setTitle($requestData["title"]);
-        $article->setAuthor($requestData["author"]);
-        $article->setText(json_encode($requestData["article"]));
-        $article->setCategory($requestData["category"]);
-        $article->setLastUpdate($_SESSION["user"]["id"]);
-        $article->save();
-        var_dump($article);
-        $response = array("success" => true, "message" => "Article enregistré avec succès");
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        if (empty($article->search(["title"=> $requestData["title"]]))){
+            $article->setTitle($requestData["title"]);
+            $article->setAuthor($_SESSION["user"]["id"]);
+            $article->setText(json_encode($requestData["article"]));
+            $article->setCategory($requestData["category"]);
+            $article->setLastUpdate($_SESSION["user"]["id"]);
+            $article->save();
+            $response = array("success" => true, "message" => "Article saved");
+            header('Content-Type: application/json');
+            return json_encode($response);
+        }else{
+            $response = array("success" => false, "message" => "Title already exist");
+            header('Content-Type: application/json');
+            return json_encode($response);
+        }
     }
 
 
@@ -89,9 +94,6 @@ class Article extends \App\Core\Sql
             $category->setTitle($_POST['title']);
             $category->save();
             header("refresh: 1");
-
         }
-
     }
-
 }

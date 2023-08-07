@@ -10,6 +10,22 @@ class Article extends \App\Core\Sql
    protected String $date_updated;
    protected String $author;
    protected Int $last_update;
+
+    /**
+     * @return Int
+     */
+    public function getLastUpdate(): int
+    {
+        return $this->last_update;
+    }
+
+    /**
+     * @param Int $last_update
+     */
+    public function setLastUpdate(int $last_update): void
+    {
+        $this->last_update = $last_update;
+    }
    protected Int $category;
 
     /**
@@ -26,22 +42,6 @@ class Article extends \App\Core\Sql
     public function setCategory(int $category): void
     {
         $this->category = $category;
-    }
-
-    /**
-     * @return Int
-     */
-    public function getLastUpdate(): int
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
-     * @param Int $lastUpdate
-     */
-    public function setLastUpdate(int $lastUpdate): void
-    {
-        $this->lastUpdate = $lastUpdate;
     }
 
     /**
@@ -73,7 +73,7 @@ class Article extends \App\Core\Sql
      */
     public function setTitle(string $title): void
     {
-        $this->title = $title;
+        $this->title =ucfirst(trim($title)) ;
     }
 
     /**

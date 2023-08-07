@@ -31,19 +31,7 @@ class AddArticle extends Abstract\AForm
                     "disabled" => false
 
                 ],
-                "Auteur"=>[
-                    "type"=>"text",
-                    "placeholder"=>"",
-                    "id"=>"auteur",
-                    "class"=>"form-control",
-                    "error"=>"",
-                    "disabled" => false
-
-                ],
             ],
         ];
     }
-
-
-
 }

@@ -1,5 +1,32 @@
 -- Adminer 4.8.1 PostgreSQL 15.3 (Debian 15.3-1.pgdg110+1) dump
 
+DROP TABLE IF EXISTS "esgi_article";
+DROP SEQUENCE IF EXISTS esgi_article_id_seq;
+CREATE SEQUENCE esgi_article_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."esgi_article" (
+                                         "id" integer DEFAULT nextval('esgi_article_id_seq') NOT NULL,
+                                         "title" character(80) NOT NULL,
+                                         "text" json NOT NULL,
+                                         "date_updated" timestamp NOT NULL,
+                                         "author" integer NOT NULL,
+                                         "last_update" integer NOT NULL,
+                                         "category" integer NOT NULL,
+                                         CONSTRAINT "esgi_article_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+DROP TABLE IF EXISTS "esgi_category";
+DROP SEQUENCE IF EXISTS esgi_category_id_seq;
+CREATE SEQUENCE esgi_category_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."esgi_category" (
+                                          "id" integer DEFAULT nextval('esgi_category_id_seq') NOT NULL,
+                                          "title" character(80) NOT NULL,
+                                          CONSTRAINT "esgi_category_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+INSERT INTO "esgi_category" ("id", "title") VALUES
+    (1,	'portrait                                                                        ');
 
 DROP TABLE IF EXISTS "esgi_user";
 DROP SEQUENCE IF EXISTS esgi_user_id_seq;
@@ -12,7 +39,7 @@ CREATE TABLE "public"."esgi_user" (
                                       "email" character varying(320) NOT NULL,
                                       "pwd" character varying(128) NOT NULL,
                                       "role" smallint NOT NULL,
-                                      "token" character(10) NOT NULL,
+                                      "token" character(10),
                                       "date_inserted" timestamp DEFAULT now(),
                                       "status" boolean DEFAULT false NOT NULL,
                                       CONSTRAINT "esgi_user_pkey" PRIMARY KEY ("id")
@@ -20,9 +47,8 @@ CREATE TABLE "public"."esgi_user" (
 
 COMMENT ON COLUMN "public"."esgi_user"."role" IS '[0=>admin,1=>editor,2=>modo,3=>user]';
 
-INSERT INTO "esgi_user" ("firstname", "lastname", "email", "pwd", "role", "token", "id", "date_inserted", "status", "logo") VALUES
-                                                                                                                                                ('Estelle                                                         ',	'NKUMBA                                                                                                                  ',	'nkumba.estelle@gmail.com',	'$2y$10$n2ZGl3NubqQaMI8vALOQ5esKiFNZD8l3EZeD.IZJ6r87HVWcUxnaW',	0,	NULL,	'd077e9f1a7',	8,	NULL,	't',	'../Views/Dash/theme/dist/assets/media/avatars/blank.png'),
-                                                                                                                                                ('test                                                            ',	'popo                                                                                                                    ',	'popo@gmail.com',	'test1236@',	1,	'2023-06-23 13:23:51.672034',	'          ',	1,	'2023-06-23 13:23:51.672034',	't',	'../Views/Dash/theme/dist/assets/media/avatars/300-2.jpg'),
-                                                                                                                                                ('Estelle                                                         ',	'NKUMBA                                                                                                                  ',	'estelle272001@gmail.com',	'$2y$10$QeQAj7I38fC1i1cBzOhf4uYrMROZsn7.GGQt7F6CCt4nHyHcZv9s6',	0,	NULL,	'          ',	5,	NULL,	'f',	'../Views/Dash/theme/dist/assets/media/avatars/blank.png');
+INSERT INTO "esgi_user" ("id", "firstname", "lastname", "email", "pwd", "role", "token", "date_inserted", "status") VALUES
+                                                                                                                        (1,	'Estelle                                                         ',	'Nkumba                                                                                                                  ',	'nkumba.estelle@gmail.com',	'$2y$10$n2ZGl3NubqQaMI8vALOQ5esKiFNZD8l3EZeD.IZJ6r87HVWcUxnaW',	0,	'          ',	'2023-08-01 08:51:53.774247',	't'),
+                                                                                                                        (4,	'Kilyan                                                          ',	'KIKI                                                                                                                    ',	'halimikilyan@gmail.com',	'$2y$10$100Mktvn2qS1EuymuUrV4eOtmFFb7Y7kRD1XCO07BzIG7ztlrQHO6',	0,	'5754ee8731',	'2023-08-03 08:16:31',	'f');
 
--- 2023-07-14 14:21:52.162891+00
+-- 2023-08-07 14:52:46.255451+00
