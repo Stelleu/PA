@@ -55,6 +55,32 @@
   security: true
   role:
     - 0
+    - 1
+
+/dash/editarticle:
+  controller: Article
+  action: editArticle
+  security: true
+  role:
+    - 0
+    - 1
+
+/dash/memento:
+  controller: Memento
+  action: addNew
+  security: true
+  role:
+    - 0
+    - 1
+
+/dash/undo:
+  controller: Memento
+  action: undo
+  security: true
+  role:
+    - 0
+    - 1
+
 
 /dash/newarticle:
   controller: Article
@@ -64,13 +90,12 @@
     - 0
     - 1
 
-/dash/deleteArticle:
+/dash/deletearticle:
   controller: Article
   action: newArticles
   security: true
   role:
     - 0
-
 
 /dash/edituser:
   controller: User
