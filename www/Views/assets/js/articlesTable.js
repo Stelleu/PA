@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 const deleteButton = document.querySelector("#deleteBtn");
 console.log(deleteButton)
+=======
+const deleteButton = document.getElementById("deleteBtn");
+>>>>>>> Dash
 const editButton = document.getElementById("editBtn");
 deleteButton.addEventListener("click", () => {
     const articleId = $(this).data('article-id');
