@@ -116,12 +116,14 @@ saveButton.addEventListener("click", () => {
         })
     if ( document.getElementById("title").value !== "" &&  document.getElementById("categorie").value !== "" ) {
         const title = document.getElementById("title").value;
+        const comment = (document.getElementById("isComment")).checked;
         const category = document.getElementById("categorie").value;
         editor.save().then(savedData => {
             const formArticle = {
                 article: savedData,
                 title: title,
-                category: category
+                category: category,
+                comment: comment
             }
             fetch('/dash/newarticle', {
                 method: 'POST',
@@ -134,12 +136,16 @@ saveButton.addEventListener("click", () => {
             })
                 .then(data => {
                     console.log(data)
-                    if (data && data.success) {
+                    const response = JSON.parse(data)
+                    if (response && response.success) {
                         swalWithBootstrapButtons.fire(
                             'Saved!',
                             'Article saved',
                             'success'
                         )
+                        setTimeout(function() {
+                            window.location.href = '/dash/article';
+                        }, 3000);
                     } else {
                         swalWithBootstrapButtons.fire(
                             'Error',
@@ -149,7 +155,8 @@ saveButton.addEventListener("click", () => {
                     }
                 })
                 .catch(error => {
-                    console.error('Erreur lors de l\'enregistrement des données', error)
+                    console.log(error.toString())
+                    console.error('Erreur lors de l\'enregistrement des données', JSON.parse(error))
                     swalWithBootstrapButtons.fire(
                         'Error',
                         'Something went wrong!',

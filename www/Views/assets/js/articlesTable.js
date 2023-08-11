@@ -1,4 +1,5 @@
-const deleteButton = document.getElementById("deleteBtn");
+const deleteButton = document.querySelector("#deleteBtn");
+console.log(deleteButton)
 const editButton = document.getElementById("editBtn");
 deleteButton.addEventListener("click", () => {
     const articleId = $(this).data('article-id');

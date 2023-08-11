@@ -10,7 +10,74 @@ class Article extends \App\Core\Sql
    protected String $date_updated;
    protected String $author;
    protected Int $last_update;
+   protected bool $comment = false;
+   protected bool $menu = false;
+   protected bool $status = false;
+   protected ?String $slug;
 
+    /**
+     * @return String
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+
+    public function setSlug(): void
+    {
+        $this->slug = strtolower(trim(str_replace(' ', '-', $this->getTitle())));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMenu(): bool
+    {
+        return $this->menu;
+    }
+
+    /**
+     * @param bool $menu
+     */
+    public function setMenu(bool $menu): void
+    {
+        $this->menu = $menu;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setStatus(bool $status): void
+    {
+        $this->status = $status;
+    }
+
+
+
+    /**
+     * @return bool
+     */
+    public function isComment(): bool
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param bool $comment
+     */
+    public function setComment(bool $comment): void
+    {
+        $this->comment = $comment;
+    }
     /**
      * @return Int
      */

@@ -25,5 +25,11 @@ if (!empty($errors)){
         <option value="<?=  $option->getId() ?>"><?= $option->getTitle()?></option>
     <?php endforeach;?>
 </select>
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="isComment" >
+    <label class="form-check-label" for="flexCheckChecked">
+        J'accepte que les utilisateurs puisse commenter cet article
+    </label>
+</div>
 <div id="editorjs"></div>
 <pre id="output"></pre>

@@ -62,23 +62,27 @@ class Article extends \App\Core\Sql
     }
     public function newArticles($requestData): string|bool
     {
+//        var_dump($requestData);
         $article = new ModelArticle();
         $article->setDateUpdated();
-        if (empty($article->search(["title"=> $requestData["title"]]))){
+        $articleAlreadyExist =$article->search(["title"=> $requestData["title"]]) ;
+        if (empty($articleAlreadyExist)){
             $article->setTitle($requestData["title"]);
             $article->setAuthor($_SESSION["user"]["id"]);
             $article->setText(json_encode($requestData["article"]));
             $article->setCategory($requestData["category"]);
             $article->setLastUpdate($_SESSION["user"]["id"]);
-            $article->save();
+            $article->setComment($requestData["comment"]);
+            $article->setSlug();
+            $article->setStatus(false);
+            $article->setMenu(false);
+//            $article->save();
             $response = array("success" => true, "message" => "Article saved");
-            header('Content-Type: application/json');
-            return json_encode($response);
         }else{
-            $response = array("success" => false, "message" => "Title already exist");
-            header('Content-Type: application/json');
-            return json_encode($response);
+            $response = array("success" => false, "message" => "Article exist");
         }
+        header('Content-Type: application/json');
+        return json_encode($response);
     }
 
 
