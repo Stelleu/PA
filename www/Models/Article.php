@@ -6,14 +6,14 @@ class Article extends \App\Core\Sql
 {
    protected Int $id = 0;
    protected String $title;
-   protected String $text;
-   protected String $date_updated;
-   protected String $author;
-   protected Int $last_update;
-   protected bool $comment = false;
-   protected bool $menu = false;
-   protected bool $status = false;
+   protected Int $author;
+   protected int $menu ;
+   protected int $status ;
+   protected int $comment ;
    protected ?String $slug;
+   protected Int $category;
+   protected String $created_at;
+
 
     /**
      * @return String
@@ -74,26 +74,25 @@ class Article extends \App\Core\Sql
     /**
      * @param bool $comment
      */
-    public function setComment(bool $comment): void
+    public function setComment(int $comment): void
     {
         $this->comment = $comment;
     }
     /**
      * @return Int
      */
-    public function getLastUpdate(): int
+    public function getCreatedAt(): String
     {
-        return $this->last_update;
+        return $this->created_at;
     }
 
     /**
-     * @param Int $last_update
+     * @param Int $created_at
      */
-    public function setLastUpdate(int $last_update): void
+    public function setCreatedAt(): void
     {
-        $this->last_update = $last_update;
+        $this->created_at = date("Y-m-d H:i:s");
     }
-   protected Int $category;
 
     /**
      * @return Int
@@ -190,12 +189,12 @@ class Article extends \App\Core\Sql
     {
         $this->author = $author;
     }
-    public function createMemento(): Memento
+    public function createMemento(): Version
     {
-        return new Memento($this->text, $this->id);
+        return new Version($this->text, $this->id);
     }
 
-    public function restoreMemento(Memento $memento): void
+    public function restoreMemento(Version $memento): void
     {
         $this->text = $memento->getContent();
     }

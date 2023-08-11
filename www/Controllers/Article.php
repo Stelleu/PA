@@ -8,6 +8,8 @@ use App\Forms\AddArticle;
 use App\Models\Article as ModelArticle;
 use App\Models\Category;
 use App\Models\User as ModelUser;
+use App\Models\Version;
+use App\Models\VersionMemento;
 
 class Article extends \App\Core\Sql
 {
@@ -24,30 +26,18 @@ class Article extends \App\Core\Sql
         $view->assign("addArticle", $addArticle->getConfig());
 
     }
-    public function addUser($addArticle): bool|array
+    public function deleteArticle(): void
     {
-        $this->errors = Verificator::form($addArticle->getConfig(), $_POST);
-        $title = $_POST["Title"];
-        if (empty($this->errors)) {
-            $article = new ModelArticle();
-            $verifyExistenceArticle = $article->search(['title' => $title]);
-            if (!empty($verifyExistenceArticle)) {
-                $this->errors[] = "L'article que vous essayez de créer existe déjà !";
-            } else {
-               $article->setTitle($_POST["Title"]);
-               $article->setText($_POST["Article"]);
-               $article->setAuthor($_POST["Auteur"]);
-               $article->setLastUpdate($_SESSION["user"]["id"]);
-               $article->setCategory($_POST['Categorie']);
-               $article->setDateUpdated();
-                return true;
-            };
-        };
-        return $this->errors;
+        $userToDelete = new  ModelArticle();
+        var_dump($_POST);
+        $userToDelete->setId($_POST["id"]);
+        echo $userToDelete->getId();
+        $userToDelete->delete();
     }
 
     public function newArticle():void
     {
+        //AFFICHAQUE DE LA CREATION D'ARTICLE
             $options = [];
             $view = new View("Dash/article");
             $articles = new ModelArticle();
@@ -62,21 +52,25 @@ class Article extends \App\Core\Sql
     }
     public function newArticles($requestData): string|bool
     {
-//        var_dump($requestData);
+        // AJOUT DES ARTICLES
         $article = new ModelArticle();
-        $article->setDateUpdated();
-        $articleAlreadyExist =$article->search(["title"=> $requestData["title"]]) ;
+        $firstVersion = new Version();
+        $articleAlreadyExist =$article->search(["title"=> trim($requestData["title"])]);
+        //SI NON EXISTANT  ALORS ON AJOUT SINON ERREUR
         if (empty($articleAlreadyExist)){
             $article->setTitle($requestData["title"]);
             $article->setAuthor($_SESSION["user"]["id"]);
-            $article->setText(json_encode($requestData["article"]));
             $article->setCategory($requestData["category"]);
-            $article->setLastUpdate($_SESSION["user"]["id"]);
+            $article->setCreatedAt();
             $article->setComment($requestData["comment"]);
             $article->setSlug();
-            $article->setStatus(false);
-            $article->setMenu(false);
-//            $article->save();
+            $article->save();
+            $article = $article->search(["title"=> $article->getTitle()]);
+            $firstVersion->setArticleId($article->getId());
+            $firstVersion->setUserId($_SESSION["user"]["id"]);
+            $firstVersion->setContent(json_encode($requestData["article"]));
+            $firstVersion->setCreatedAt();
+            $firstVersion->save();
             $response = array("success" => true, "message" => "Article saved");
         }else{
             $response = array("success" => false, "message" => "Article exist");
@@ -106,13 +100,47 @@ class Article extends \App\Core\Sql
         $view = new View("Dash/editArticle");
         $article = new ModelArticle();
         $addArticle = new AddArticle();
-        $article = $article->search(["id"=>$_GET["id"]]);
+        $version = new Version(); // You'll need to load the correct version here
+        $articleId = $_GET["id"];
+        $latestVersion = $version->selectOrder(["id"=>$articleId],"created_at","DESC");
+        if ($latestVersion) {
+            $memento = new VersionMemento($latestVersion->getContent());
+            $version->setContent($memento->getContent());
+        }
+        $article = $article->search(["id" => $articleId]);
         $categories = new Category();
         $categories = $categories->getAll();
-        $view->assign("category",$categories);
+
+        $view->assign("category", $categories);
         $view->assign("title", "Edit Article");
         $view->assign("article", $article);
         $view->assign("addArticle", $addArticle->getConfig());
+    }
+    public function statusArticle():void
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
+            $articleId = $_POST["id"];
+
+            $article = new ModelArticle();
+            $article = $article->search(["id" => $articleId]);
+            if ($article) {
+                $currentStatus = $article->getStatus();
+                $newStatus = !$currentStatus;
+                $article->setStatus($newStatus);
+                $article->save();
+
+                $response = ["success" => true, "message" => $newStatus ? "Article published" : "Article unpublished"];
+            } else {
+                $response = ["success" => false, "message" => "Article not found"];
+            }
+        } else {
+            $response = ["success" => false, "message" => "Invalid request"];
+        }
+
+        header("Content-Type: application/json");
+        echo json_encode($response);
 
     }
+
+
 }

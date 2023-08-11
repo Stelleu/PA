@@ -57,6 +57,12 @@
     - 0
     - 1
 
+/dash/statusarticle:
+  controller: Article
+  action: statusArticle
+  role:
+    - 0
+
 /dash/editarticle:
   controller: Article
   action: editArticle
@@ -92,7 +98,7 @@
 
 /dash/deletearticle:
   controller: Article
-  action: newArticles
+  action: deleteArticle
   security: true
   role:
     - 0

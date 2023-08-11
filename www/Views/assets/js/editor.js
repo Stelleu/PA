@@ -137,6 +137,7 @@ saveButton.addEventListener("click", () => {
                 .then(data => {
                     console.log(data)
                     const response = JSON.parse(data)
+                    console.log(response)
                     if (response && response.success) {
                         swalWithBootstrapButtons.fire(
                             'Saved!',

@@ -1,6 +1,5 @@
-<h2>Articles</h2>
+<h1>All Articles</h1>
 <div class="d-flex justify-content-end my-3">
-
     <a class="btn btn-dark" href="/dash/addArticle" role="button">Add Article</a>
 </div>
 <?php
@@ -31,11 +30,11 @@ if (!empty($errors)){
     </div>
 </div>
 
-
-<div class="row">
+<div class="container mt-4">
+    <div class="row">
         <?php if (!empty($articles)) :
             foreach ($articles as $article) :
-                $given_date = new DateTime($article->getDateUpdated());
+                $given_date = new DateTime($article->getCreatedAt());
                 // Obtenir la date actuelle
                 $current_date = new DateTime();
 
@@ -67,32 +66,34 @@ if (!empty($errors)){
                 if ($minutes > 0) {
                     $result .= "$minutes min" . ($minutes > 1 ? 's' : '') . " ";
                 } ?>
-
-                <div class="card me-2 mb-3" style="width: 18rem;" >
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $article->getTitle() ?></h5>
-                        <p class="card-text"><?= "Updated ". $result ?></p>
-                        <div class="row">
-                            <div class="col">
-                                <a href="/dash/editArticle?id=<?= $article->getId() ?>" class="btn btn-sm btn-primary" id="editBtn" >Edit Article</a>
-                            </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $article->getTitle(); ?></h5>
+                            <p class="card-text"><?= "Updated ". $result ?></p>
+                            <a href="/dash/editarticle?id=<?= $article->getId(); ?>" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
                             <?php if ($_SESSION['user']['role'] == 0 ) : ?>
-                            <div class="col">
-                                <button class="btn btn-sm btn-outline-danger" id="deleteBtn" data-article-id="<?= $article->getId()?>">
-<!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">-->
-<!--                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>-->
-<!--                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>-->
-<!--                                    </svg>-->
+                                <button class="btn btn-danger delete-btn  btn-sm" data-article-id="<?= $article->getId(); ?>">
+                                    <i class="bi bi-trash"></i> Delete
                                 </button>
-                            </div>
+                                <button class="btn btn-success publish-btn btn-sm" data-article-id="<?= $article->getId(); ?>" data-published="<?= $article->isStatus() ? 'true' : 'false'; ?>">
+                                    <i class="bi bi-eye<?= $article->isStatus() ? '-slash' : ''; ?>"></i>
+                                    <?= $article->isStatus() ? 'Unpublish' : 'Publish'; ?>
+                                </button>
                             <?php endif;?>
                         </div>
                     </div>
                 </div>
-        <?php endforeach;
-        else:?>
+            <?php endforeach;  else:?>
             <div class="alert alert-info" role="alert">
                 No Article
             </div>
         <?php endif;?>
+
+        </div>
+    </div>
+
+
 </div>

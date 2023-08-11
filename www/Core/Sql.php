@@ -38,7 +38,6 @@ abstract class Sql{
             $queryPrepared = $this->pdo->prepare("INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).") 
                             VALUES (:".implode(",:", array_keys($columns)).")");
         }
-
         $queryPrepared->execute($columns);
     }
 

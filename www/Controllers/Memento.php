@@ -2,23 +2,31 @@
 
 namespace App\Controllers;
 use App\Models\Article;
-use App\Models\Memento as ModelMemento;
+use App\Models\Version as ModelMemento;
 class Memento extends \App\Core\Sql
 {
-    public function undo($articleId): void
+    /**
+     * @param int $versionId
+     * @return void
+     */
+    public function undoContent(int $versionId) : void
     {
-        $article = new Article();
-        $memento = $this->getLastMemento($articleId);
-        $article->restoreMemento($memento);
+        $version = new ModelMemento();
+        $version->search(["id"=>$versionId]);
+
+        // Create a memento and store the current state
+        $memento = $version->createMemento();
+
+        // Modify the content
+        $newContent = "Restored content goes here";
+        $version->setContent($newContent);
+
+        // Perform undo by restoring the original content from the memento
+        $version->restoreMemento($memento);
+
+        // Save the restored version
+        $version->save(); // You need to implement the `save` method in Version class
     }
 
-    private function getLastMemento($articleId): Memento
-    {
-        $memento = new ModelMemento();
-        $mementos = $memento->getMementos($articleId);
-
-        // Assuming the mementos are sorted in descending order by created_at
-        return reset($mementos);
-    }
 
 }
