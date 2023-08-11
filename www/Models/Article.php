@@ -123,6 +123,15 @@ class Article extends \App\Core\Sql
     {
         $this->author = $author;
     }
+    public function createMemento(): Memento
+    {
+        return new Memento($this->text, $this->id);
+    }
+
+    public function restoreMemento(Memento $memento): void
+    {
+        $this->text = $memento->getContent();
+    }
 
 
 

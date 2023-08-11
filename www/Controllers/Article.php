@@ -96,4 +96,19 @@ class Article extends \App\Core\Sql
             header("refresh: 1");
         }
     }
+
+    public function editArticle():void
+    {
+        $view = new View("Dash/editArticle");
+        $article = new ModelArticle();
+        $addArticle = new AddArticle();
+        $article = $article->search(["id"=>$_GET["id"]]);
+        $categories = new Category();
+        $categories = $categories->getAll();
+        $view->assign("category",$categories);
+        $view->assign("title", "Edit Article");
+        $view->assign("article", $article);
+        $view->assign("addArticle", $addArticle->getConfig());
+
+    }
 }

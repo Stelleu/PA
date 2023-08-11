@@ -1,4 +1,5 @@
 const deleteButton = document.getElementById("deleteBtn");
+const editButton = document.getElementById("editBtn");
 deleteButton.addEventListener("click", () => {
     const articleId = $(this).data('article-id');
 
@@ -22,7 +23,7 @@ deleteButton.addEventListener("click", () => {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "post",
-                    url: "deleteArticle",
+                    url: "deletearticle",
                     data: {id: articleId},
                     success: function (response) {
                         swalWithBootstrapButtons.fire(
@@ -48,38 +49,4 @@ deleteButton.addEventListener("click", () => {
                 )
             }
         })
-
-        // $.ajax({
-        //     type: "post",
-        //     url: "editUser",
-        //     data: {id: userId},
-        //     success: function (response) {
-        //         console.log(response)
-        //         const modalElement = document.getElementById("editModal");
-        //         const modal = new bootstrap.Modal(modalElement);
-        //         const form = document.querySelector('#editForm');
-        //         try {
-        //             const formData = JSON.parse(response);
-        //             const hiddenButton = document.createElement("input");
-        //             hiddenButton.type = "hidden";
-        //             hiddenButton.name = "id";
-        //             hiddenButton.value = userId;
-        //             form.appendChild(hiddenButton);
-        //             form.elements["UserId"].value = userId;
-        //             form.elements["Lastname"].value = formData.lastname;
-        //             form.elements["Email"].value = formData.email;
-        //             form.elements["Role"].value = formData.role;
-        //             form.elements["Password"].value = formData.password;
-        //
-        //             modal.show();
-        //
-        //         } catch (e) {
-        //             console.error("Error parsing JSON response:", e);
-        //         }
-        //     },
-        //     error: function (error) {
-        //         console.log(error)
-        //     }
-
     })
-

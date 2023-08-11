@@ -74,7 +74,7 @@ if (!empty($errors)){
                         <p class="card-text"><?= "Updated ". $result ?></p>
                         <div class="row">
                             <div class="col">
-                                <a href="#" class="btn btn-sm btn-primary">Edit Article</a>
+                                <a href="/dash/editArticle?id=<?= $article->getId() ?>" class="btn btn-sm btn-primary" id="editBtn" >Edit Article</a>
                             </div>
                             <?php if ($_SESSION['user']['role'] == 0 ) : ?>
                             <div class="col">

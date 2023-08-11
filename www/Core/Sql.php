@@ -69,6 +69,26 @@ abstract class Sql{
        return $objects;
     }
 
+    public function selectOrder(array $element, $order,$by): array
+    {
+        $toSelect = [];
+        $params = [];
+        foreach ($element as $key => $value) {
+            $toSelect[] = $key . "=:" . $key;
+            $params[':' . $key] = $value;
+        }
+        $sql = 'SELECT * FROM '. $this->table. ' WHERE ' . implode(" AND " , $toSelect) . ' ORDER BY created_at order';
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute(['created_at'=> $by, 'order'=> $order]);
+        $objects = array();
+        while ($object = $queryPrepared->fetchObject(get_called_class()))
+        {
+            $objects[] = $object;
+        }
+        return $objects;
+    }
+
+
     public function delete(): void
     {
         $sql = "DELETE FROM ".$this->table." WHERE id = ".$this->getId();
