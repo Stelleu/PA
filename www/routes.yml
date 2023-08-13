@@ -103,6 +103,14 @@
   role:
     - 0
 
+/dash/savememento:
+  controller: Memento
+  action: saveInMemento
+  security: true
+  role:
+    - 0
+    - 1
+
 /dash/edituser:
   controller: User
   action: editUser

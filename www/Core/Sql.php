@@ -68,7 +68,7 @@ abstract class Sql{
        return $objects;
     }
 
-    public function selectOrder(array $element, $order,$by): array
+    public function selectOrder(array $element, $order,$by)
     {
         $toSelect = [];
         $params = [];
@@ -76,15 +76,16 @@ abstract class Sql{
             $toSelect[] = $key . "=:" . $key;
             $params[':' . $key] = $value;
         }
-        $sql = 'SELECT * FROM '. $this->table. ' WHERE ' . implode(" AND " , $toSelect) . ' ORDER BY created_at order';
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute(['created_at'=> $by, 'order'=> $order]);
-        $objects = array();
-        while ($object = $queryPrepared->fetchObject(get_called_class()))
-        {
-            $objects[] = $object;
+        // Vérification de l'ordre de tri pour éviter les valeurs arbitraires
+        $validOrders = ['ASC', 'DESC'];
+        $by = strtoupper($by); // Convertir en majuscules pour une comparaison insensible à la casse
+        if (!in_array($by, $validOrders)) {
+            $by = 'ASC'; // Si l'ordre n'est pas valide, utiliser l'ordre par défaut (ASC)
         }
-        return $objects;
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE ' . implode(" AND ", $toSelect) . ' ORDER BY '.$order .' ' . $by;
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($params);
+        return $queryPrepared->fetchObject(get_called_class());
     }
 
 

@@ -16,7 +16,9 @@ if (!empty($errors)){
     }
 };
 ?>
-<?php $this->modal("form",$addArticle); ?>
+<?php
+$this->modal("form",$addArticle);
+?>
 <label for="category" class="form-label"> Categories</label>
 <select name="categorie" class="form-select"  id="categorie">
     <option  >Open this select menu</option>
@@ -26,6 +28,8 @@ if (!empty($errors)){
     <?php endforeach;?>
 </select>
 <div id="article-data" data-title="<?= htmlspecialchars($article->getTitle()) ?>"
-     data-content="<?= htmlspecialchars($article->getText()) ?>"></div>
+     data-content="<?= htmlspecialchars($version->getContent()) ?>"
+     data-id="<?=$article->getId()?>"
+></div>
 <div id="editorjs"></div>
 <pre id="output"></pre>

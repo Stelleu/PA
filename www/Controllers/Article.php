@@ -100,9 +100,9 @@ class Article extends \App\Core\Sql
         $view = new View("Dash/editArticle");
         $article = new ModelArticle();
         $addArticle = new AddArticle();
-        $version = new Version(); // You'll need to load the correct version here
+        $version = new Version();
         $articleId = $_GET["id"];
-        $latestVersion = $version->selectOrder(["id"=>$articleId],"created_at","DESC");
+        $latestVersion = $version->selectOrder(["article_id"=>$articleId],"created_at","DESC");
         if ($latestVersion) {
             $memento = new VersionMemento($latestVersion->getContent());
             $version->setContent($memento->getContent());
@@ -110,10 +110,10 @@ class Article extends \App\Core\Sql
         $article = $article->search(["id" => $articleId]);
         $categories = new Category();
         $categories = $categories->getAll();
-
         $view->assign("category", $categories);
         $view->assign("title", "Edit Article");
         $view->assign("article", $article);
+        $view->assign("version", $version);
         $view->assign("addArticle", $addArticle->getConfig());
     }
     public function statusArticle():void
