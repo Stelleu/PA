@@ -59,8 +59,13 @@ publishButtons.forEach(button => {
     button.addEventListener("click", () => {
         const articleId = button.dataset.articleId;
         const isPublished = button.dataset.published === 'true';
-
-        // Construire les données à envoyer dans la requête AJAX
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
         const requestData = {
             id: articleId,
             published: !isPublished
@@ -74,10 +79,9 @@ publishButtons.forEach(button => {
             },
             body: JSON.stringify(requestData)
         })
-            .then(response =>  response.json())
+            .then(response => { return response.json() })
             .then(data => {
-                console.log(data)
-                if (data.success) {
+                if (JSON.parse(data).success) {
                     button.dataset.published = !isPublished;
                     button.innerHTML = `<i class="bi bi-eye ${!isPublished ? '-slash' : ''}"></i> ${!isPublished ? 'Publish' : 'Unpublish'}`;
                 } else {

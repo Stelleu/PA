@@ -116,15 +116,14 @@ class Article extends \App\Core\Sql
         $view->assign("version", $version);
         $view->assign("addArticle", $addArticle->getConfig());
     }
-    public function statusArticle():void
+    public function statusArticle($requestData): string|bool
     {
-        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
-            $articleId = $_POST["id"];
-
+        if (!empty($requestData)) {
+            $articleId = $requestData["id"];
             $article = new ModelArticle();
             $article = $article->search(["id" => $articleId]);
             if ($article) {
-                $currentStatus = $article->getStatus();
+                $currentStatus = $article->isStatus();
                 $newStatus = !$currentStatus;
                 $article->setStatus($newStatus);
                 $article->save();
@@ -138,7 +137,7 @@ class Article extends \App\Core\Sql
         }
 
         header("Content-Type: application/json");
-        echo json_encode($response);
+        return json_encode($response);
 
     }
 
