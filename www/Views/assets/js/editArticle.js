@@ -6,7 +6,41 @@ console.log(articleId)
 fillTtitle.value = title
 const content = JSON.parse(articleData.getAttribute("data-content"));
 let currentContent = '';
-let previousContentText = content.blocks.map(block => block.data.text).join(""); // Combine le texte de tous les blocs
+let previousContentText = content.blocks.map(block => block.data.text).join("");
+
+const versionList = document.getElementById("versions");
+
+// Charger la liste des versions
+fetch('/dash/versionlist')
+    .then(response =>  response.json())
+    .then(data => {
+        console.log(data)
+        if (data && data.success) {
+            const versions = data.versions;
+
+            // Ajouter chaque version à la liste
+            versions.forEach(version => {
+                const listItem = document.createElement("li");
+                listItem.classList.add("list-group-item");
+                listItem.innerHTML = `
+                        <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#version-${version.id}" aria-expanded="false" aria-controls="version-${version.id}">
+                            Version ${version.id}
+                        </button>
+                        <div class="collapse" id="version-${version.id}">
+                            <div class="card card-body">
+                               Version du ${version.created_at}
+                                <button class="btn btn-primary mt-2" onclick="restoreVersion(${version.id})">Restore</button>
+                            </div>
+                        </div>
+                    `;
+                versionList.appendChild(listItem);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors du chargement de la liste des versions', error);
+    });
+
 const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
         confirmButton: 'btn btn-success',
@@ -114,69 +148,6 @@ const editor = new EditorJS({
     }
 });
 
-const saveButton = document.getElementById("save-button");
-const output = document.getElementById("output");
-saveButton.addEventListener("click", () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-    if ( document.getElementById("title").value !== "" &&  document.getElementById("categorie").value !== "" ) {
-        const title = document.getElementById("title").value;
-        const category = document.getElementById("categorie").value;
-        editor.save().then(savedData => {
-            const formArticle = {
-                article: savedData,
-                title: title,
-                category: category
-            }
-            fetch('/dash/newarticle', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formArticle)
-            }).then(response => {
-                return response.json()
-            })
-                .then(data => {
-                    console.log(data)
-                    if (data && data.success) {
-                        swalWithBootstrapButtons.fire(
-                            'Saved!',
-                            'Article saved',
-                            'success'
-                        )
-                    } else {
-                        swalWithBootstrapButtons.fire(
-                            'Error',
-                            'Something went wrong, the title is already used !',
-                            'error'
-                        )
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de l\'enregistrement des données', error)
-                    swalWithBootstrapButtons.fire(
-                        'Error',
-                        'Something went wrong!',
-                        'error'
-                    );
-                })
-            output.innerHTML = JSON.stringify(savedData, null, 4);
-        })
-    }else{
-        swalWithBootstrapButtons.fire(
-            'Error',
-            'The title or the category are empty !',
-            'error'
-        );
-    }
-
-})
 function saveInMemento(content) {
     const formMemento = {
         content: content,
@@ -228,3 +199,30 @@ function normalizeText(text) {
 
     return normalizedText.trim();
 }
+function restoreVersion(versionId) {
+    fetch(`/dash/restoreversion`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: versionId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            const parsedData = JSON.parse(data)
+            if (parsedData.success) {
+                const restoredContent = JSON.parse(parsedData.restoredContent); // Parse the JSON content
+                console.log(restoredContent);
+
+                editor.blocks.clear();
+                editor.blocks.render({ blocks: restoredContent.blocks });
+            } else {
+                // Gérer les erreurs si nécessaire
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la restauration de la version', error);
+            // Gérer les erreurs ici
+        });
+}
+

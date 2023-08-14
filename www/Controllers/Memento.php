@@ -9,27 +9,62 @@ class Memento extends \App\Core\Sql
 {
     /**
      * @param int $versionId
-     * @return void
+     * @return string|false
      */
-    public function undoContent() : void
+    public function undoContent($requestData) : string|bool
     {
-        $versionId = $_POST["id"];
-        $version = new ModelMemento();
-        $version->search(["id"=>$versionId]);
+        $response = [];
+        try {
+            $version = new ModelMemento();
+           $version =  $version->search(["id" => $requestData['id']]);
+            if ($version) {
+                $memento = new VersionMemento($version->getContent());
+                $restoredContent = $memento->getContent();
 
-        // Create a memento and store the current state
-        $memento = $version->createMemento();
+                $response['success'] = true;
+                $response['restoredContent'] = $restoredContent;
 
-        // Modify the content
-        $newContent = "Restored content goes here";
-        $version->setContent($newContent);
+            } else {
+                $response['success'] = false;
+                $response['error'] = "Version not found";
+            }
+        } catch (\Exception $e) {
+            $response['success'] = false;
+            $response['error'] = $e->getMessage();
+        }
 
-        // Perform undo by restoring the original content from the memento
-        $version->restoreMemento($memento);
-
-        // Save the restored version
-        $version->save(); // You need to implement the `save` method in Version class
+        header('Content-Type: application/json');
+        return json_encode($response);
     }
+
+    public function getVersionList(): void
+    {
+        $response = [];
+
+        try {
+            $versionModel = new ModelMemento();
+
+            $versions = $versionModel->getAll();
+            $formattedVersions = [];
+            foreach ($versions as $version) {
+                $formattedVersions[] = [
+                    'id' => $version->getId(),
+                    'content' => $version->getContent(),
+                    'created_at' => date('d / m', strtotime($version->getCreatedAt()))
+                ];
+            }
+
+            $response['success'] = true;
+            $response['versions'] = $formattedVersions;
+        } catch (\Exception $e) {
+            $response['success'] = false;
+            $response['error'] = $e->getMessage();
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
 
     public function saveInMemento($requestData): string|bool
     {

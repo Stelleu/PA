@@ -111,6 +111,22 @@
     - 0
     - 1
 
+/dash/versionlist:
+  controller: Memento
+  action: getVersionList
+  security: true
+  role:
+    - 0
+    - 1
+
+/dash/restoreversion:
+  controller: Memento
+  action: undoContent
+  security: true
+  role:
+    - 0
+    - 1
+
 /dash/edituser:
   controller: User
   action: editUser

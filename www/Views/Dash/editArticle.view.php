@@ -1,7 +1,22 @@
 <h2>Edit Article</h2>
 <div class="d-flex justify-content-end my-3">
+    <div class="accordion" id="version-collapse">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="version-heading">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#version-list" aria-expanded="true" aria-controls="version-list">
+                    Version History
+                </button>
+            </h2>
+            <div id="version-list" class="accordion-collapse collapse show" aria-labelledby="version-heading" data-bs-parent="#version-collapse">
+                <div class="accordion-body">
+                    <ul class="list-group" id="versions">
+                        <!-- Versions will be added here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a class="btn btn-dark" id="save-button"  role="button">Save</a>
 </div>
 <?php
 if (!empty($errors)){
