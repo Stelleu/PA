@@ -148,3 +148,17 @@
   action: dashboard
   security: true
   role: []
+
+/dash/settings:
+  controller: Settings
+  action: listMenu
+  security: true
+  role:
+    - 0
+
+/dash/setmenu:
+  controller: Settings
+  action: setMenu
+  security: true
+  role:
+    - 0

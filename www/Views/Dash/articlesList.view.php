@@ -82,6 +82,7 @@ if (!empty($errors)){
                                     <i class="bi bi-eye<?= $article->isStatus() ? '-slash' : ''; ?>"></i>
                                     <?= $article->isStatus() ? 'Unpublish' : 'Publish'; ?>
                                 </button>
+
                             <?php endif;?>
                         </div>
                     </div>

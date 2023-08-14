@@ -76,11 +76,10 @@ abstract class Sql{
             $toSelect[] = $key . "=:" . $key;
             $params[':' . $key] = $value;
         }
-        // Vérification de l'ordre de tri pour éviter les valeurs arbitraires
         $validOrders = ['ASC', 'DESC'];
-        $by = strtoupper($by); // Convertir en majuscules pour une comparaison insensible à la casse
+        $by = strtoupper($by);
         if (!in_array($by, $validOrders)) {
-            $by = 'ASC'; // Si l'ordre n'est pas valide, utiliser l'ordre par défaut (ASC)
+            $by = 'ASC';
         }
         $sql = 'SELECT * FROM ' . $this->table . ' WHERE ' . implode(" AND ", $toSelect) . ' ORDER BY '.$order .' ' . $by;
         $queryPrepared = $this->pdo->prepare($sql);
@@ -94,6 +93,26 @@ abstract class Sql{
         $sql = "DELETE FROM ".$this->table." WHERE id = ".$this->getId();
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
+    }
+
+
+    public function multipleSearch(array $element): array
+    {
+        $toSelect = [];
+        $params = [];
+        foreach ($element as $key => $value) {
+            $toSelect[] = $key . "=:" . $key;
+            $params[':' . $key] = $value;
+        }
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(' AND ', $toSelect);
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($params);
+        $objects = array();
+        while ($object = $queryPrepared->fetchObject(get_called_class()))
+        {
+            $objects[] = $object;
+        }
+        return $objects;
     }
 
 }

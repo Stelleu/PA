@@ -81,9 +81,19 @@ publishButtons.forEach(button => {
         })
             .then(response => { return response.json() })
             .then(data => {
+                console.log(data)
                 if (JSON.parse(data).success) {
                     button.dataset.published = !isPublished;
-                    button.innerHTML = `<i class="bi bi-eye ${!isPublished ? '-slash' : ''}"></i> ${!isPublished ? 'Publish' : 'Unpublish'}`;
+                    button.innerHTML = `<i class="bi bi-eye ${!isPublished ? '-slash' : ''}"></i> ${(!isPublished) ? 'Publish' : 'Unpublish'}`;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: 'Modification is done',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    location.reload()
                 } else {
                     swalWithBootstrapButtons.fire(
                         'Error',
