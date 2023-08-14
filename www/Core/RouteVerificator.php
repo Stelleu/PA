@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Models\Article;
+
 class RouteVerificator extends Sql
 {
     public static function checkConnexion():bool
@@ -11,9 +13,8 @@ class RouteVerificator extends Sql
 
     public static function checkSlug($slugName):bool
     {
-        //$page = new Page();
-       // return empty($this->search(['slug'=>$slugName]));
-        return true;
+        $slug = new Article();
+        return empty($slug->search(['slug'=>$slugName]));
     }
 
     public static function checkWhoIAm($roleNeeded):bool

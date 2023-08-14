@@ -144,9 +144,9 @@
   action: register
 
 /{slug}:
-  controller:  Main
-  action: dashboard
-  security: true
+  controller: Settings
+  action: getSlug
+  security: false
   role: []
 
 /dash/settings:

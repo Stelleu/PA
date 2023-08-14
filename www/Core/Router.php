@@ -30,8 +30,14 @@ class Router extends RouteVerificator
         $matchedRoute = null;
         $matchedParams = [];
         foreach ($this->routes as $route => $config) {
-            if (strpos($route, '{slug}') !== false) {
-                // Pour les routes avec des slugs ...
+            if (str_contains($route, '{slug}')) {
+                $slugPattern = str_replace('{slug}', '([^/]+)', $route);
+                if (self::checkSlug($slugPattern)) {
+                    $matchedRoute = $route;
+                    $matchedParams[] = [$slugPattern];
+                    var_dump($route);
+                    break;
+                }
             } else {
                 if ($uri === $route) {
                     $matchedRoute = $route;
@@ -39,18 +45,18 @@ class Router extends RouteVerificator
                 }
             }
         }
-
-        if (!empty($requestData)) {
-            $this->handleJsonRequest($matchedRoute, $matchedParams, $requestData);
-            return;
-        }
-
         if (empty($matchedRoute)) {
             $error = new Error();
             $error->errorRedirection(404);
         }
 
         $route = $this->routes[$matchedRoute];
+
+        if (!empty($requestData)) {
+            $this->handleJsonRequest($matchedRoute, $matchedParams, $requestData);
+            return;
+        }
+
 
         $controller = "\\App\\Controllers\\" . $route["controller"];
         $action = $route["action"];
