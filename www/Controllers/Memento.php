@@ -37,14 +37,12 @@ class Memento extends \App\Core\Sql
         return json_encode($response);
     }
 
-    public function getVersionList(): void
+    public function getVersionList($requestData): string|bool
     {
         $response = [];
-
         try {
             $versionModel = new ModelMemento();
-
-            $versions = $versionModel->getAll();
+            $versions = $versionModel->multipleSearch(["article_id"=>$requestData["id"]]);
             $formattedVersions = [];
             foreach ($versions as $version) {
                 $formattedVersions[] = [
@@ -60,9 +58,8 @@ class Memento extends \App\Core\Sql
             $response['success'] = false;
             $response['error'] = $e->getMessage();
         }
-
         header('Content-Type: application/json');
-        echo json_encode($response);
+        return json_encode($response);
     }
 
 
@@ -74,7 +71,7 @@ class Memento extends \App\Core\Sql
         $version->setUserId($_SESSION['user']['id']);
         $version->setCreatedAt();
         $version->setArticleId($requestData['id']);
-//        $version->save();
+        $version->save();
         $latestVersion = (new \App\Models\Version)->getLatestVersion(["article_id"=>$requestData['id']],"created_at","DESC"); // Implémentez cette méthode dans la classe Version pour obtenir la dernière version
         if ($latestVersion) {
             $memento = new VersionMemento($latestVersion->getContent());

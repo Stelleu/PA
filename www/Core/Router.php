@@ -22,21 +22,26 @@ class Router extends RouteVerificator
         if ($contentType === 'application/json') {
             $requestData = json_decode(file_get_contents('php://input'), true);
         }
-
         $uriExploded = explode("?", $_SERVER["REQUEST_URI"]);
         $uri = rtrim(strtolower(trim($uriExploded[0])), "/");
         $uri = (empty($uri)) ? "/" : $uri;
 
         $matchedRoute = null;
         $matchedParams = [];
+
         foreach ($this->routes as $route => $config) {
-            if (str_contains($route, '{slug}')) {
-                $slugPattern = str_replace('{slug}', '([^/]+)', $route);
-                if (self::checkSlug($slugPattern)) {
-                    $matchedRoute = $route;
-                    $matchedParams[] = [$slugPattern];
-                    var_dump($route);
-                    break;
+            if (strpos($route, '{slug}') !== false) {
+                $slugPattern = '([^/?]+)';
+                $pattern = str_replace('{slug}', $slugPattern, $route);
+                $regex = '#^' . $pattern . '$#';
+                if (preg_match($regex, $uri, $matches)) {
+                    if (self::checkSlugExists()){
+                        $matchedRoute = $route;
+                        for ($i = 1; $i < count($matches); $i++) {
+                            $matchedParams[] = $matches[$i];
+                        }
+                        break;
+                    }
                 }
             } else {
                 if ($uri === $route) {
@@ -51,7 +56,6 @@ class Router extends RouteVerificator
         }
 
         $route = $this->routes[$matchedRoute];
-
         if (!empty($requestData)) {
             $this->handleJsonRequest($matchedRoute, $matchedParams, $requestData);
             return;

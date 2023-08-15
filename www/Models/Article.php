@@ -26,7 +26,7 @@ class Article extends \App\Core\Sql
 
     public function setSlug(): void
     {
-        $this->slug = strtolower(trim(str_replace(' ', '-', $this->getTitle())));
+        $this->slug = strtolower(trim(str_replace(' ', '-', preg_replace('/[[:punct:]]/', '', $this->getTitle()))));
     }
 
     /**

@@ -5,7 +5,9 @@ use \App\Core\Sql;
 use App\Core\View;
 use App\Forms\AddArticle;
 use App\Models\Article as ModelArticle;
+use App\Models\Category;
 use App\Models\Setting;
+use App\Models\Version;
 
 class Settings extends Sql
 {
@@ -46,11 +48,26 @@ class Settings extends Sql
             $settings->setWebsiteName($_POST["title"]);
         }
     }
-
-    public function getSlug($slug):void
+    public function getSlug($slug): void
     {
-        $article = new \App\Models\Article();
+        $article = new ModelArticle();
         $article = $article->search(["slug" => $slug]);
-        var_dump($article);
+        $setting = new \App\Models\Setting();
+        $setting = $setting->getAll();
+        $menu = new ModelArticle();
+        $menu = $menu->multipleSearch(["menu"=>"false","status"=>"false"]);
+        $categorie = new Category();
+        $categorie = $categorie->getAll();
+        $articles = new ModelArticle();
+        $articles = $articles->getAll();
+        $version = new Version();
+        $version = $version->selectOrder(["article_id"=>$article->getId()],"created_at","DESC");
+        $view = new View("Page/slug", "cleanPage");
+        $view->assign("title",$article->getTitle());
+        $view->assign("menu",$menu);
+        $view->assign("categories",$categorie);
+        $view->assign("front",$setting);
+        $view->assign("articles",$articles);
+        $view->assign("version",$version);
     }
 }

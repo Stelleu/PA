@@ -2,39 +2,57 @@ const articleData = document.getElementById("article-data");
 const fillTtitle = document.getElementById("title")
 const title = articleData.getAttribute("data-title");
 const articleId = articleData.dataset.id;
-console.log(articleId)
 fillTtitle.value = title
-const content = JSON.parse(articleData.getAttribute("data-content"));
+let content = JSON.parse(articleData.getAttribute("data-content"));
+if (content === "{}"){
+    console.log("ok")
+    content = {}
+}
+let previousContentText
 let currentContent = '';
-let previousContentText = content.blocks.map(block => block.data.text).join("");
+if(content.blocks){
+
+     previousContentText = content.blocks.map(block => block.data.text).join("");
+}else {
+    previousContentText =''
+}
 
 const versionList = document.getElementById("versions");
 
 // Charger la liste des versions
-fetch('/dash/versionlist')
-    .then(response =>  response.json())
+fetch('/dash/versionlist',{
+    method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({id: articleId})
+})
+    .then(response => {
+        return response.json()
+    })
     .then(data => {
-        console.log(data)
-        if (data && data.success) {
-            const versions = data.versions;
-
-            // Ajouter chaque version à la liste
-            versions.forEach(version => {
-                const listItem = document.createElement("li");
-                listItem.classList.add("list-group-item");
-                listItem.innerHTML = `
-                        <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#version-${version.id}" aria-expanded="false" aria-controls="version-${version.id}">
-                            Version ${version.id}
-                        </button>
-                        <div class="collapse" id="version-${version.id}">
-                            <div class="card card-body">
-                               Version du ${version.created_at}
-                                <button class="btn btn-primary mt-2" onclick="restoreVersion(${version.id})">Restore</button>
+        parseData = JSON.parse(data)
+        if (data && parseData.success) {
+            if (parseData.versions){
+                const versions = parseData.versions;
+                // Ajouter chaque version à la liste
+                versions.forEach(version => {
+                    const listItem = document.createElement("li");
+                    listItem.classList.add("list-group-item");
+                    listItem.innerHTML = `
+                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#version-${version.id}" aria-expanded="false" aria-controls="version-${version.id}">
+                                Version ${version.id}
+                            </button>
+                            <div class="collapse" id="version-${version.id}">
+                                <div class="card card-body">
+                                   Version du ${version.created_at}
+                                    <button class="btn btn-primary mt-2" onclick="restoreVersion(${version.id})">Restore</button>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                versionList.appendChild(listItem);
-            });
+                        `;
+                    versionList.appendChild(listItem);
+                });
+            }
         }
     })
     .catch(error => {
@@ -121,7 +139,6 @@ const editor = new EditorJS({
     data: content,
 
     onChange: function(api, event) {
-        console.log(event);
         if (event.type === 'addBlock' || event.type === 'deleteBlock') {
             return;
         }
@@ -166,8 +183,9 @@ function saveInMemento(content) {
         })
         .then(parsedData => {
             if (JSON.parse(parsedData).success) {
-                const restoredContent = data.restoredContent;
-                editor.blocks.clear();
+                const restoredContent = parsedData.restoredContent;
+                console.log(restoredContent)
+                // editor.blocks.clear();
                 editor.blocks.render({ blocks: restoredContent });
             } else {
                 swalWithBootstrapButtons.fire(

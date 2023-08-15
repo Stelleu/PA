@@ -11,10 +11,12 @@ class RouteVerificator extends Sql
         return isset($_SESSION['user']['token']);
     }
 
-    public static function checkSlug($slugName):bool
+    public static function checkSlugExists(): bool
     {
+        $uriExploded = explode("/", $_SERVER["REQUEST_URI"]);
+        $uri = trim($uriExploded[1], "/");
         $slug = new Article();
-        return empty($slug->search(['slug'=>$slugName]));
+        return !empty($slug->search(['slug' => $uri]));
     }
 
     public static function checkWhoIAm($roleNeeded):bool

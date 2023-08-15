@@ -106,6 +106,8 @@ class Article extends \App\Core\Sql
         if ($latestVersion) {
             $memento = new VersionMemento($latestVersion->getContent());
             $version->setContent($memento->getContent());
+        }else{
+            $version->setContent("{}");
         }
         $article = $article->search(["id" => $articleId]);
         $categories = new Category();
