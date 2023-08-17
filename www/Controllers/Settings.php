@@ -16,8 +16,11 @@ class Settings extends Sql
         $view = new View("Dash/gestion");
         $articles = new ModelArticle();
         $articles = $articles->getAll();
+        $settings = new Setting();
+        $settings = $settings->getAll();
         $view->assign("title", "Menu");
         $view->assign("articles", $articles);
+        $view->assign("settings", $settings);
 
     }
 
@@ -39,11 +42,13 @@ class Settings extends Sql
     {
         $settings = new Setting();
         $settings->setId(1);
-        if (!empty($_POST["action"] === "front")) {
-            $settings->setPolices($_POST["font"]);
-            $settings->setBtnColor($_POST['btnColor']);
-            $settings->setPColor($_POST['color']);
+        if (!empty($_POST["newFront"])) {
+            $settings->setPolices($_POST["fontSelector"]);
+            $settings->setBtnColor($_POST['btnsColor']);
+            $settings->setPColor($_POST['pColorPicker']);
             $settings->setPSize($_POST['fontSize']);
+            $settings->setH1Color($_POST['hColor']);
+            $settings->save();
         } elseif ($_POST["action"] === "title") {
             $settings->setWebsiteName($_POST["title"]);
         }

@@ -156,6 +156,13 @@
   role:
     - 0
 
+/dash/font:
+  controller: Settings
+  action: setFront
+  security: true
+  role:
+    - 0
+
 /dash/setmenu:
   controller: Settings
   action: setMenu

@@ -46,53 +46,55 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <h3 class="pt-3">Front edit </h3>
             <p  class="pb-3">Edit your front page.</p>
-            <div  class="row text-center">
-                    <div class="col-sm-3 align-center">
-                        <div class="form-group">
-                            <label for="colorPicker">Paragraph color :</label>
-                            <input type="color" id="pColorPicker" class="form-control">
+            <form action="/dash/font" method="post" id="fontForm">
+                <div  class="row text-center">
+                        <div class="col-sm-3 align-center">
+                            <div class="form-group">
+                                <label for="colorPicker">Paragraph color :</label>
+                                <input type="color" id="pColorPicker" class="form-control" name="pColorPicker" value="<?= (!empty($setting) ? $setting->getPColor() : "" )?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="fontSelector">Polices :</label>
+                                <select class="form-select font" aria-label="Default select example" name="fontSelector">
+                                    <option <?= (!empty($setting) && $setting->getPolices() =="Arial, sans-serif")?"selected": " "  ?> value="Arial, sans-serif">Arial</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Verdana, sans-serif")?"selected": " "  ?>    value="Verdana, sans-serif">Verdana</option>
+                                    <option <?= (!empty($setting) && $setting->getPolices() =="Courier New, monospace")?"selected": " "  ?>    value="Courier New, monospace">Courier New</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Times New Roman, serif")?"selected": " " ?>   value="Times New Roman, serif">Times New Roman</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Georgia, serif")?"selected": " "  ?>   value="Georgia, serif">Georgia</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Roboto</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="fontSelector">Polices :</label>
-                            <select class="form-select font" aria-label="Default select example">
-                                <option <?= (!empty($setting) && $setting['polices']=="Arial, sans-serif")?"selected": " "  ?> value="Arial, sans-serif">Arial</option>
-                                <option  <?= (!empty($setting) && $setting['polices']== "Verdana, sans-serif")?"selected": " "  ?>    value="Verdana, sans-serif">Verdana</option>
-                                <option <?= (!empty($setting) && $setting['polices']=="Courier New, monospace")?"selected": " "  ?>    value="Courier New, monospace">Courier New</option>
-                                <option  <?= (!empty($setting) && $setting['polices']== "Times New Roman, serif")?"selected": " "  ?>   value="Times New Roman, serif">Times New Roman</option>
-                                <option  <?= (!empty($setting) && $setting['polices']== "Georgia, serif")?"selected": " "  ?>   value="Georgia, serif">Georgia</option>
-                                <option  <?= (!empty($setting) && $setting['polices']== "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Roboto</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="fontSizeSelector">Paragraph size :</label>
-                            <select class="form-select fontSize" aria-label="Default select example">
-                                <option <?= (!empty($setting) && $setting['text_size']== "12px")?"selected": " " ?>  value="12px">12</option>
-                                <option  <?= (!empty($setting) && $setting['text_size']== "14px")?"selected": " " ?>  value="14px">14</option>
-                                <option <?= (!empty($setting) && $setting['text_size']== "16px")?"selected": " " ?>  value="16px">16</option>
-                                <option <?= (!empty($setting) && $setting['text_size']== "18px")?"selected": " " ?>  value="18px">18</option>
-                                <option  <?= (!empty($setting) && $setting['text_size']== "20px")?"selected": " " ?> value="20px">20</option>
-                                <option <?= (!empty($setting) && $setting['text_size']== "24px")?"selected": " " ?>  value="24px">24</option>
-                            </select>
-                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="fontSizeSelector">Paragraph size :</label>
+                                <select class="form-select fontSize" aria-label="Default select example" name="fontSize">
+                                    <option <?= (!empty($setting) && $setting->getPSize() == "12px")?"selected": " " ?>  value="12px">12</option>
+                                    <option  <?= (!empty($setting) && $setting->getPSize() == "14px")?"selected": " " ?>  value="14px">14</option>
+                                    <option <?= (!empty($setting) && $setting->getPSize() == "16px")?"selected": " " ?>  value="16px">16</option>
+                                    <option <?= (!empty($setting) && $setting->getPSize() == "18px")?"selected": " " ?>  value="18px">18</option>
+                                    <option  <?= (!empty($setting) && $setting->getPSize() == "20px")?"selected": " " ?> value="20px">20</option>
+                                    <option <?= (!empty($setting) && $setting->getPSize() == "24px")?"selected": " " ?>  value="24px">24</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="colorPicker">H1 color :</label>
-                            <input type="color" id="hColorPicker" class="form-control">
-                        </div>
+                            <div class="form-group">
+                                <label for="colorPicker">H1 color :</label>
+                                <input type="color" id="hColorPicker" class="form-control" name="hColor" value="<?= (!empty($setting) ? $setting->getH1Color() : "" )?>">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="buttonColorPicker">Button size:</label>
-                            <input type="color" id="buttonColorPicker" class="form-control" >
+                            <div class="form-group">
+                                <label for="buttonColorPicker">Button Color:</label>
+                                <input type="color" id="buttonColorPicker" class="form-control" name="btnsColor" value="<?= (!empty($setting) ? $setting->getBtnColor() : "" )?>">
+                            </div>
                         </div>
-                    </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="submit" class="btn btn-primary my-2 text-center" id="save" name="page" value="Save changes ">
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary my-2 text-center" id="newFront" name="newFront" value="Save changes ">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -100,6 +102,7 @@
 <script>
     const addMenu = document.getElementById("saveMenu")
     const delMenu = document.getElementById("delMenu")
+    const newFront = document.getElementById("newFront")
     addMenu.addEventListener('click',e =>{
         const princMenu = document.querySelector('.princMenu');
         $.ajax({
@@ -128,7 +131,6 @@
             }
         })
     })
-
     delMenu.addEventListener('click', e =>{
         const delMenu = document.querySelector('.delMenu')
         $.ajax({
