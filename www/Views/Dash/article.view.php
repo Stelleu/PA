@@ -1,4 +1,4 @@
-<h2>New Article</h2>
+<h2 class="py-3">New Article</h2>
 <div class="d-flex justify-content-end my-3">
 
     <a class="btn btn-dark" id="save-button"  role="button">Save</a>

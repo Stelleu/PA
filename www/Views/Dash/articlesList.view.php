@@ -1,4 +1,4 @@
-<h1>All Articles</h1>
+<h1  class="py-3" >All Articles</h1>
 <div class="d-flex justify-content-end my-3">
     <a class="btn btn-dark" href="/dash/addArticle" role="button">Add Article</a>
 </div>

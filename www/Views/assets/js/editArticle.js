@@ -183,10 +183,10 @@ function saveInMemento(content) {
         })
         .then(parsedData => {
             if (JSON.parse(parsedData).success) {
-                const restoredContent = parsedData.restoredContent;
-                console.log(restoredContent)
-                // editor.blocks.clear();
-                editor.blocks.render({ blocks: restoredContent });
+                const data = JSON.parse(parsedData)
+                const restoredContent = JSON.parse(data.restoredContent);
+                editor.blocks.clear();
+                editor.blocks.render({ blocks: restoredContent.blocks });
             } else {
                 swalWithBootstrapButtons.fire(
                     'Error',
@@ -230,17 +230,25 @@ function restoreVersion(versionId) {
             const parsedData = JSON.parse(data)
             if (parsedData.success) {
                 const restoredContent = JSON.parse(parsedData.restoredContent); // Parse the JSON content
-                console.log(restoredContent);
-
                 editor.blocks.clear();
-                editor.blocks.render({ blocks: restoredContent.blocks });
+                editor.blocks.render({blocks: restoredContent.blocks});
+
+
             } else {
-                // Gérer les erreurs si nécessaire
+                swalWithBootstrapButtons.fire(
+                    'Error',
+                    'Something went wrong !',
+                    'error'
+                );
             }
         })
         .catch(error => {
             console.error('Erreur lors de la restauration de la version', error);
-            // Gérer les erreurs ici
+            swalWithBootstrapButtons.fire(
+                'Error',
+                'Something went wrong !',
+                'error'
+            );
         });
 }
 
