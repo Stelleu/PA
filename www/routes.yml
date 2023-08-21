@@ -3,6 +3,8 @@
   action: index
   security: false
   role: []
+
+
 /filterarticle:
   controller: Article
   action: filterArticles

@@ -31,7 +31,7 @@ fetch('/dash/versionlist',{
         return response.json()
     })
     .then(data => {
-        parseData = JSON.parse(data)
+        let parseData = JSON.parse(data)
         if (data && parseData.success) {
             if (parseData.versions){
                 const versions = parseData.versions;

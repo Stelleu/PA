@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= ucfirst($title)?></title>
     <meta name="description" content="Mon portfolio">
+    <link href="/Views/assets/simple-image.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <!--<style>-->
 <!--    body {-->
@@ -105,24 +106,24 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item" ><a class="nav-link" href="/articles">Tous les articles</a></li>
-                        <?php foreach ($categories as $category):?>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <?= $category->getTitle() ?>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <?php
-                                        foreach ($articles as $article):
-                                            if ( $category->getId() == $article->getCategory() ): ?>
-                                                <li><a class="dropdown-item" href="/<?= $article->getSlug() ?>"><?= $article->getTitle() ?></a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                         <?php endif; endforeach; ?>
-                                    </ul>
-                                </li>
-                            <?php endforeach; ?>
-                    </ul>
+<!--                    <ul class="navbar-nav">-->
+<!--                        <li class="nav-item" ><a class="nav-link" href="/articles">Tous les articles</a></li>-->
+<!--                        --><?php //foreach ($categories as $category):?>
+<!--                                <li class="nav-item dropdown">-->
+<!--                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                        --><?php //= $category->getTitle() ?>
+<!--                                    </a>-->
+<!--                                    <ul class="dropdown-menu">-->
+<!--                                        --><?php //var_dump($articles);
+//                                        foreach ($articles as $article):
+//                                            if ( $category->getId() == $article->getCategory() ): ?>
+<!--                                                <li><a class="dropdown-item" href="/--><?php //= $article->getSlug() ?><!--">--><?php //= $article->getTitle() ?><!--</a></li>-->
+<!--                                                <li><hr class="dropdown-divider"></li>-->
+<!--                                         --><?php //endif; endforeach; ?>
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                            --><?php //endforeach; ?>
+<!--                    </ul>-->
                 </div>
             </div>
         </nav>
@@ -133,9 +134,9 @@
         <?php include $this->view ?>
     </div>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-    <script src="/assets/js/simple-image.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
@@ -149,57 +150,108 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script><!-- Warning -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script><!-- Raw -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->'
-<script >
-    const articleData = document.getElementById("editorjs");
-    const content = JSON.parse(articleData.getAttribute("data-content"));
-    console.log(content)
-    const editor = new EditorJS({
-        readOnly: true,
-        tools: {
-            image: SimpleImage,
-            header:  Header,
-            list:NestedList,
-            checklist: Checklist,
-            quote: Quote,
-            warning: Warning,
-            marker:  Marker,
-            code: CodeTool,
-            delimiter: Delimiter,
-            inlineCode: InlineCode,
-             linkTool: LinkTool,
-            raw: RawTool,
-            embed: Embed,
-            table: Table,
-        },
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
+    <?=($title!="Home")?'
+        <script>
+        const articleData = document.getElementById("editorjs");
+        const content = JSON.parse(articleData.getAttribute("data-content"));
+        console.log(content)
+        const editor = new EditorJS({
+            readOnly: true,
+            tools: {
+                image: SimpleImage,
+                header:  Header,
+                list:NestedList,
+                checklist: Checklist,
+                quote: Quote,
+                warning: Warning,
+                marker:  Marker,
+                code: CodeTool,
+                delimiter: Delimiter,
+                inlineCode: InlineCode,
+                 linkTool: LinkTool,
+                raw: RawTool,
+                embed: Embed,
+                table: Table,
+            },
+            data: content
+        });
+    </script> ':""?>
 
-        data: content
-    });
-    // // Récupérer tous les boutons avec la classe "report-btn"
-    // const reportButtons  = document.querySelectorAll('#report');
-    // reportButtons.forEach((button) => {
-    //     button.addEventListener('click', () => {
-    //         const commentId = button.dataset.commentId;
-    //         reportComment(commentId);
-    //     });
-    // });
-    // function reportComment(commentId) {
-    //     // Effectuer la requête AJAX avec la méthode POST
-    //     $.ajax({
-    //         url: '/admin/reportcomment',
-    //         method: 'POST',
-    //         data: {
-    //             commentId: commentId
-    //         },
-    //         success: function(response) {
-    //             console.log(response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Error:', error);
-    //         }
-    //     });
-    // }
-</script>
+    <script>
+        // $(document).ready(function() {
+        //     $('#category-filter').on('change', function() {
+        //         console.log("ok")
+        //         var selectedCategory = $(this).val();
+        //         $('#articles-container').html('<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>');
+        //         $.ajax({
+        //             url: '/filterarticle',
+        //             method: 'POST',
+        //             dataType: 'json',
+        //             data: { category: selectedCategory },
+        //             success: function(response) {
+        //                 console.log(response)
+        //                 $('#articles-container').html(response);
+        //             },
+        //             error: function() {
+        //                 $('#articles-container').html('<p>Une erreur s\'est produite.</p>');
+        //             }
+        //         });
+        //     });
+        // });
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilter = document.getElementById('category-filter');
+            const articlesContainer = document.getElementById('articles-container');
+
+            categoryFilter.addEventListener('change', function() {
+                const selectedCategory = categoryFilter.value;
+                console.log(selectedCategory)
+                articlesContainer.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+                fetch('/filterarticle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({id: selectedCategory})
+                })
+                    .then(response => {
+                        console.log(response.json())
+                        return response.json()
+                    })
+                    .then(data => {
+                        var parseData = JSON.parse(data)
+                        if (data && parseData.success) {
+                            if (parseData.content) {
+                                const contents = parseData.content;
+                                contents.forEach(content => {
+                                    const articles = document.createElement("article");
+                                    articles.classList.add("card shadow-sm");
+                                    articles.innerHTML = `
+                                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                            <div class="card-body">
+                                <p class="card-text">${content.title}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary" href="/${content.slug}" role="button">View</a>
+                                    <small class="text-body-secondary">${content.created_at}</small>
+                                </div>
+                            </div>
+                        `;
+                                    articlesContainer.appendChild(articles);
+
+                                })
+                            }
+                        }else {
+                            articlesContainer.innerHTML = '<p>Une erreur s\'est produite.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        articlesContainer.innerHTML = '<p>Une erreur s\'est produite.</p>';
+                    });
+            });
+        });
+
+    </script>
 
 </body>
 </html>

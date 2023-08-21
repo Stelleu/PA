@@ -140,35 +140,29 @@ class Article extends \App\Core\Sql
 
         header("Content-Type: application/json");
         return json_encode($response);
-
     }
 
-    public function filterArticles($requestData): string | bool
+    public function filterArticles($requestData): string|bool
     {
-        $categoryId = $requestData['category'];
+        $categoryId = $requestData['id'];
         $articles = new ModelArticle();
-        $articles = ($categoryId === 'all') ? ModelArticle::getAll() : ModelArticle::search(["category"=>$categoryId]);
-
-        // Générez le HTML des articles filtrés et renvoyez-le
-        $filteredHTML = '';
-        foreach ($articles as $article) {
-            // Générez le contenu HTML de chaque article (similaire à votre boucle actuelle)
-            $filteredHTML .= '<div class="col">
-                                <div class="card shadow-sm">
-                                   <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                      <div class="card-body">
-                                         <p class="card-text"><?= $article->getTitle()?></p>
-                    <!--                 <p class="card-text">--><?php //= $article->getDescription()?><!--</p>-->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <a class="btn btn-primary" href="/<?= $article->getSlug()?>" role="button">View</a>
-                                         <small class="text-body-secondary"><?= $article->getCreatedAt()?></small>
-                                        </div>
-                                      </div>
-                                </div>
-                               </div>';
+        $articles = ($categoryId === 'all') ? $articles->getAll() : $articles->multipleSearch(["category"=>$categoryId]);
+        $filteredHTML = [];
+        if (!empty($articles)){
+            foreach ($articles as $article) {
+                $filteredHTML[] = [
+                    'id' => $article->getId(),
+                    'title' =>$article->getTitle(),
+                    'created_at' => date('d / m', strtotime($article->getCreatedAt())),
+                    'slug' => $article->getSlug()
+                ];
+            }
+            $response = ['success' => true, 'content' => $filteredHTML];
+        }else{
+            $response = ['success' => false];
         }
-
-        return $filteredHTML;
+        header('Content-Type: application/json');
+        return json_encode($response);
     }
 
 }
