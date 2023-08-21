@@ -75,4 +75,14 @@ class Settings extends Sql
         $view->assign("articles",$articles);
         $view->assign("version",$version);
     }
+
+
+    public function getSitemap():void
+    {
+        $slug = new Pages();
+        $slug = $slug->recupAll();
+        $view = new View("Page/sitemap","cleanPage");
+        $view->assign('slug',$slug);
+        $view->assign('title','Sitemap');
+    }
 }

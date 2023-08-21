@@ -3,6 +3,12 @@
   action: index
   security: false
   role: []
+/filterarticle:
+  controller: Article
+  action: filterArticles
+  security: false
+  role: []
+
 
 /dashboard:
   controller: Main
@@ -156,6 +162,7 @@
   role:
     - 0
 
+
 /dash/font:
   controller: Settings
   action: setFront
@@ -169,3 +176,15 @@
   security: true
   role:
     - 0
+
+/aricles:
+  controller: Blog
+  action: getAllArticle
+  role: []
+
+/sitemap:
+  controller: Settings
+  action: getSitemap
+  security: false
+  role: []
+

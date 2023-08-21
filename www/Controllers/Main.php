@@ -1,13 +1,20 @@
 <?php
 namespace App\Controllers;
 use App\Core\View;
+use App\Models\Article;
+use App\Models\Category;
 
 class Main{
-    public function index(){
-
-        $pseudo = "Prof";
-        $view = new View("Main/index", "front");
-        $view->assign("pseudo", $pseudo);
+    public function index(): void
+    {
+        $view = new View("Page/home","cleanPage");
+        $articles = new Article();
+        $articles = $articles->getAll();
+        $categories = new Category();
+        $categories = $categories->getAll();
+        $view->assign("articles",$articles);
+        $view->assign("categories",$categories);
+        $view->assign("title","Home");
     }
 
     public function contact(){
@@ -18,6 +25,11 @@ class Main{
     {
         $view = new View("Dash/index");
         $view->assign("title", 'Home');
+
+    }
+
+    public function getAllArticle():void
+    {
 
     }
 }
