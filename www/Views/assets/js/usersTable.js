@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 url: "editUser",
                 data: {id: userId},
                 success: function (response) {
-                    console.log(response)
                     const modalElement = document.getElementById("editModal");
                     const modal = new bootstrap.Modal(modalElement);
                     const form = document.querySelector('#editForm');

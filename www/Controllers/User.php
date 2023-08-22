@@ -51,11 +51,11 @@ class User extends Sql
                 $user->setLastname($_POST["Lastname"]);
                 $user->setRole($_POST["Role"]);
                 $user->setPassword($_POST["Password"]);
+                $user->setToken($user->generateCode());
                 $user->setDateInserted();
                 $user->save();
                 //send mail
-                //(new Security)->sendMail();
-                var_dump($user);
+                (new Security)->sendMail();
                 return true;
             };
         };
@@ -100,4 +100,5 @@ class User extends Sql
 //        }
     }
     }
+
 }

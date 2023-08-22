@@ -66,12 +66,6 @@ class Security{
                 $view->assign('errors', $this->errors);
             }
         }
-        /*
-        $user = new User();
-        $user->setId(2);
-        $user->setEmail("test@gmail.com");
-        $user->save();
-        */
     }
 
     public function logout(): void
@@ -83,6 +77,7 @@ class Security{
 
     public function sendMail(): void
     {
+        //ADRESSE IP MAIL ATTENTION A FAIRE
         $mail = new Mail();
         $code = new ModelUser();
         $confMail = new Mail();
@@ -94,9 +89,27 @@ class Security{
                                             <h5 class="card-title"> Adebc vous souhaite la bienvenue ! </h5>
                                             <p class="card-text">Une fois votre compte validé vous pourrez commenter autant que vous le souhaitez !.</p>
                                             <p class="card-text">Oublie pas le respect est OBLIGATOIRE chez nous ;)  .</p>
-                                                <button><a class="btn btn-primary" href="http://193.70.2.69/admin/confirmation?key='.$code->generateCode().'"> Confirmer votre mail. </a></button>
+                                                <button><a class="btn btn-primary" href="http://193.70.2.69/confirmation?key='.$code->generateCode().'"> Confirmer votre mail. </a></button>
                                            </div>');
         $mail = $confMail->mail($confMail->initMail());
+    }
+
+    public function confirmation():void
+    {
+        if (isset($_GET['key']) && !empty(($_GET['key']))){
+            $user = new User;
+            $newUser = $user->search(["token" =>$_GET['key']]);
+            if (!empty($newUser)){
+                $newUser->setStatus(1);
+                $newUser->setToken(null);
+                $newUser->save();
+                $this->login();
+            }else{
+                echo '<div class="alert-error" style="text-align: center; padding: 1em ;">
+                        <span> Compte inexistant, veuillez verifier que la durée du mail n est pas expirée </span>
+                    </div>';
+            }
+        }
     }
 
 }
