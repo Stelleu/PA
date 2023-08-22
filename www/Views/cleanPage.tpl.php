@@ -179,35 +179,14 @@
     </script> ':""?>
 
     <script>
-        // $(document).ready(function() {
-        //     $('#category-filter').on('change', function() {
-        //         console.log("ok")
-        //         var selectedCategory = $(this).val();
-        //         $('#articles-container').html('<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>');
-        //         $.ajax({
-        //             url: '/filterarticle',
-        //             method: 'POST',
-        //             dataType: 'json',
-        //             data: { category: selectedCategory },
-        //             success: function(response) {
-        //                 console.log(response)
-        //                 $('#articles-container').html(response);
-        //             },
-        //             error: function() {
-        //                 $('#articles-container').html('<p>Une erreur s\'est produite.</p>');
-        //             }
-        //         });
-        //     });
-        // });
         document.addEventListener('DOMContentLoaded', function() {
             const categoryFilter = document.getElementById('category-filter');
             const articlesContainer = document.getElementById('articles-container');
+            const spinner = document.getElementById("spinner");
 
             categoryFilter.addEventListener('change', function() {
                 const selectedCategory = categoryFilter.value;
-                console.log(selectedCategory)
-                articlesContainer.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-
+                spinner.classList.remove("d-none");
                 fetch('/filterarticle', {
                     method: 'POST',
                     headers: {
@@ -216,29 +195,31 @@
                     body: JSON.stringify({id: selectedCategory})
                 })
                     .then(response => {
-                        console.log(response.json())
                         return response.json()
                     })
                     .then(data => {
+                        articlesContainer.innerHTML = '';
                         var parseData = JSON.parse(data)
                         if (data && parseData.success) {
                             if (parseData.content) {
+                                spinner.classList.add("d-none");
                                 const contents = parseData.content;
                                 contents.forEach(content => {
+                                    const div = document.createElement("div");
+                                    div.classList.add("col")
                                     const articles = document.createElement("article");
-                                    articles.classList.add("card shadow-sm");
-                                    articles.innerHTML = `
-                                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                            <div class="card-body">
-                                <p class="card-text">${content.title}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a class="btn btn-primary" href="/${content.slug}" role="button">View</a>
-                                    <small class="text-body-secondary">${content.created_at}</small>
-                                </div>
-                            </div>
-                        `;
-                                    articlesContainer.appendChild(articles);
-
+                                    articles.classList.add("card");
+                                    articles.classList.add("shadow-sm");
+                                    articles.innerHTML = `<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                                            <div class="card-body">
+                                                                <p class="card-text">${content.title}</p>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <a class="btn btn-primary" href="/${content.slug}" role="button">View</a>
+                                                                    <small class="text-body-secondary">${content.created_at}</small>
+                                                                </div>
+                                                            </div>`;
+                                    articlesContainer.appendChild(div);
+                                    div.appendChild(articles);
                                 })
                             }
                         }else {
@@ -250,8 +231,6 @@
                     });
             });
         });
-
     </script>
-
 </body>
 </html>

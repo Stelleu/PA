@@ -18,35 +18,32 @@
                     <option value="<?= $category->getId() ?>"><?= $category->getTitle() ?></option>
                 <?php endforeach ?>
             </select>
-            <!-- Ajoutez le conteneur pour afficher les articles filtrés -->
-            <div id="articles-container">
-                <!-- Les articles filtrés seront affichés ici -->
-            </div>
 
-            <!-- Ajoutez le conteneur pour le spinner de chargement -->
+            <!-- Ajoutez le conteneur pour afficher les articles filtrés -->
+            <div id="articles-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <?php foreach ($articles as $article) : ?>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                            <div class="card-body">
+                                <p class="card-text"><?= $article->getTitle()?></p>
+                                <!--                                <p class="card-text">--><?php //= $article->getDescription()?><!--</p>-->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary" href="/<?= $article->getSlug()?>" role="button">View</a>
+                                    <small class="text-body-secondary"><?= $article->getCreatedAt()?></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach ?>            </div>
+
             <div id="spinner" class="d-none">
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
 
-<!--            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">-->
-<!--                --><?php //foreach ($articles as $article) : ?>
-<!--                    <div class="col">-->
-<!--                        <div class="card shadow-sm">-->
-<!--                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
-<!--                            <div class="card-body">-->
-<!--                                <p class="card-text">--><?php //= $article->getTitle()?><!--</p>-->
-<!--<!--                                <p class="card-text">-->--><?php ////= $article->getDescription()?><!--<!--</p>-->-->
-<!--                                <div class="d-flex justify-content-between align-items-center">-->
-<!--                                    <a class="btn btn-primary" href="/--><?php //= $article->getSlug()?><!--" role="button">View</a>-->
-<!--                                    <small class="text-body-secondary">--><?php //= $article->getCreatedAt()?><!--</small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                --><?php //endforeach ?>
-<!--            </div>-->
+
         </div>
 
         <div class="col-md-4">
