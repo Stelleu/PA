@@ -64,6 +64,7 @@ class Article extends \App\Core\Sql
             $article->setCreatedAt();
             $article->setComment($requestData["comment"]);
             $article->setSlug();
+            $article->setImgUrl($requestData["img"]);
             $article->save();
             $article = $article->search(["title"=> $article->getTitle()]);
             $firstVersion->setArticleId($article->getId());
@@ -80,20 +81,7 @@ class Article extends \App\Core\Sql
     }
 
 
-    public function listCategorie():void
-    {
-        $categories = new Category();
-        $view = new View("Dash/categoryList");
-        $categories = $categories->getAll();
-        $view->assign("title", "New categories");
-        $view->assign("categories", $categories);
-        if (!empty($_POST)){
-            $category = new Category();
-            $category->setTitle($_POST['title']);
-            $category->save();
-            header("refresh: 1");
-        }
-    }
+
 
     public function editArticle():void
     {

@@ -117,6 +117,7 @@
           <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->' :""?>
     <?= ($title == "Articles")? '<script src="../Views/assets/js/articlesTable.js"></script>':"";?>
     <?= ($title == "Edit Article")? '<script  type="text/javascript" src="../Views/assets/js/editArticle.js"></script>':"";?>
+    <?= ($title == "Category")? '<script  type="text/javascript" src="../Views/assets/js/categoryTable.js"></script>':"";?>
 
     <?= ($title == "New Article")?'<script src="../Views/assets/js/editor.js"></script>':"";?>
     <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body>

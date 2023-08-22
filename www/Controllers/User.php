@@ -97,7 +97,6 @@ class User extends Sql
             } else {
                 echo json_encode(null);
             }
-//        }
-    }
+        }
     }
 }

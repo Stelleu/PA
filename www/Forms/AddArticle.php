@@ -31,6 +31,14 @@ class AddArticle extends Abstract\AForm
                     "disabled" => false
 
                 ],
+                "Image" => [
+                    "type" => "file",  // Utiliser le type "file" pour l'upload d'image
+                    "class" => "form-control",
+                    "id" => "imgArticle",
+                    "placeholder"=>"",
+                    "disabled" => false,
+                    "accept"=>"image/jpeg, image/png, image/gif"
+                ],
             ],
         ];
     }

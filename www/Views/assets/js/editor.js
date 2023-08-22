@@ -118,12 +118,15 @@ saveButton.addEventListener("click", () => {
         const title = document.getElementById("title").value;
         const comment = (document.getElementById("isComment")).checked;
         const category = document.getElementById("categorie").value;
+        const imageInput = document.getElementById('imgArticle').value;
+
         editor.save().then(savedData => {
             const formArticle = {
                 article: savedData,
                 title: title,
                 category: category,
-                comment: comment
+                comment: comment,
+                img: imageInput // Maintenant "url" sera accessible ici
             }
             fetch('/dash/newarticle', {
                 method: 'POST',

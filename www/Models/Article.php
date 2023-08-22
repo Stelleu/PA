@@ -13,6 +13,17 @@ class Article extends \App\Core\Sql
    protected ?String $slug;
    protected Int $category;
    protected String $created_at;
+   protected ?String $img_url;
+
+    public function getImgUrl(): string
+    {
+        return $this->img_url;
+    }
+
+    public function setImgUrl(string $img_url): void
+    {
+        $this->img_url = trim($img_url);
+    }
 
 
     /**

@@ -15,7 +15,7 @@
             </select>
         <?php else: ?>
         <div class="mb-3">
-            <label for="<?= $name?>" class="form-label"> <?= $name?> </label>
+            <label for="<?= $name?>" class="form-label"> <?= ($name == "Image")?"Image de couverture": $name?> </label>
             <input
                             name="<?= $name;?>"
                             type="<?= $input["type"]?>"
@@ -23,6 +23,7 @@
                             class="<?= $input["class"]?>"
                             id="<?= $input["id"]??""?>"
                      <?= $input["disabled"]?"disabled": "" ?>
+                     <?= $input["accept"] ?? "" ?>
             >
         </div>
         <?php endif;?>

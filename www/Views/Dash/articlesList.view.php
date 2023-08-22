@@ -68,6 +68,7 @@ if (!empty($errors)){
                 } ?>
                 <div class="col-md-4">
                     <div class="card mb-4">
+                        <img src="<?= $article->getImgUrl(); ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $article->getTitle(); ?></h5>
                             <p class="card-text"><?= "Updated ". $result ?></p>

@@ -31,10 +31,10 @@ if (!empty($errors)){
                 <div class="modal-body">
                     <form name="addCategorie" method="post" action="/dash/categorie">
                         <div class="mb-3">
-                            <label for="title" class="form-label">Category title</label>
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                            <label for="formCategory" class="form-label">Category title</label>
+                            <input type="text" name="title" class="form-control" id="formCategory" placeholder="Title">
                         </div>
-                        <button type="submit" class="btn btn-primary">Add new category</button>
+                        <button type="submit" class="btn btn-primary" name="add" >Add new category</button>
                     </form>
                 </div>
         </div>
@@ -46,16 +46,16 @@ if (!empty($errors)){
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modify User</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modify Category</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form name="addCategorie" method="post">
+                <form name="editCategorie" id="editForm" method="post" action="/dash/editcategory">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <label for="formCategory" class="form-label">Category Title</label>
+                        <input type="text" class="form-control" id="formCategory" placeholder="Lifestyle" >
                     </div>
-                    <button class="btn btn-primary" id="addCategory">Add new category</button>
+                    <button type="submit" name="changes" class="btn btn-primary" id="addCategory">Modify category</button>
                 </form>
 
             </div>
@@ -69,8 +69,8 @@ if (!empty($errors)){
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col" >Title</th>
-            <th scope="col" >Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -86,8 +86,8 @@ if (!empty($errors)){
                             Actions
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" data-user-id="<?= $category->getId() ?>" data-action="edit">Edit</a>
-                            <a class="dropdown-item" href="#" data-user-id="<?= $category->getId() ?>" data-action="delete">Delete</a>
+                            <a class="dropdown-item" href="#" data-category-id="<?= $category->getId() ?>" data-action="edit">Edit</a>
+                            <a class="dropdown-item" href="#" data-category-id="<?= $category->getId() ?>" data-action="delete">Delete</a>
                         </div>
                     </div>
                 </td>
