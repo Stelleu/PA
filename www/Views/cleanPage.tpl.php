@@ -200,9 +200,9 @@
                     .then(data => {
                         articlesContainer.innerHTML = '';
                         var parseData = JSON.parse(data)
+                        spinner.classList.add("d-none");
                         if (data && parseData.success) {
                             if (parseData.content) {
-                                spinner.classList.add("d-none");
                                 const contents = parseData.content;
                                 contents.forEach(content => {
                                     const div = document.createElement("div");
@@ -223,11 +223,11 @@
                                 })
                             }
                         }else {
-                            articlesContainer.innerHTML = '<p>Une erreur s\'est produite.</p>';
+                            articlesContainer.innerHTML = '<p> This category is empty for the moment .</p>';
                         }
                     })
                     .catch(error => {
-                        articlesContainer.innerHTML = '<p>Une erreur s\'est produite.</p>';
+                        articlesContainer.innerHTML = '<p>Something gone wrong, call 0652144189.</p>';
                     });
             });
         });

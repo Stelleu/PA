@@ -53,28 +53,28 @@ document.addEventListener("DOMContentLoaded", function() {
             const modalElement = document.getElementById("editModal");
             const modal = new bootstrap.Modal(modalElement);
             const form = document.querySelector('#editForm');
-            // try {
-            //     const formData = JSON.parse(response);
-            //     console.log(formData.content.title)
-            //     const content = formData.content
-            //     const hiddenButton = document.createElement("input");
-            //     hiddenButton.type = "hidden";
-            //     hiddenButton.name = "id";
-            //     hiddenButton.value = categoryId;
-            //     form.appendChild(hiddenButton);
-            //     form.elements["formCategory"].value = content.title.trim();
-                modal.show();
-            // }catch (e) {
-            //     console.error("Error parsing JSON response:", e);
-            // }
+
             // console.log(form.elements["formCategory"].value )
             $.ajax({
                 type: "post",
                 url: "editcategory",
                 data: { id: categoryId },
                 success: function (response) {
-                    console.log(response)
-                },
+                    try {
+                        const formData = JSON.parse(response);
+                        console.log(formData.content.title)
+                        const content = formData.content
+                        const hiddenButton = document.createElement("input");
+                        hiddenButton.type = "hidden";
+                        hiddenButton.name = "id";
+                        hiddenButton.value = categoryId;
+                        form.appendChild(hiddenButton);
+                        form.elements["formCategory"].value = content.title.trim();
+                        console.log(content.title.trim())
+                        modal.show();
+                    }catch (e) {
+                        console.error("Error parsing JSON response:", e);
+                    }                },
                 error: function (error) {
                     console.log(error)
                 }

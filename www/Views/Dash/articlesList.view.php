@@ -1,19 +1,19 @@
-<h1  class="py-3" >All Articles</h1>
+<h1  class="pt-5" >All Articles</h1>
 <div class="d-flex justify-content-end my-3">
     <a class="btn btn-dark" href="/dash/addArticle" role="button">Add Article</a>
 </div>
 <?php
-if (!empty($errors)){
-    echo '<div class="alert alert-danger d-flex align-items-center p-2">
-                    <i class="fs-2hx text-danger me-4"><span class="path1"></span><span class="path2"></span></i>
-                    <div class="d-flex flex-column">
-                       <h4 class="mb-1 text-dark">Something went wrong ! </h4>';
-    foreach ($errors as $error){
-        echo '  <span>'.$error.'</span>
-                    </div>
-                   </div>';
-    }
-};
+    if (!empty($errors)){
+        echo '<div class="alert alert-danger d-flex align-items-center p-2">
+                        <i class="fs-2hx text-danger me-4"><span class="path1"></span><span class="path2"></span></i>
+                        <div class="d-flex flex-column">
+                           <h4 class="mb-1 text-dark">Something went wrong ! </h4>';
+        foreach ($errors as $error){
+            echo '  <span>'.$error.'</span>
+                        </div>
+                       </div>';
+        }
+    };
 ?>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

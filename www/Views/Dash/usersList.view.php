@@ -1,4 +1,4 @@
-<h2>Users</h2>
+<h2 class="pt-5">Users</h2>
 <div class="d-flex justify-content-end my-3">
 
     <!-- Button trigger modal -->
@@ -65,24 +65,19 @@
         </thead>
         <tbody>
         <?php foreach ($users as $user) :
-
             $given_date = new DateTime($user->getDateInserted());
             // Obtenir la date actuelle
             $current_date = new DateTime();
-
             // Calculer la différence entre les deux dates
             $interval = $current_date->diff($given_date);
-
             // Extraire le nombre de semaines, mois et jours
             $weeks = floor($interval->days / 7);
             $months = $interval->y * 12 + $interval->m;
             $days = $interval->days;
             $hours = $interval->h;
             $minutes = $interval->i;
-
             // Construction de la phrase résultante
             $result = "";
-
             if ($weeks > 0) {
                 $result .= "$weeks week" . ($weeks > 1 ? 's' : '') . " ";
             }
@@ -119,9 +114,7 @@
                 <td><p class="badge text-center rounded-pill <?= ($user->getStatus()==1)?" text-bg-success" : "text-bg-danger"?> px-4"><?= $user->getStatus() ?></p></td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Actions
-                        </button>
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#" data-user-id="<?= $user->getId() ?>" data-action="edit">Edit</a>
                             <a class="dropdown-item" href="#" data-user-id="<?= $user->getId() ?>" data-action="delete">Delete</a>

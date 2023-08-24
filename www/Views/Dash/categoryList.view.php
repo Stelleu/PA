@@ -1,4 +1,5 @@
-<h2>Categories</h2>
+<h2 class="pt-5">Categories</h2>
+
 <div class="d-flex justify-content-end my-3">
 
     <!-- Button trigger modal -->
@@ -32,7 +33,7 @@ if (!empty($errors)){
                     <form name="addCategorie" method="post" action="/dash/categorie">
                         <div class="mb-3">
                             <label for="formCategory" class="form-label">Category title</label>
-                            <input type="text" name="title" class="form-control" id="formCategory" placeholder="Title">
+                            <input type="text" name="title" class="form-control" id="formCategory" placeholder="Lifestyle">
                         </div>
                         <button type="submit" class="btn btn-primary" name="add" >Add new category</button>
                     </form>
@@ -50,12 +51,12 @@ if (!empty($errors)){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form name="editCategorie" id="editForm" method="post" action="/dash/editcategory">
+                <form name="editCategorie" id="editForm" method="post" action="">
                     <div class="mb-3">
                         <label for="formCategory" class="form-label">Category Title</label>
-                        <input type="text" class="form-control" id="formCategory" placeholder="Lifestyle" >
+                        <input type="text" class="form-control" id="formCategory" placeholder="Lifestyle" name="title" >
                     </div>
-                    <button type="submit" name="changes" class="btn btn-primary" id="addCategory">Modify category</button>
+                    <button type="submit" name="edit" class="btn btn-primary" id="addCategory">Modify category</button>
                 </form>
 
             </div>

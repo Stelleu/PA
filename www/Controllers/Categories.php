@@ -3,13 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\View;
-use App\Forms\AddArticle;
-use App\Models\Article as ModelArticle;
-use App\Models\Category;
 use App\Models\Category as ModelCategory;
-use App\Models\User as ModelUser;
-use App\Models\Version;
-use App\Models\VersionMemento;
 
 class Categories extends \App\Core\Sql
 {
@@ -20,15 +14,15 @@ class Categories extends \App\Core\Sql
         $categories = $categories->getAll();
         $view->assign("title", "Category");
         $view->assign("categories", $categories);
-        if (!empty($_POST["add"])){
-            var_dump($_POST);
+        if (isset($_POST["add"])){
             $category = new ModelCategory();
             $category->setTitle($_POST['title']);
             $category->save();
             header("refresh: 1");
-        }if (!empty($_POST["edit"])){
+        }if (isset($_POST["edit"])){
             $this->editCategory();
-        }if (!empty($_POST["delete"])){
+            header("refresh: 1");
+    }if (isset($_POST["delete"])){
             $this->deleteCategory();
         }
     }
@@ -37,7 +31,6 @@ class Categories extends \App\Core\Sql
     {
         $categoryToDelete = new  ModelCategory();
         $categoryToDelete->setId($_POST["id"]);
-        echo $categoryToDelete->getId();
         $categoryToDelete->delete();
     }
 
@@ -45,9 +38,9 @@ class Categories extends \App\Core\Sql
     {
         $category = new ModelCategory();
         $category = $category->search(["id" => $_POST["id"]]);
-        if (isset($_POST['changes'])){
+        if (isset($_POST['edit'])){
             $category->setId($_POST["id"]);
-            ($category->getTitle() != $_POST["id"])? $category->setTitle($_POST["id"]):$category->setTitle($category->getTitle());
+            ($category->getTitle() != $_POST["title"])? $category->setTitle($_POST["title"]):$category->setTitle($category->getTitle());
             $category->save();
         }else {
             if ($category) {

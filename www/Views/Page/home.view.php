@@ -1,16 +1,16 @@
+<?php if (!empty($articles)): ?>
 <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-        <div class="col-lg-6 px-0">
-            <h1 class="display-4 fst-italic"><?= $articles[0]->getTitle()?></h1>
-            <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-            <p class="lead mb-0"><a href="<?= $articles[0]->getSlug()?>" class="text-body-emphasis fw-bold">Continue reading...</a></p>
-        </div>
+    <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic"><?= $articles[0]->getTitle()?></h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+        <p class="lead mb-0"><a href="<?= $articles[0]->getSlug()?>" class="text-body-emphasis fw-bold">Continue reading...</a></p>
     </div>
+</div>
+<?php endif;?>
 
     <div class="row g-5">
         <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                All Articles
-            </h3>
+            <h3 class="pb-4 mb-4 fst-italic border-bottom"> All Articles </h3>
             <!-- Ajoutez le menu déroulant pour sélectionner une catégorie -->
             <select id="category-filter" class="form-select mb-3">
                 <option value="all">All Categories</option>

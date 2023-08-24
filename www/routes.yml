@@ -71,6 +71,13 @@
   security: true
   role:
     - 0
+/dash/page:
+  controller: Pages
+  action: pages
+  security: true
+  role:
+    - 0
+    - 1
 
 /dash/addarticle:
   controller: Article
@@ -110,6 +117,13 @@
     - 0
     - 1
 
+/dash/newpage:
+  controller: Pages
+  action: index
+  security: true
+  role:
+    - 0
+    - 1
 
 /dash/newarticle:
   controller: Article
