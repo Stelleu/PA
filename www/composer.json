@@ -1,17 +1,5 @@
 {
-    "name": "vendor/composer",
-    "autoload": {
-        "psr-4": {
-            "Vendor\\Composer\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Stelleu",
-            "email": "enkumba@myges.fr"
-        }
-    ],
     "require": {
-        "phpmailer/phpmailer": "^6.2"
+        "phpmailer/phpmailer": "^6.8"
     }
 }

@@ -69,7 +69,7 @@ class AddUser extends AForm {
                     "class"=>"form-select mb-3",
                     "options"=>["Open this select menu"=>"","admin"=>"1", "editor"=>"2","moderator"=>"3","user"=>"4"],
                     "error"=>"Role incorrect",
-                                        "disabled" => false
+                    "disabled" => false
 
                 ]
             ]
