@@ -71,13 +71,36 @@
   security: true
   role:
     - 0
+
 /dash/page:
   controller: Pages
-  action: pages
+  action: listPage
   security: true
   role:
     - 0
     - 1
+/dash/editpage:
+  controller: Pages
+  action: editPage
+  security: true
+  role:
+    - 0
+    - 1
+/dash/statuspage:
+  controller: Pages
+  action: statusPage
+  security: true
+  role:
+    - 0
+    - 1
+
+/dash/deletePage:
+  controller: Pages
+  action: deletePage
+  security: true
+  role:
+    - 0
+
 
 /dash/addarticle:
   controller: Article

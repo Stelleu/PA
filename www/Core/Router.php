@@ -122,6 +122,7 @@ class Router extends RouteVerificator
 
     private function sendJsonResponse($data): void
     {
+        var_dump($data);
         header('Content-Type: application/json');
         echo json_encode($data);
     }

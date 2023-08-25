@@ -26,7 +26,7 @@
     <script type="text/javascript" src="/Views/keditor-master/keditor/plugins/formBuilder-2.5.3/form-builder.min.js"></script>
     <script type="text/javascript" src="/Views/keditor-master/keditor/plugins/formBuilder-2.5.3/form-render.min.js"></script>
     <!-- Start of KEditor scripts -->
-<script type="text/javascript" src="/Views/keditor-master/dist/js/keditor.js"></script>
+    <script type="text/javascript" src="/Views/keditor-master/dist/js/keditor.js"></script>
     <script type="text/javascript" src="/Views/keditor-master/dist/js/keditor-components.js"></script>
     <!-- End of KEditor scripts -->
     <script type="text/javascript" src="/Views/keditor-master/keditor/plugins/code-prettify/src/prettify.js"></script>
@@ -37,50 +37,51 @@
         $(function () {
             $('#content-area').keditor();
             $('.fa-save').click(function () {
-                // if ($('#saveTitle').val() !== "Title") {
+                const title = $('#title').val()
+                if (title !== "") {
                     const content = $('#content-area').keditor('getContent', true);
-                    const title = $('#title').val()
-                    const description = $('#floatingTextarea').val()
+                    const pageId = document.getElementById("title").getAttribute("data-page-id")
+                    const description = $('#exampleFormControlTextarea1').val()
                     const selectedRadio = document.querySelector('input[name="listGroupRadio"]:checked');
-                let selectedCategoryId = ""
-                let selectedCategoryTitle = ""
+                    let selectedCategoryId = ""
                     if (selectedRadio) {
-                         selectedCategoryId = selectedRadio.getAttribute("data-category-id");
-                         selectedCategoryTitle = selectedRadio.nextElementSibling.textContent;
-                        console.log("Selected Category ID:", selectedCategoryId);
-                        console.log("Selected Category Title:", selectedCategoryTitle);
-                    } else {
-                        console.log("No category selected");
-                        }
+                        selectedCategoryId = selectedRadio.getAttribute("data-category-id");
+                    }
                     fetch('/dash/page', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
                             action: 'send-content',
                             content: content,
-                            title: selectedCategoryTitle,
+                            title: title,
                             id: selectedCategoryId,
-                            description: description
+                            description: description,
+                            pageId: pageId
                         })
                     })
                         .then(response => {
+                            console.log(response.json())
+
                             if (response.ok) {
-                                console.log(response.json())
                                 return response.json();
                             } else {
+                                console.log(response)
+                                console.log(response.json())
                                 throw new Error('Network response was not ok');
                             }
                         })
                         .then(data => {
                             console.log(data)
-                            $('#content-area').html($('#content-area').keditor('getContent', true));
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Successful backup',
-                                text: 'The changes have been saved successfully!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            if (JSON.parse(data).success()) {
+                                $('#content-area').html($('#content-area').keditor('getContent', true));
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Successful backup',
+                                    text: 'The changes have been saved successfully!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            }
                         })
                         .catch(error => {
                             Swal.fire({
@@ -91,71 +92,21 @@
                                 timer: 1500
                             });
                         });
-
-
-
-
-
-                    // $.ajax({
-                    //     type: 'post',
-                    //     url: '/editpage',
-                    //     data: {
-                    //         action: 'send-content',
-                    //         content: content
-                    //     },
-                    //     success: function (data) {
-                    //         $('#content-area').html($('#content-area').keditor('getContent', true));
-                    //         Swal.fire({
-                    //             icon: 'success',
-                    //             title: 'Successful backup',
-                    //             text: 'The changes have been saved successfully!',
-                    //             showConfirmButton: false,
-                    //             timer: 1500
-                    //         });
-                    //     },
-                    //     error: function (error) {
-                    //         Swal.fire({
-                    //             icon: 'error',
-                    //             title: 'A problem has been encountered',
-                    //             text: 'Call the 0652144163',
-                    //             showConfirmButton: false,
-                    //             timer: 1500
-                    //         });
-                    //     }
-                    // });
-                // } else {
-                //     Swal.fire({
-                //         icon: 'info',
-                //         title: 'OUPSs, something went wrong',
-                //         text: 'First, you have to save the title of your page!',
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                // }
+                }else{
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    })
+                    swalWithBootstrapButtons.fire(
+                        'Error',
+                        'Something went wrong!',
+                        'error'
+                    );
+                }
             });
-
-            $('#deletePage').click(function () {
-                $.ajax({
-                    type: 'post',
-                    url: '/deletePage',
-                    data: {
-                        action: 'delete'
-                    },
-                    success: function (data) {
-                        location.assign('/admin/pages');
-                    },
-                    error: function (error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'A problem has been encountered',
-                            text: 'Call the 0652144163',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                });
-            });
-
         });
     </script>
 </body>

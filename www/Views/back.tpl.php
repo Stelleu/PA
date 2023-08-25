@@ -47,27 +47,33 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li class="nav-item">
-                                <a href="/home" class="nav-link active" aria-current="page">
+                                <a href="/home" class="nav-link text-white <?=($title == "Home")?"active":""?>" aria-current="page">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="/dash/categorie" class="nav-link text-white">
+                                <a href="/dash/categorie" class="nav-link text-white <?=($title == "Categories")?"active":""?>">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                                    Category
+                                    Categories
                                 </a>
                             </li>
                             <li>
-                                <a href="/dash/article" class="nav-link text-white">
+                                <a href="/dash/article" class="nav-link text-white <?=($title == "Articles")?"active":""?>">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                                     Articles
                                 </a>
                             </li>
                             <li>
-                                <a href="/dash/user" class="nav-link text-white">
+                                <a href="/dash/user" class="nav-link text-white <?=($title == "Users")?"active":""?>">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                                     Customers
+                                </a>
+                            </li>
+                             <li>
+                                <a href="/dash/page" class="nav-link text-white <?=($title == "Pages")?"active":""?>">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                                    Pages
                                 </a>
                             </li>
                             </ul>
@@ -118,6 +124,8 @@
     <?= ($title == "Articles")? '<script src="../Views/assets/js/articlesTable.js"></script>':"";?>
     <?= ($title == "Edit Article")? '<script  type="text/javascript" src="../Views/assets/js/editArticle.js"></script>':"";?>
     <?= ($title == "Category")? '<script  type="text/javascript" src="../Views/assets/js/categoryTable.js"></script>':"";?>
+    <?= ($title == "Pages")? '<script type="text/javascript" src="/Views/assets/js/pagesTable.js"></script>
+':"";?>
 
     <?= ($title == "New Article")?'<script src="../Views/assets/js/editor.js"></script>':"";?>
     <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body>
@@ -125,3 +133,4 @@
 
 </body>
 </html>
+
