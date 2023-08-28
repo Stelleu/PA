@@ -6,6 +6,7 @@
     <title><?= ucfirst($title)?></title>
     <meta name="description" content="Mon portfolio">
     <link href="/Views/assets/simple-image.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <!--<style>-->
 <!--    body {-->
@@ -99,9 +100,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">>
+        <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
-<!--                <a class="navbar-brand" href="/home">--><?php //= $front->getWebsiteName()?><!--</a>-->
+<!--            <a class="navbar-brand" href="/home">--><?php //= $front->getWebsiteName()?><!--</a>-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -128,12 +129,9 @@
             </div>
         </nav>
     </header>
-    <main class="container">
-    <div class="container-fluid">
-
+    <main>
         <?php include $this->view ?>
-    </div>
-</main>
+    </main>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -151,33 +149,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script><!-- Raw -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
-    <?=($title!="Home")?'
-        <script>
-        const articleData = document.getElementById("editorjs");
-        const content = JSON.parse(articleData.getAttribute("data-content"));
-        console.log(content)
-        const editor = new EditorJS({
-            readOnly: true,
-            tools: {
-                image: SimpleImage,
-                header:  Header,
-                list:NestedList,
-                checklist: Checklist,
-                quote: Quote,
-                warning: Warning,
-                marker:  Marker,
-                code: CodeTool,
-                delimiter: Delimiter,
-                inlineCode: InlineCode,
-                 linkTool: LinkTool,
-                raw: RawTool,
-                embed: Embed,
-                table: Table,
-            },
-            data: content
-        });
-    </script> ':""?>
-
+    <?=($title!="Home")?'<script src="Views/assets/js/cleanPage.js"></script>':""?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryFilter = document.getElementById('category-filter');
@@ -232,5 +204,7 @@
             });
         });
     </script>
+
+
 </body>
 </html>

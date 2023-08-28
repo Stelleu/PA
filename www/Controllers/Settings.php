@@ -67,12 +67,16 @@ class Settings extends Sql
         $articles = $articles->getAll();
         $version = new Version();
         $version = $version->selectOrder(["article_id"=>$article->getId()],"created_at","DESC");
+        $comments = new \App\Models\Comment();
+        $comments=$comments->getAll();
         $view = new View("Page/slug", "cleanPage");
         $view->assign("title",$article->getTitle());
         $view->assign("menu",$menu);
         $view->assign("categories",$categorie);
+        $view->assign("comments",$comments);
         $view->assign("front",$setting);
         $view->assign("articles",$articles);
+        $view->assign("article",$article);
         $view->assign("version",$version);
     }
 
@@ -80,7 +84,7 @@ class Settings extends Sql
     public function getSitemap():void
     {
         $slug = new Pages();
-        $slug = $slug->recupAll();
+        $slug = $slug->getAll();
         $view = new View("Page/sitemap","cleanPage");
         $view->assign('slug',$slug);
         $view->assign('title','Sitemap');

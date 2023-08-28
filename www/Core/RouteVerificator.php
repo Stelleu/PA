@@ -16,7 +16,7 @@ class RouteVerificator extends Sql
         $uriExploded = explode("/", $_SERVER["REQUEST_URI"]);
         $uri = trim($uriExploded[1], "/");
         $slug = new Article();
-        return !empty($slug->search(['slug' => $uri]));
+        return !empty($slug->search(['slug' => $uri])) ;
     }
 
     public static function checkWhoIAm($roleNeeded):bool

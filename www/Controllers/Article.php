@@ -28,11 +28,9 @@ class Article extends \App\Core\Sql
     }
     public function deleteArticle(): void
     {
-        $userToDelete = new  ModelArticle();
-        var_dump($_POST);
-        $userToDelete->setId($_POST["id"]);
-        echo $userToDelete->getId();
-        $userToDelete->delete();
+        $articleToDelete = new  ModelArticle();
+        $articleToDelete->setId($_POST["id"]);
+        $articleToDelete->delete();
     }
 
     public function newArticle():void
@@ -80,9 +78,6 @@ class Article extends \App\Core\Sql
         return json_encode($response);
     }
 
-
-
-
     public function editArticle():void
     {
         $view = new View("Dash/editArticle");
@@ -98,13 +93,19 @@ class Article extends \App\Core\Sql
             $version->setContent("{}");
         }
         $article = $article->search(["id" => $articleId]);
-        $categories = new Category();
-        $categories = $categories->getAll();
-        $view->assign("category", $categories);
+        if (!empty($article)){
+            $view->assign("article", $article);
+            $categories = new Category();
+            $categories = $categories->getAll();
+            $view->assign("category", $categories);
+            $view->assign("version", $version);
+            $view->assign("addArticle", $addArticle->getConfig());
+        }else{
+            $error[]= "L'article n'existe pas";
+            $view->assign("errors", $error );
+        }
         $view->assign("title", "Edit Article");
-        $view->assign("article", $article);
-        $view->assign("version", $version);
-        $view->assign("addArticle", $addArticle->getConfig());
+
     }
     public function statusArticle($requestData): string|bool
     {

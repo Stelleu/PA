@@ -18,6 +18,33 @@
   security: false
   role: []
 
+/dash/comment:
+  controller: Comment
+  action: listComment
+  security: true
+  role:
+    - 0
+    - 2
+
+/dash/addcomment:
+  controller: Comment
+  action: addComment
+  security: true
+  role: []
+
+/dash/deletecomment:
+  controller: Comment
+  action: deleteComment
+  security: true
+  role:
+    - 0
+
+/dash/reportcomment:
+  controller: Comment
+  action: reportComment
+  security: true
+  role: []
+
 /login:
   controller: Security
   action: login
@@ -34,7 +61,7 @@
   controller: Security
   action: logout
   security: true
-  role: [ ]
+  role: []
 
 /dash/user:
   controller: User
@@ -71,13 +98,36 @@
   security: true
   role:
     - 0
+
 /dash/page:
   controller: Pages
-  action: pages
+  action: listPage
   security: true
   role:
     - 0
     - 1
+/dash/editpage:
+  controller: Pages
+  action: editPage
+  security: true
+  role:
+    - 0
+    - 1
+/dash/statuspage:
+  controller: Pages
+  action: statusPage
+  security: true
+  role:
+    - 0
+    - 1
+
+/dash/deletePage:
+  controller: Pages
+  action: deletePage
+  security: true
+  role:
+    - 0
+
 
 /dash/addarticle:
   controller: Article
