@@ -53,7 +53,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/dash/categorie" class="nav-link text-white <?=($title == "Categories")?"active":""?>">
+                                <a href="/dash/categorie" class="nav-link text-white <?=($title == "Category")?"active":""?>">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                                     Categories
                                 </a>
@@ -74,6 +74,12 @@
                                 <a href="/dash/page" class="nav-link text-white <?=($title == "Pages")?"active":""?>">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                                     Pages
+                                </a>
+                            </li>
+                             <li>
+                                <a href="/dash/comment" class="nav-link text-white <?=($title == "Comments")?"active":""?>">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                                    Comments
                                 </a>
                             </li>
                             </ul>
@@ -124,13 +130,9 @@
     <?= ($title == "Articles")? '<script src="../Views/assets/js/articlesTable.js"></script>':"";?>
     <?= ($title == "Edit Article")? '<script  type="text/javascript" src="../Views/assets/js/editArticle.js"></script>':"";?>
     <?= ($title == "Category")? '<script  type="text/javascript" src="../Views/assets/js/categoryTable.js"></script>':"";?>
-<<<<<<< HEAD
     <?= ($title == "Comments")? '<script  type="text/javascript" src="../Views/assets/js/commentTable.js"></script>':"";?>
-=======
     <?= ($title == "Pages")? '<script type="text/javascript" src="/Views/assets/js/pagesTable.js"></script>
 ':"";?>
-
->>>>>>> Dash
     <?= ($title == "New Article")?'<script src="../Views/assets/js/editor.js"></script>':"";?>
     <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body>
 ':"";?>

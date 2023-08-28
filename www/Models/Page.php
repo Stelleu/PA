@@ -43,7 +43,7 @@ class Page extends Sql
 
     public function setTitle(string $title): void
     {
-        $this->title = $title;
+        $this->title = trim(ucfirst(strtolower($title)));
     }
 
     public function getSlug(): string

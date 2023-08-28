@@ -13,17 +13,15 @@ class Pages extends Sql
         $view = new View("Dash/pageBuilder","builder");
         $categories = new Category();
         $categories = $categories->getAll();
-        $view->assign("title","Page builder");
+        $view->assign("title","Pages");
         $view->assign("categories",$categories);
     }
     public function pages($requestData): string|bool
     {
         $pageBuild = new Build();
-        var_dump($requestData);
-        $pageAlreadyExist = $pageBuild->search(["id"=> $requestData["pageId"],"title"=> $requestData["title"]]);
-        var_dump($requestData);
-        if ((!empty($requestData["pageId"])) && empty($pageAlreadyExist)){
-            if ((empty($pageBuild->search(["title"=> $requestData["title"]])))){
+        $pageAlreadyExist = $pageBuild->search(["title"=> trim(ucfirst(strtolower($requestData["title"])))]);
+        if (empty($requestData["pageId"])){
+            if (empty($pageAlreadyExist)){
                 $pageBuild->setContent($requestData["content"][0]);
                 $pageBuild->setTitle($requestData["title"]);
                 $pageBuild->setUpdatedAt();
@@ -36,12 +34,11 @@ class Pages extends Sql
                 $response = array("success" => false, "message" => "Pages Already exist !");
             }
         }else{
-
             $pageBuild->setId($requestData["pageId"]);
             ($pageAlreadyExist->getContent() != $requestData["content"][0])? $pageBuild->setContent($requestData["content"][0]):$pageBuild->setContent($pageAlreadyExist->getContent());
             ($pageAlreadyExist->getTitle() != $requestData["title"])? $pageBuild->setTitle($requestData["title"]):$pageBuild->setTitle($pageAlreadyExist->getTitle());
-            ($pageAlreadyExist->getCategory() != $requestData["id"])? $pageBuild->setCategory($requestData["id"]):$pageBuild->setCategory($pageAlreadyExist->getEmail());
-            ($pageAlreadyExist->getDescription() != $requestData["Role"])? $pageBuild->setDescription($requestData["Role"]):$pageBuild->setDescription($pageAlreadyExist->getDescription());
+            ($pageAlreadyExist->getCategory() != $requestData["id"])? $pageBuild->setCategory((!empty($requestData["id"]))?$requestData["id"]:null):$pageBuild->setCategory($pageAlreadyExist->getCategory());
+            ($pageAlreadyExist->getDescription() != $requestData["description"])? $pageBuild->setDescription($requestData["description"]):$pageBuild->setDescription($pageAlreadyExist->getDescription());
             $pageBuild->save();
             $response = array("success" => true, "message" => "Modifications saved");
         }
@@ -60,9 +57,7 @@ class Pages extends Sql
     public function deletePage(): void
     {
         $pageToDelete = new Build();
-        var_dump($_POST);
         $pageToDelete->setId($_POST["id"]);
-        echo $pageToDelete->getId();
         $pageToDelete->delete();
     }
 

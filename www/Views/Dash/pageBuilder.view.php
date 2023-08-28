@@ -1,7 +1,13 @@
 
 <div class="container">
     <div class="row">
+        <div class="d-flex justify-content-start my-3">
+            <button class="btn btn-primary" onclick="goBack()">
+                Retour
+            </button>
+        </div>
     <h2 class="py-3 text-center">New Page</h2>
+        <div id="alertArea" class="container mt-3"></div>
         <div class="col py-3">
             <div class="form-group">
                 <label for="inputPassword2" class="form-label">Title  </label>

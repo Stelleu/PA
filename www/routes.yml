@@ -98,6 +98,19 @@
   security: true
   role:
     - 0
+/dash/newpage:
+  controller: Pages
+  action: index
+  security: true
+  role:
+    - 0
+    - 1
+/dash/deletepage:
+  controller: Pages
+  action: deletePage
+  security: true
+  role:
+    - 0
 
 /dash/page:
   controller: Pages
@@ -106,6 +119,14 @@
   role:
     - 0
     - 1
+/dash/savepage:
+  controller: Pages
+  action: pages
+  security: true
+  role:
+    - 0
+    - 1
+
 /dash/editpage:
   controller: Pages
   action: editPage
@@ -167,13 +188,6 @@
     - 0
     - 1
 
-/dash/newpage:
-  controller: Pages
-  action: index
-  security: true
-  role:
-    - 0
-    - 1
 
 /dash/newarticle:
   controller: Article

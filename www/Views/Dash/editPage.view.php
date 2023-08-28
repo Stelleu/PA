@@ -1,6 +1,13 @@
 <div class="container">
     <div class="row">
-        <h2 class="py-3 text-center">New Page</h2>
+        <div class="d-flex justify-content-start my-3">
+            <button class="btn btn-primary" onclick="goBack()">
+               Retour
+            </button>
+        </div>
+        <h2 class="py-3 text-center">Edit Page</h2>
+        <div id="alertArea" class="container mt-3"></div>
+
 <?php
 if (!empty($errors)):
     echo '<div class="alert alert-danger d-flex align-items-center p-2">
@@ -24,10 +31,10 @@ if (!empty($errors)):
                 <div class="form-group">
                     <label>Select the category article </label>
                     <ul class="list-group list-group-horizontal">
-                        <?php foreach ($categories as $category) : ?>
+                        <?php foreach ($categories as $category) :?>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" name="listGroupRadio" value="" id="firstRadio" data-category-id="<?= $category->getId()?>" >
-                                <label class="form-check-label" for="firstRadio" <?=($category->getId() === $page->getCategory() )??"checked"  ?> ><?= $category->getTitle()?></label>
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupRadio"  value="" id="firstRadio" data-category-id="<?= $category->getId()?>"   <?=($category->getId() === $page->getCategory()) ? "checked" : "" ?>>
+                                <label class="form-check-label" for="firstRadio" ><?= $category->getTitle()?></label>
                             </li>
                         <?php endforeach; ?>
                     </ul>
