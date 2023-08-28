@@ -1,3 +1,5 @@
+<?php
+if (!empty($article)):?>
 <section id="articles">
     <div class="container">
         <div class="row">
@@ -9,7 +11,6 @@
         </div>
     </div>
 </section>
-
 
 
     <section class="container-fluid card shadow-0 border" style="background-color: #f0f2f5;" >
@@ -86,3 +87,11 @@
 <?php endif;?>
     </section>
 
+<?php else:?>
+    <div class="container">
+        <div class="row mt-5">
+
+            <?php if(!empty($page->getContent())) :echo $page->getContent() ;  endif ?>
+        </div>
+    </div>
+<?php endif;?>

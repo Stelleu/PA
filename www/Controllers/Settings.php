@@ -6,6 +6,7 @@ use App\Core\View;
 use App\Forms\AddArticle;
 use App\Models\Article as ModelArticle;
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\Setting;
 use App\Models\Version;
 
@@ -56,28 +57,48 @@ class Settings extends Sql
     public function getSlug($slug): void
     {
         $article = new ModelArticle();
+        $page = new Page();
+        $slug= trim(strtolower($slug));
+
         $article = $article->search(["slug" => $slug]);
+        $page = $page->search(["slug" => $slug]);
+
         $setting = new \App\Models\Setting();
-        $setting = $setting->getAll();
+        $settingData = $setting->getAll();
+
         $menu = new ModelArticle();
-        $menu = $menu->multipleSearch(["menu"=>"false","status"=>"false"]);
+        $menuData = $menu->multipleSearch(["menu" => "false", "status" => "false"]);
+
         $categorie = new Category();
-        $categorie = $categorie->getAll();
+        $categorieData = $categorie->getAll();
+
         $articles = new ModelArticle();
-        $articles = $articles->getAll();
+        $articlesData = $articles->getAll();
+
         $version = new Version();
-        $version = $version->selectOrder(["article_id"=>$article->getId()],"created_at","DESC");
+        $versionData = [];
+
         $comments = new \App\Models\Comment();
-        $comments=$comments->getAll();
+        $commentsData = $comments->getAll();
+
         $view = new View("Page/slug", "cleanPage");
-        $view->assign("title",$article->getTitle());
-        $view->assign("menu",$menu);
-        $view->assign("categories",$categorie);
-        $view->assign("comments",$comments);
-        $view->assign("front",$setting);
-        $view->assign("articles",$articles);
-        $view->assign("article",$article);
-        $view->assign("version",$version);
+
+        if (!empty($article)) {
+            $view->assign("title", $article->getTitle());
+            $view->assign("article", $article);
+            $version = $version->selectOrder(["article_id" => $article->getId()], "created_at", "DESC");
+            $view->assign("version", $version);
+
+        } elseif (!empty($page)) {
+            $view->assign("title", $page->getTitle());
+            $view->assign("page",$page);
+        }
+        $view->assign("menu", $menuData);
+        $view->assign("categories", $categorieData);
+        $view->assign("comments", $commentsData);
+        $view->assign("front", $settingData);
+        $view->assign("articles", $articlesData);
+
     }
 
 

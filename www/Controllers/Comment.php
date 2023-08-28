@@ -5,10 +5,8 @@ namespace App\Controllers;
 use App\Core\Sql;
 use App\Forms\AddComment;
 use App\Models\Comment as ModelComment;
-use App\Core\Verificator;
 use App\Core\View;
-use App\Models\Pages;
-use App\Models\User as ModelUser;
+
 
 // use ChallengeS2\Models\Comment;
 

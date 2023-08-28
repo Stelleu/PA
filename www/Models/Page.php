@@ -51,9 +51,9 @@ class Page extends Sql
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
+    public function setSlug(): void
     {
-        $this->slug = $slug;
+        $this->slug = strtolower(trim(str_replace(' ', '-', preg_replace('/[[:punct:]]/', '', $this->getTitle()))));
     }
 
     public function getDescription(): string

@@ -51,8 +51,8 @@ class Router extends RouteVerificator
             }
         }
         if (empty($matchedRoute)) {
-            $error = new Error();
-            $error->errorRedirection(404);
+            $this->handleNotFoundError();
+            return;
         }
 
         $route = $this->routes[$matchedRoute];
@@ -77,12 +77,12 @@ class Router extends RouteVerificator
 
         if (isset($security) && $security === true && !self::checkConnexion()) {
             //REDIRECTION LOGIN
-            $error = new Error();
-            $error->errorRedirection(404);
+            $this->handleNotFoundError();
+            return;
         }
 //        if (isset($role) && !self::checkWhoIAm($role)) {
-//            $error = new Error();
-//            $error->errorRedirection(404);
+//             $this->handleNotFoundError();
+//        return;
 //        }
 
         if (!method_exists($controllerInstance, $action)) {
@@ -125,5 +125,13 @@ class Router extends RouteVerificator
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+    private function handleNotFoundError(): void
+    {
+        $error = new Error();
+        $error->errorRedirection(404);
+    }
+
+
+
 }
 

@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Models\Article;
+use App\Models\Page;
 
 class RouteVerificator extends Sql
 {
@@ -15,8 +16,11 @@ class RouteVerificator extends Sql
     {
         $uriExploded = explode("/", $_SERVER["REQUEST_URI"]);
         $uri = trim($uriExploded[1], "/");
-        $slug = new Article();
-        return !empty($slug->search(['slug' => $uri])) ;
+        $article = new Article();
+        $page = new Page();
+        $articleResults = $article->search(['slug' => $uri]);
+        $pageResults = $page->search(['slug' => $uri]);
+        return !empty($articleResults) || !empty($pageResults);
     }
 
     public static function checkWhoIAm($roleNeeded):bool
@@ -26,3 +30,4 @@ class RouteVerificator extends Sql
     }
 
 }
+

@@ -25,7 +25,7 @@ class Pages extends Sql
                 $pageBuild->setContent($requestData["content"][0]);
                 $pageBuild->setTitle($requestData["title"]);
                 $pageBuild->setUpdatedAt();
-                $pageBuild->setSlug($requestData["title"]);
+                $pageBuild->setSlug();
                 $pageBuild->setCategory((!empty($requestData["id"]))?$requestData["id"]:null);
                 $pageBuild->setDescription($requestData["description"]);
                 $pageBuild->save();
