@@ -12,7 +12,10 @@ class Main{
         $articles = $articles->getAll();
         $categories = new Category();
         $categories = $categories->getAll();
+        $users = new \App\Models\User();
+        $users = $users->subscribeUser();
         $view->assign("articles",$articles);
+        $view->assign("users",$users);
         $view->assign("categories",$categories);
         $view->assign("title","Home");
     }

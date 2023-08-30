@@ -8,7 +8,7 @@
     <link href="/Views/assets/simple-image.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<!--<style>-->
+<style>
 <!--    body {-->
 <!--        font-family:--><?php //= $front->getPolices() ?>
 <!--/*    }*/-->
@@ -23,8 +23,6 @@
 <!--/*    h1 {*/-->
 <!--/*        color: */--><?php ////= $front->getH1Color() ?><!--/*;*/-->
 <!--/*    }*/-->
-<!--/*</style>*/-->
-    <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;

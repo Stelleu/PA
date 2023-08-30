@@ -115,4 +115,17 @@ abstract class Sql{
         return $objects;
     }
 
+    public function subscribeUser(): array
+    {
+        $sql = "SELECT role, COUNT(id) AS user_count FROM ". $this->table." GROUP BY role ";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+        $objects = array();
+        while ($object = $queryPrepared->fetchObject(get_called_class()))
+        {
+            $objects[] = $object;
+        }
+        return $objects;
+    }
+
 }
