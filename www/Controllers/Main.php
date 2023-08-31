@@ -3,6 +3,8 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\PageViews;
+use App\Models\User;
 
 class Main{
     public function index(): void
@@ -12,27 +14,23 @@ class Main{
         $articles = $articles->getAll();
         $categories = new Category();
         $categories = $categories->getAll();
-        $users = new \App\Models\User();
-        $users = $users->subscribeUser();
+        $users = new User();
         $view->assign("articles",$articles);
         $view->assign("users",$users);
         $view->assign("categories",$categories);
         $view->assign("title","Home");
     }
 
-    public function contact(){
-        $view = new View("Main/contact", "front");
-    }
-
     public function dashboard(): void
     {
         $view = new View("Dash/index");
+        $usersModel = new User();
+        $users = $usersModel->getStats();
+        $pageViews = PageViews::getInstance();
+        $views = $pageViews->getStats();
+
         $view->assign("title", 'Home');
-
-    }
-
-    public function getAllArticle():void
-    {
-
+        $view->assign("users",$users);
+        $view->assign("views",$views);
     }
 }

@@ -55,7 +55,7 @@ class User extends Sql
                 $user->setDateInserted();
                 $user->save();
                 //send mail
-                (new Security)->sendMail();
+                (new Security)->sendMail($user);
                 return true;
             };
         };

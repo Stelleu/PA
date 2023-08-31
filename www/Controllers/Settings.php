@@ -7,6 +7,7 @@ use App\Forms\AddArticle;
 use App\Models\Article as ModelArticle;
 use App\Models\Category;
 use App\Models\Page;
+use App\Models\PageViews;
 use App\Models\Setting;
 use App\Models\Version;
 
@@ -84,6 +85,12 @@ class Settings extends Sql
         $view = new View("Page/slug", "cleanPage");
 
         if (!empty($article)) {
+            if (empty($_SESSION["user"])) {
+                $pageViews = PageViews::getInstance();
+                $pageViews->setSlug($slug);
+                $pageViews->setDateInserted();
+                $pageViews->save();
+            }
             $view->assign("title", $article->getTitle());
             $view->assign("article", $article);
             $version = $version->selectOrder(["article_id" => $article->getId()], "created_at", "DESC");

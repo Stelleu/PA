@@ -12,11 +12,6 @@
   role: []
 
 
-/dashboard:
-  controller: Main
-  action: dashboard
-  security: false
-  role: []
 
 /dash/comment:
   controller: Comment

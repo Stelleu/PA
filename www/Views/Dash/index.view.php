@@ -5,12 +5,19 @@
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
         </div>
-        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-            <svg class="bi"><use xlink:href="#calendar3"/></svg>
-            This week
-        </button>
+        <select id="periodButton" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+            <option value="byWeek">This week</option>
+            <option value="byMonth">This month</option>
+            <option value="byDay">Today</option>
+        </select>
     </div>
 </div>
-<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-<?php
+<div class="row">
+    <div>
+        <canvas id="userChart" class="my-4 w-100" width="900" height="380" data-newUsers="<?= htmlspecialchars(json_encode($users)) ?>"></canvas>
+    </div>
+    <div>
+        <canvas id="visitorChart" class="my-4 w-100" width="900" height="380" data-visitors="<?= htmlspecialchars(json_encode($views)) ?>"></canvas>
+    </div>
+</div>

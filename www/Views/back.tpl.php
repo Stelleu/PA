@@ -47,7 +47,7 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li class="nav-item">
-                                <a href="/home" class="nav-link text-white <?=($title == "Home")?"active":""?>" aria-current="page">
+                                <a href="/dash/home" class="nav-link text-white <?=($title == "Home")?"active":""?>" aria-current="page">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                                     Home
                                 </a>

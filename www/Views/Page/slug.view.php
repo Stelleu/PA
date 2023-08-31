@@ -1,5 +1,6 @@
 <?php
 if (!empty($article)):?>
+
 <section id="articles">
     <div class="container">
         <div class="row">

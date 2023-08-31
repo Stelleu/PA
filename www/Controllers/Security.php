@@ -12,7 +12,6 @@ class Security{
 
     public function login(): void
     {
-
         $form = new LoginUser();
         $view = new View("Auth/login","front");
         $view->assign('form',$form->getConfig());
@@ -75,15 +74,15 @@ class Security{
         exit;
     }
 
-    public function sendMail(): void
+    public function sendMail($user): void
     {
         //ADRESSE IP MAIL ATTENTION A FAIRE
         $mail = new Mail();
         $code = new ModelUser();
         $confMail = new Mail();
-        $confMail->setName($_POST["firstname"]);
+        $confMail->setName($user->getFirstname());
         $confMail->setSubject("Mail de confirmation");
-        $confMail->setAddress($_POST["email"]);
+        $confMail->setAddress($user->getEmail());
         $confMail->setMessage('
                                             <div class="card-body">
                                             <h5 class="card-title"> Adebc vous souhaite la bienvenue ! </h5>

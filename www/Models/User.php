@@ -173,6 +173,14 @@ class User extends Sql {
        return $code = substr(md5(uniqid().rand(1000000, 9999999)),0,4);
     }
 
+    public function getStats(): array
+    {
+        $static["byMonth"]= parent::getCountByMonth();
+        $static["byWeek"]= parent::getCountByWeek();
+        $static["byDay"]= parent::getCountByDay();
+        return $static;
+
+    }
 
 
 }
