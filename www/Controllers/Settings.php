@@ -111,9 +111,9 @@ class Settings extends Sql
 
     public function getSitemap():void
     {
-        $slug = new Pages();
+        $slug = new Page();
         $slug = $slug->getAll();
-        $view = new View("Page/sitemap","cleanPage");
+        $view = new View("Page/sitemap","sitemap");
         $view->assign('slug',$slug);
         $view->assign('title','Sitemap');
     }

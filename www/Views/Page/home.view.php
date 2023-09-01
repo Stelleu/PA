@@ -22,11 +22,10 @@
             </select>
             <!-- Ajoutez le conteneur pour afficher les articles filtrés -->
             <div id="articles-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <?php  var_dump($articles); foreach ($articles as $article) : ?>
-                    <?= (!empty($article->getImgUrl()))? $article->getImgUrl():""; ?>
+                <?php foreach ($articles as $article) : ?>
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img src="<?= (!empty($article->getImgUrl()))? $article->getImgUrl():""; ?>" class="card-img-top bd-placeholder-img card-img-top" alt="..." width="100%" height="225">
+                            <img src="<?= (!empty($article->getImgUrl()))? $article->getImgUrl():"https://picsum.photos/seed/picsum/200/300"; ?>" class="card-img-top bd-placeholder-img card-img-top" alt="..." width="100%" height="225">
                             <div class="card-body">
                                 <p class="card-text"><?= $article->getTitle()?></p>
                                 <!-- <p class="card-text">--><?php //= $article->getDescription()?><!--</p>-->
