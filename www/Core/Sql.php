@@ -143,32 +143,41 @@ abstract class Sql{
     public function getCountByWeek(): bool|array
     {
         $sql = "SELECT
-                    EXTRACT(WEEK FROM date_inserted) AS week,
-                    COUNT(*) AS total_count
-                FROM
-                   ".$this->table."
-                WHERE
-                    date_inserted >= DATE_TRUNC('month', CURRENT_DATE)
-                GROUP BY
-                    EXTRACT(WEEK FROM date_inserted)
-                ORDER BY
-                    EXTRACT(WEEK FROM date_inserted)";
-         $queryPrepared = $this->pdo->prepare($sql);
+                DATE_TRUNC('week', date_inserted) AS week,
+                COUNT(*) AS total_count
+            FROM
+               ".$this->table."
+            WHERE
+                date_inserted >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
+            GROUP BY
+                week
+            ORDER BY
+                week";
+
+        $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll();
-    }
 
+
+    }
     public function getCountByDay()
     {
         $sql = "SELECT
-                    DATE(date_inserted) AS day,
-                    COUNT(*) AS total_count
-                FROM  ".$this->table." WHERE  date_inserted >= DATE_TRUNC('week', CURRENT_DATE) GROUP BY DATE(date_inserted)
-                ORDER BY
-                    DATE(date_inserted)";
+                DATE(date_inserted) AS day,
+                COUNT(*) AS total_count
+            FROM
+               ".$this->table."
+            WHERE
+                DATE(date_inserted) = CURRENT_DATE
+            GROUP BY
+                DATE(date_inserted)
+            ORDER BY
+                DATE(date_inserted)";
+
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
         return $queryPrepared->fetchAll();
     }
+
 
 }

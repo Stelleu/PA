@@ -35,14 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+
     const updateChart = () => {
         destroyCurrentChart();
-        // const periodData = currentPeriod === 'byWeek' ? chartData.byWeek : chartData.byMonth;
         const periodData = chartData[currentPeriod];
         const labels = periodData.map(entry => entry[currentPeriod === 'byMonth' ? 'month' : currentPeriod === 'byWeek' ? 'week' : 'day']);
         const users = periodData.map(entry => entry.total_count);
         const visitors = periodData.map(entry => entry.total_count);
-        
+
+
         userChart = new Chart(ctx, {
             type: 'bar',
             data: {
