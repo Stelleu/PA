@@ -20,13 +20,13 @@
                     <option value="<?= $category->getId() ?>"><?= $category->getTitle() ?></option>
                 <?php endforeach ?>
             </select>
-
             <!-- Ajoutez le conteneur pour afficher les articles filtrés -->
             <div id="articles-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <?php foreach ($articles as $article) : ?>
+                <?php  var_dump($articles); foreach ($articles as $article) : ?>
+                    <?= (!empty($article->getImgUrl()))? $article->getImgUrl():""; ?>
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img src="<?= $article->getImgUrl(); ?>" class="card-img-top bd-placeholder-img card-img-top" alt="..." width="100%" height="225">
+                            <img src="<?= (!empty($article->getImgUrl()))? $article->getImgUrl():""; ?>" class="card-img-top bd-placeholder-img card-img-top" alt="..." width="100%" height="225">
                             <div class="card-body">
                                 <p class="card-text"><?= $article->getTitle()?></p>
                                 <!-- <p class="card-text">--><?php //= $article->getDescription()?><!--</p>-->
@@ -37,7 +37,8 @@
                             </div>
                         </div>
                     </div>
-                <?php endforeach ?>            </div>
+                <?php endforeach ?>
+            </div>
 
             <div id="spinner" class="d-none">
                 <div class="spinner-border text-primary" role="status">
