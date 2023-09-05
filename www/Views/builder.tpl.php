@@ -46,6 +46,8 @@
             $('#content-area').keditor();
             $('.fa-save').click(function () {
                 const title = $('#title').val()
+                console.log(title)
+                    console.log(document.getElementById("title").getAttribute("data-page-id"))
                 if (title !== "") {
                     const content = $('#content-area').keditor('getContent', true);
                     const pageId = document.getElementById("title").getAttribute("data-page-id")
@@ -66,10 +68,11 @@
                             pageId: pageId
                         })
                     })
-                        .then(response => {return response.json();
+                        .then(response => {
+                            console.log(response.json());return response.json();
                         })
                         .then(data => {
-                            console.log(JSON.parse(data).success)
+                            console.log(data)
                             if (JSON.parse(data).success) {
                                 console.log("ici")
                                 $('#content-area').html($('#content-area').keditor('getContent', true));
@@ -81,12 +84,14 @@
                             }
                         })
                         .catch(error => {
-                            const errorMessage = 'An error occurred. Something went wrong!';
+                            console.log(error)
+
+                            const errorMessage = 'An error occurred. Something went cc wrong!';
                             showAlert('danger', errorMessage);
                         })
 
                 }else{
-                    const errorMessage = 'An error occurred. Something went wrong!';
+                    const errorMessage = 'An error occurred. Title is empty!!';
                     showAlert('danger', errorMessage);
                 }
             });

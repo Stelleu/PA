@@ -252,7 +252,6 @@
   role:
     - 0
 
-
 /dash/font:
   controller: Settings
   action: setFront

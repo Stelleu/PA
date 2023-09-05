@@ -18,7 +18,6 @@ class Settings extends Sql
         $view = new View("Dash/gestion");
         $categories = new Category();
         $categories = $categories->getAll();
-        var_dump($categories);
         $pages = new Page();
         $pages = $pages->getAll();
         $settings = new Setting();
@@ -32,7 +31,6 @@ class Settings extends Sql
 
     public function setMenu(): void
     {
-        var_dump($_POST);
         $page = new Page();
         $category = new Category();
         if (isset($_POST["addMenu"])) {
@@ -56,12 +54,13 @@ class Settings extends Sql
 
     public function setFront(): void
     {
+        var_dump($_POST);
         $settings = new Setting();
         $settings->setId(1);
         if (!empty($_POST["newFront"])) {
-            $settings->setPolices($_POST["fontSelector"]);
+            $settings->setPolices($_POST["font"]);
             $settings->setBtnColor($_POST['btnsColor']);
-            $settings->setPColor($_POST['pColorPicker']);
+            $settings->setPColor($_POST['pColor']);
             $settings->setPSize($_POST['fontSize']);
             $settings->setH1Color($_POST['hColor']);
             $settings->save();

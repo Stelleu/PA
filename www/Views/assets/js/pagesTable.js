@@ -1,4 +1,3 @@
-console.log("ok")
 const deleteButton = document.getElementById("deleteBtn");
 const editButton = document.getElementById("editBtn");
 const deleteButtons = document.querySelectorAll(".delete-btn");

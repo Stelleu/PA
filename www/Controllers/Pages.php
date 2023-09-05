@@ -19,9 +19,8 @@ class Pages extends Sql
     public function pages($requestData): string|bool
     {
         $pageBuild = new Build();
-        $pageAlreadyExist = $pageBuild->search(["title"=> trim(ucfirst(strtolower($requestData["title"])))]);
         if (empty($requestData["pageId"])){
-            if (empty($pageAlreadyExist)){
+            if (!($pageBuild->search(["title"=> trim(ucfirst(strtolower($requestData["title"])))]))){
                 $pageBuild->setContent($requestData["content"][0]);
                 $pageBuild->setTitle($requestData["title"]);
                 $pageBuild->setUpdatedAt();
@@ -34,9 +33,17 @@ class Pages extends Sql
                 $response = array("success" => false, "message" => "Pages Already exist !");
             }
         }else{
+            $pageAlreadyExist = $pageBuild->search(["id"=> $requestData["pageId"]]);
             $pageBuild->setId($requestData["pageId"]);
             ($pageAlreadyExist->getContent() != $requestData["content"][0])? $pageBuild->setContent($requestData["content"][0]):$pageBuild->setContent($pageAlreadyExist->getContent());
-            ($pageAlreadyExist->getTitle() != $requestData["title"])? $pageBuild->setTitle($requestData["title"]):$pageBuild->setTitle($pageAlreadyExist->getTitle());
+            if ($pageAlreadyExist->getTitle() != $requestData["title"]) {
+                $pageBuild->setTitle($requestData["title"]);
+                $pageBuild->setSlug();
+                echo $pageBuild->getSlug();
+
+            } else {
+                $pageBuild->setTitle($pageAlreadyExist->getTitle());
+            }
             ($pageAlreadyExist->getCategory() != $requestData["id"])? $pageBuild->setCategory((!empty($requestData["id"]))?$requestData["id"]:null):$pageBuild->setCategory($pageAlreadyExist->getCategory());
             ($pageAlreadyExist->getDescription() != $requestData["description"])? $pageBuild->setDescription($requestData["description"]):$pageBuild->setDescription($pageAlreadyExist->getDescription());
             $pageBuild->save();
@@ -72,7 +79,6 @@ class Pages extends Sql
                 $newStatus = !$currentStatus;
                 $page->setStatus($newStatus);
                 $page->save();
-
                 $response = ["success" => true, "message" => $newStatus ? "Article published" : "Article unpublished"];
             } else {
                 $response = ["success" => false, "message" => "Article not found"];
@@ -80,7 +86,6 @@ class Pages extends Sql
         } else {
             $response = ["success" => false, "message" => "Invalid request"];
         }
-
         header("Content-Type: application/json");
         return json_encode($response);
     }

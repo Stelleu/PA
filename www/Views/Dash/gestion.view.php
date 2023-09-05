@@ -30,7 +30,7 @@
                 <div class="col-sm-3 align-center">
                     <div class="form-group">
                         <label for="menuPrinc">Add to the sub-menu Article:</label>
-                        <select class="form-select delMenu" aria-label="Default select example">
+                        <select class="form-select princSubMenu" aria-label="Default select example">
                             <option selected > Choose the categories you wanna add to the menu</option>
                             <?php foreach ($categories as $category) :
                                 if  (!$category->isMenu()) :?>
@@ -57,7 +57,7 @@
                 <div class="col-sm-3 align-center">
                     <div class="form-group">
                         <label for="menuPrinc">Delete to the Sub Menu:</label>
-                        <select class="form-select delMenu" aria-label="Default select example">
+                        <select class="form-select delSubMenu" aria-label="Default select example">
                             <option selected > Choose the page you wanna delete</option>
                             <?php
                             foreach ($categories as $category) :
@@ -73,7 +73,7 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <h3 class="pt-3">Front edit </h3>
             <p  class="pb-3">Edit your front page.</p>
-            <form action="/dash/font" method="post" id="fontForm">
+            <form action="" method="post" id="fontForm">
                 <div  class="row text-center">
                         <div class="col-sm-3 align-center">
                             <div class="form-group">
@@ -161,7 +161,7 @@
         })
     })
     addSubMenu.addEventListener('click',e =>{
-        const princMenu = document.querySelector('.princMenu');
+        const princMenu = document.querySelector('.princSubMenu');
         $.ajax({
             type:'post',
             url:'/dash/setmenu',
@@ -190,7 +190,7 @@
         })
     })
     delSubMenu.addEventListener('click', e =>{
-        const delMenu = document.querySelector('.delMenu')
+        const delMenu = document.querySelector('.delSubMenu')
         $.ajax({
             type:'post',
             url:'/dash/setmenu',
@@ -216,7 +216,7 @@
             }
         })
     })
-delMenu.addEventListener('click', e =>{
+    delMenu.addEventListener('click', e =>{
         const delMenu = document.querySelector('.delMenu')
         $.ajax({
             type:'post',
@@ -243,5 +243,59 @@ delMenu.addEventListener('click', e =>{
             }
         })
     })
+
+    var form = document.getElementById("fontForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var pColor = form.elements["pColorPicker"].value;
+        var font = form.elements["fontSelector"].value;
+        var fontSize = form.elements["fontSize"].value;
+        var hColor = form.elements["hColor"].value;
+        var btnsColor = form.elements["btnsColor"].value;
+
+        console.log("Paragraph Color: " + pColor);
+        console.log("Font: " + font);
+        console.log("Font Size: " + fontSize);
+        console.log("H1 Color: " + hColor);
+        console.log("Button Color: " + btnsColor);
+
+        $.ajax({
+            type:'post',
+            url:'/dash/font',
+            data: {
+                newFront: 'saveFont',
+                pColor: pColor,
+                font: font,
+                fontSize: fontSize,
+                hColor: hColor,
+                btnsColor: btnsColor,
+            },
+            success:function (response) {
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'The page has been delete from your menu',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // location.reload()
+            },
+            error:function (error) {
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'A problem has been encountered',
+                    text: 'Call the 0652144163',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+
+    });
+
 
 </script>

@@ -5,7 +5,7 @@ namespace App\Models;
 class Setting extends \App\Core\Sql
 {
     protected int $id =0;
-    protected String $website_name; //mettre la valeur GLOBAL NOM DU SITE
+    protected String $website_name = "Adebc"; //mettre la valeur GLOBAL NOM DU SITE
     protected String $H1_color;
     protected String $polices;
     protected String $p_color;
