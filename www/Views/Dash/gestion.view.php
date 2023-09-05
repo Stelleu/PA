@@ -17,10 +17,10 @@
                     <div class="form-group">
                         <label for="menuPrinc">Add to the principal Menu:</label>
                         <select class="form-select princMenu" aria-label="Default select example">
-                            <option selected > Choose the page you wanna add</option>
-                            <?php foreach ($articles as $article) :
-                                if ($article->isStatus() && !$article->isMenu()) :?>
-                                    <option value="<?=  $article->getId() ?>"><?= $article->getTitle() ?></option>
+                            <option selected > Choose the page you wanna add to the menu</option>
+                            <?php foreach ($pages as $page) :
+                                if ($page->getStatus() && !$page->getMenu()) :?>
+                                    <option value="<?=  $page->getId() ?>"><?= $page->getTitle() ?></option>
                                 <?php endif; endforeach; ?>
                         </select>
 
@@ -29,16 +29,43 @@
                 </div>
                 <div class="col-sm-3 align-center">
                     <div class="form-group">
+                        <label for="menuPrinc">Add to the sub-menu Article:</label>
+                        <select class="form-select delMenu" aria-label="Default select example">
+                            <option selected > Choose the categories you wanna add to the menu</option>
+                            <?php foreach ($categories as $category) :
+                                if  (!$category->isMenu()) :?>
+                                    <option value="<?=  $category->getId() ?>"><?= $category->getTitle() ?></option>
+                                <?php endif; endforeach; ?>
+                        </select>
+                        <button class="btn btn-primary my-5" id="addSubMenu"> Save </button>
+                    </div>
+                </div>
+                <div class="col-sm-3 align-center">
+                    <div class="form-group">
                         <label for="menuPrinc">Delete to the principal Menu:</label>
                         <select class="form-select delMenu" aria-label="Default select example">
                             <option selected > Choose the page you wanna delete</option>
                             <?php
-                            foreach ($articles as $article) :
-                                if ($article->isMenu() == 1) :?>
-                                    <option value="<?=  $article->getId() ?>"><?= $article->getTitle() ?></option>
+                            foreach ($pages as $page) :
+                                if ($page->getMenu() == 1) :?>
+                                    <option value="<?=  $page->getId() ?>"><?= $page->getTitle() ?></option>
                                 <?php endif; endforeach; ?>
                         </select>
                         <button class="btn btn-danger my-5" id="delMenu"> Delete </button>
+                    </div>
+                </div>
+                <div class="col-sm-3 align-center">
+                    <div class="form-group">
+                        <label for="menuPrinc">Delete to the Sub Menu:</label>
+                        <select class="form-select delMenu" aria-label="Default select example">
+                            <option selected > Choose the page you wanna delete</option>
+                            <?php
+                            foreach ($categories as $category) :
+                                if ($category->isMenu() == 1) :?>
+                                    <option value="<?=  $category->getId() ?>"><?= $category->getTitle() ?></option>
+                                <?php endif; endforeach; ?>
+                        </select>
+                        <button class="btn btn-danger my-5" id="delSubMenu"> Delete </button>
                     </div>
                 </div>
             </div>
@@ -101,6 +128,8 @@
 </div>
 <script>
     const addMenu = document.getElementById("saveMenu")
+    const addSubMenu = document.getElementById("addSubMenu")
+    const delSubMenu = document.getElementById("delSubMenu")
     const delMenu = document.getElementById("delMenu")
     const newFront = document.getElementById("newFront")
     addMenu.addEventListener('click',e =>{
@@ -131,7 +160,63 @@
             }
         })
     })
-    delMenu.addEventListener('click', e =>{
+    addSubMenu.addEventListener('click',e =>{
+        const princMenu = document.querySelector('.princMenu');
+        $.ajax({
+            type:'post',
+            url:'/dash/setmenu',
+            data: { addSubMenu: 'addSubMenu', page: princMenu.value},
+            success:function (response) {
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'The page has been added to your menu',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                location.reload()
+
+            },
+            error:function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'A problem has been encountered',
+                    text: 'Call the 0652144163',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    })
+    delSubMenu.addEventListener('click', e =>{
+        const delMenu = document.querySelector('.delMenu')
+        $.ajax({
+            type:'post',
+            url:'/dash/setmenu',
+            data: { delSubMenu: 'delSubMenu', page: delMenu.value},
+            success:function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'The page has been delete from your menu',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                location.reload()
+            },
+            error:function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'A problem has been encountered',
+                    text: 'Call the 0652144163',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    })
+delMenu.addEventListener('click', e =>{
         const delMenu = document.querySelector('.delMenu')
         $.ajax({
             type:'post',
@@ -158,4 +243,5 @@
             }
         })
     })
+
 </script>

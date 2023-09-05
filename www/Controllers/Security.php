@@ -88,9 +88,9 @@ class Security{
                                             <h5 class="card-title"> Adebc vous souhaite la bienvenue ! </h5>
                                             <p class="card-text">Une fois votre compte validé vous pourrez commenter autant que vous le souhaitez !.</p>
                                             <p class="card-text">Oublie pas le respect est OBLIGATOIRE chez nous ;)  .</p>
-                                                <button><a class="btn btn-primary" href="http://193.70.2.69/confirmation?key='.$code->generateCode().'"> Confirmer votre mail. </a></button>
+                                                <button><a class="btn btn-primary" href="http://193.70.2.69/confirmation?key='.$user->getToken().'"> Confirmer votre mail. </a></button>
                                            </div>');
-        $mail = $confMail->mail($confMail->initMail());
+        $confMail->mail($confMail->initMail());
     }
 
     public function confirmation():void

@@ -1,11 +1,11 @@
 <?php
 namespace App\Models;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+require_once __DIR__ . '/../vendor/autoload.php';
+//use PHPMailer\PHPMailer\PHPMailer;
+//use PHPMailer\PHPMailer\Exception;
+//use PHPMailer\PHPMailer\SMTP;
 
 //Load Composer's autoloader
-require_once __DIR__ . '/../vendor/autoload.php';
 class Mail {
     protected String $message;
     protected String $address;
@@ -64,7 +64,7 @@ class Mail {
     {
         $mail = new PHPMailer();
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
+//        $mail->SMTPDebug = SMTP::DEBUG_LOWLEVEL;                      //Enable verbose debug output
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -92,7 +92,9 @@ class Mail {
             $mail->Body    = $this->message;
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
+            var_dump($mail->send());
             $mail->send();
+
         }catch(Exception $e) {
             return '<div class="alert-error" style="text-align: center; padding: 1em ;">
                         <span>'.$e->getMessage().'</span>

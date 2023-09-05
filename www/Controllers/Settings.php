@@ -16,27 +16,41 @@ class Settings extends Sql
     public function listMenu(): void
     {
         $view = new View("Dash/gestion");
-        $articles = new ModelArticle();
-        $articles = $articles->getAll();
+        $categories = new Category();
+        $categories = $categories->getAll();
+        var_dump($categories);
+        $pages = new Page();
+        $pages = $pages->getAll();
         $settings = new Setting();
         $settings = $settings->getAll();
         $view->assign("title", "Menu");
-        $view->assign("articles", $articles);
+        $view->assign("categories", $categories);
+        $view->assign("pages", $pages);
         $view->assign("settings", $settings);
 
     }
 
     public function setMenu(): void
     {
-        $articles = new ModelArticle();
+        var_dump($_POST);
+        $page = new Page();
+        $category = new Category();
         if (isset($_POST["addMenu"])) {
-            $articles->setMenu(1);
-            $articles->setId($_POST["page"]);
-            $articles->save();
+            $page->setMenu(1);
+            $page->setId($_POST["page"]);
+            $page->save();
         } elseif (isset($_POST["delMenu"])) {
-            $articles->setId($_POST["page"]);
-            $articles->setMenu(0);
-            $articles->save();
+            $page->setId($_POST["page"]);
+            $page->setMenu(0);
+            $page->save();
+        }elseif (isset($_POST["addSubMenu"])) {
+            $category->setMenu(1);
+            $category->setId($_POST["page"]);
+            $category->save();
+        }elseif (isset($_POST["delSubMenu"])) {
+            $category->setId($_POST["page"]);
+            $category->setMenu(0);
+            $category->save();
         }
     }
 

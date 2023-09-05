@@ -7,7 +7,19 @@ use App\Core\Sql;
 class Category extends Sql
 {
     protected int $id = 0;
+    protected int $menu = 0;
     protected String $title;
+
+    public function isMenu(): int
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(int $menu): void
+    {
+        $this->menu = $menu;
+    }
+
 
     /**
      * @return int

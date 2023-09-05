@@ -81,8 +81,8 @@ class Router extends RouteVerificator
             //REDIRECTION LOGIN
             $this->handleNotFoundError(404);
         }
-        if (isset($role)   &&!self::checkWhoIAm($role)) {
-             $this->handleNotFoundError(404);
+        if (isset($role)  &&!self::checkWhoIAm($role)) {
+             $this->handleNotFoundError(500);
         }
 
         if (!method_exists($controllerInstance, $action)) {

@@ -5,7 +5,7 @@ use Cassandra\Date;
 
 class User extends Sql {
 
-    protected Int $id = 0;
+    protected Int $id =0;
     protected String $firstname;
     protected String $lastname;
     protected String $email;

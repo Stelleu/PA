@@ -143,7 +143,8 @@ class Article extends \App\Core\Sql
                     'id' => $article->getId(),
                     'title' =>$article->getTitle(),
                     'created_at' => date('d / m', strtotime($article->getCreatedAt())),
-                    'slug' => $article->getSlug()
+                    'slug' => $article->getSlug(),
+                    'img' => $article->getImgUrl()
                 ];
             }
             $response = ['success' => true, 'content' => $filteredHTML];
