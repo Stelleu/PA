@@ -7,7 +7,6 @@
             <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Front edit</a>
         </li>
     </ul>
-
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <h3 class="pt-3" >Menu</h3>
@@ -70,6 +69,7 @@
                 </div>
             </div>
         </div>
+
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <h3 class="pt-3">Front edit </h3>
             <p  class="pb-3">Edit your front page.</p>
@@ -89,6 +89,10 @@
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Times New Roman, serif")?"selected": " " ?>   value="Times New Roman, serif">Times New Roman</option>
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Georgia, serif")?"selected": " "  ?>   value="Georgia, serif">Georgia</option>
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Roboto</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Helvetica Neue</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Liberation Sans</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Segoe UI</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">System-ui,-apple-system</option>
                                 </select>
                             </div>
                         </div>

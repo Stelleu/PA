@@ -4,6 +4,7 @@ use App\Core\View;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\PageViews;
+use App\Models\Setting;
 use App\Models\User;
 
 class Main{
@@ -14,10 +15,13 @@ class Main{
         $articles = $articles->getAll();
         $categories = new Category();
         $categories = $categories->getAll();
+        $setting = new Setting();
+        $setting = $setting->search(["id"=>1]);
         $users = new User();
         $view->assign("articles",$articles);
         $view->assign("users",$users);
         $view->assign("categories",$categories);
+        $view->assign("front",$setting);
         $view->assign("title","Home");
     }
 

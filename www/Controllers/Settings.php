@@ -21,14 +21,13 @@ class Settings extends Sql
         $pages = new Page();
         $pages = $pages->getAll();
         $settings = new Setting();
-        $settings = $settings->getAll();
+        $settings = $settings->search(["id"=>1]);
         $view->assign("title", "Menu");
         $view->assign("categories", $categories);
         $view->assign("pages", $pages);
-        $view->assign("settings", $settings);
+        $view->assign("setting", $settings);
 
     }
-
     public function setMenu(): void
     {
         $page = new Page();
@@ -41,11 +40,11 @@ class Settings extends Sql
             $page->setId($_POST["page"]);
             $page->setMenu(0);
             $page->save();
-        }elseif (isset($_POST["addSubMenu"])) {
+        } elseif (isset($_POST["addSubMenu"])) {
             $category->setMenu(1);
             $category->setId($_POST["page"]);
             $category->save();
-        }elseif (isset($_POST["delSubMenu"])) {
+        } elseif (isset($_POST["delSubMenu"])) {
             $category->setId($_POST["page"]);
             $category->setMenu(0);
             $category->save();
@@ -54,7 +53,6 @@ class Settings extends Sql
 
     public function setFront(): void
     {
-        var_dump($_POST);
         $settings = new Setting();
         $settings->setId(1);
         if (!empty($_POST["newFront"])) {
@@ -78,22 +76,23 @@ class Settings extends Sql
         $page = $page->search(["slug" => $slug]);
 
         $setting = new \App\Models\Setting();
-        $settingData = $setting->getAll();
+        $setting = $setting->search(["id"=>0]);
+        var_dump($setting);
 
         $menu = new ModelArticle();
         $menuData = $menu->multipleSearch(["menu" => "false", "status" => "false"]);
 
         $categorie = new Category();
-        $categorieData = $categorie->getAll();
+        $categorie = $categorie->getAll();
 
         $articles = new ModelArticle();
-        $articlesData = $articles->getAll();
+        $articles = $articles->getAll();
 
         $version = new Version();
         $versionData = [];
 
         $comments = new \App\Models\Comment();
-        $commentsData = $comments->getAll();
+        $comments = $comments->getAll();
 
         $view = new View("Page/slug", "cleanPage");
 
@@ -114,10 +113,10 @@ class Settings extends Sql
             $view->assign("page",$page);
         }
         $view->assign("menu", $menuData);
-        $view->assign("categories", $categorieData);
-        $view->assign("comments", $commentsData);
-        $view->assign("front", $settingData);
-        $view->assign("articles", $articlesData);
+        $view->assign("categories", $categorie);
+        $view->assign("comments", $comments);
+        $view->assign("front", $setting);
+        $view->assign("articles", $articles);
 
     }
 

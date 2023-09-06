@@ -9,20 +9,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <style>
-<!--    body {-->
-<!--        font-family:--><?php //= $front->getPolices() ?>
-<!--/*    }*/-->
-<!--/*    p {*/-->
-<!--/*        color: */--><?php ////= $front->getPColor() ?><!--/* ;*/-->
-<!--/*        text-size:  */--><?php ////= $front->getPSize() ?><!--/* ;*/-->
-<!--/*    }*/-->
-<!--/*    .btn-primary, .btn-primary:hover, .btn-primary:active  {*/-->
-<!--/*        background-color: */--><?php ////= $front->getBtnColor() ?><!--/* ;*/-->
-<!--/*        border-color : */--><?php ////= $front->getBtnColor() ?><!--/* ;*/-->
-<!--/*    }*/-->
-<!--/*    h1 {*/-->
-<!--/*        color: */--><?php ////= $front->getH1Color() ?><!--/*;*/-->
-<!--/*    }*/-->
+    body {
+        font-family: <?= (!empty($front) ? $front->getPolices() : "") ?>;
+    }
+
+    p {
+        color: <?= (!empty($front) ? $front->getPColor() : "") ?>;
+        font-size: <?= (!empty($front) ? $front->getPSize() : "") ?>;
+    }
+
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:active {
+        background-color: <?= (!empty($front) ? $front->getBtnColor() : "") ?>;
+        border-color: <?= (!empty($front) ? $front->getBtnColor() : "") ?>;
+    }
+
+    h1 {
+        color: <?= (!empty($front) ? $front->getH1Color() : "") ?>;
+    }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -129,6 +134,7 @@
         </header>
 
         <div class="nav-scroller py-1 mb-3 border-bottom">
+<!--            --><?php //foreach ()?>
             <nav class="nav nav-underline justify-content-between">
                 <a class="nav-item nav-link link-body-emphasis active" href="#">World</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
