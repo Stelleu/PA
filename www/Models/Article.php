@@ -200,18 +200,6 @@ class Article extends \App\Core\Sql
     {
         $this->author = $author;
     }
-    public function createMemento(): Version
-    {
-        return new Version($this->text, $this->id);
-    }
-
-    public function restoreMemento(Version $memento): void
-    {
-        $this->text = $memento->getContent();
-    }
-
-
-
 
 
 }

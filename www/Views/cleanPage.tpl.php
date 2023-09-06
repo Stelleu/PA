@@ -119,48 +119,49 @@
         <header class="border-bottom lh-1 py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                    <a class="link-secondary" href="#">Subscribe</a>
+                    <a class="link-secondary" href="/register">Subscribe</a>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Large</a>
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="#"><?= $front->getWebsiteName() ?></a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
                     </a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="/login">Sign up</a>
                 </div>
             </div>
         </header>
-<?php if(!empty($pages)): ?>
-        <div class="nav-scroller py-1 mb-3 border-bottom">
-            <nav class="nav nav-underline justify-content-between">
-            <?php foreach ($pages as $page) : ?>
-                <a class="nav-item nav-link link-body-emphasis active" href="<?=$page->getSlug() ?>"><?=$page->getTitle() ?></a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Technology</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Business</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
-            <?php  endforeach;?>
-                <li class="nav-item dropdown">
-                    <a class=" nav-link link-body-emphasis dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Articles
-                    </a>
-                    <ul class="dropdown-menu">
-                        <?php foreach ($categories as $category) :
-                            if ($category->isMenu()== 1):?>
-                            <li><a class="dropdown-item" href="<?= $category->getSlug()?>"><?=$category->getTitle() ?></a></li>
-                            <li><hr class="dropdown-divider"></li>
-                        <?php endif; endforeach;?>
+        <?php if(!empty($pages)): ?>
+            <div class=" py-1 mb-3 border-bottom">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                    <button class="navbar-toggler  justify-content-end align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                            <?php  foreach ($pages as $page) : ?>
+                            <li class="nav-item">
+                                <a class="nav-item nav-link link-body-emphasis " href="<?=$page->getSlug() ?>"><?=$page->getTitle() ?></a>
+                            </li>
+                            <?php  endforeach; ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Articles
+                                </a>
 
-                    </ul>
-                </li>
+                                <ul class="dropdown-menu">
+                                    <?php foreach ($categories as $category) :
+                                      if ($category->isMenu()== 1):?>
+                                        <li><a class="dropdown-item" href="<?= $category->getSlug()?>"><?=$category->getTitle() ?></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    <?php endif; endforeach;?>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </div>
         <?php endif; ?>
@@ -169,6 +170,12 @@
         <h1 class="text-center py-2"><?= ucfirst($title) ?></h1>
         <?php include $this->view ?>
     </main>
+    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+        <p>Blog  built for <a href="https://getbootstrap.com/">ESGI</a> by <a href="">@Bilel @Paul & @Estelle</a>.</p>
+        <p class="mb-0">
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>

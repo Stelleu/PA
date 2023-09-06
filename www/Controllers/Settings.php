@@ -76,14 +76,16 @@ class Settings extends Sql
         $page = $page->search(["slug" => $slug]);
 
         $setting = new \App\Models\Setting();
-        $setting = $setting->search(["id"=>0]);
-        var_dump($setting);
+        $setting = $setting->search(["id"=>1]);
 
         $menu = new ModelArticle();
         $menuData = $menu->multipleSearch(["menu" => "false", "status" => "false"]);
 
         $categorie = new Category();
         $categorie = $categorie->getAll();
+
+        $menuCategory= new Category();
+        $menuCategory= $menuCategory->search(["slug" => $slug]);
 
         $articles = new ModelArticle();
         $articles = $articles->getAll();
@@ -111,6 +113,9 @@ class Settings extends Sql
         } elseif (!empty($page)) {
             $view->assign("title", $page->getTitle());
             $view->assign("page",$page);
+        }elseif (!empty($menuCategory)) {
+            $view->assign("title", $menuCategory->getTitle());
+            $view->assign("menuCategory",$menuCategory);
         }
         $view->assign("menu", $menuData);
         $view->assign("categories", $categorie);

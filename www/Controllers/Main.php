@@ -15,7 +15,7 @@ class Main{
         $articles = new Article();
         $articles = $articles->getAll();
         $categories = new Category();
-        $categories = $categories->getAll();
+        $categories = $categories->multipleSearch(["menu"=>1]);
         $setting = new Setting();
         $setting = $setting->search(["id"=>1]);
         $pages = new Page();

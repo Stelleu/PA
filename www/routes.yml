@@ -238,6 +238,8 @@
 /register:
   controller: Security
   action: register
+  security: false
+  role: []
 
 /{slug}:
   controller: Settings
