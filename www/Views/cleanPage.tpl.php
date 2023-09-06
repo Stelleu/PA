@@ -132,11 +132,11 @@
                 </div>
             </div>
         </header>
-
+<?php if(!empty($pages)): ?>
         <div class="nav-scroller py-1 mb-3 border-bottom">
-<!--            --><?php //foreach ()?>
             <nav class="nav nav-underline justify-content-between">
-                <a class="nav-item nav-link link-body-emphasis active" href="#">World</a>
+            <?php foreach ($pages as $page) : ?>
+                <a class="nav-item nav-link link-body-emphasis active" href="<?=$page->getSlug() ?>"><?=$page->getTitle() ?></a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">Technology</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>
@@ -146,10 +146,24 @@
                 <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
-                <a class="nav-item nav-link link-body-emphasis" href="#">Style</a>
                 <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
+            <?php  endforeach;?>
+                <li class="nav-item dropdown">
+                    <a class=" nav-link link-body-emphasis dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Articles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($categories as $category) :
+                            if ($category->isMenu()== 1):?>
+                            <li><a class="dropdown-item" href="<?= $category->getSlug()?>"><?=$category->getTitle() ?></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                        <?php endif; endforeach;?>
+
+                    </ul>
+                </li>
             </nav>
         </div>
+        <?php endif; ?>
     </div>
     <main>
         <h1 class="text-center py-2"><?= ucfirst($title) ?></h1>

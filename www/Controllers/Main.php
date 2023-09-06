@@ -3,6 +3,7 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\PageViews;
 use App\Models\Setting;
 use App\Models\User;
@@ -17,11 +18,14 @@ class Main{
         $categories = $categories->getAll();
         $setting = new Setting();
         $setting = $setting->search(["id"=>1]);
+        $pages = new Page();
+        $pages = $pages->multipleSearch(["menu"=>1]);
         $users = new User();
         $view->assign("articles",$articles);
         $view->assign("users",$users);
         $view->assign("categories",$categories);
         $view->assign("front",$setting);
+        $view->assign("pages",$pages);
         $view->assign("title","Home");
     }
 
