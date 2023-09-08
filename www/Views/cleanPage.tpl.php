@@ -24,9 +24,13 @@
         background-color: <?= (!empty($front) ? $front->getBtnColor() : "") ?>;
         border-color: <?= (!empty($front) ? $front->getBtnColor() : "") ?>;
     }
-
+    .blog-header-logo {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        font-size: 2.25rem;
+    }
     h1 {
         color: <?= (!empty($front) ? $front->getH1Color() : "") ?>;
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
     }
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -122,7 +126,7 @@
                     <a class="link-secondary" href="/register">Subscribe</a>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="#"><?= $front->getWebsiteName() ?></a>
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="/"><?= $front->getWebsiteName() ?></a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
@@ -167,7 +171,7 @@
         <?php endif; ?>
     </div>
     <main>
-        <h1 class="text-center py-2"><?= ucfirst($title) ?></h1>
+        <h1 class="text-center py-2"><?= ($title!= "Home")? ucfirst($title):"" ?></h1>
         <?php include $this->view ?>
     </main>
     <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
