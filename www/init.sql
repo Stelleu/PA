@@ -19,7 +19,7 @@ CREATE TABLE "public"."esgi_article" (
 ) WITH (oids = false);
 
 INSERT INTO "esgi_article" ("id", "title", "created_at", "author", "category", "comment", "menu", "status", "slug", "img_url") VALUES
-    (9,	'Une photo zoomer est elle est un portrait                                       ',	'2023-08-11 19:37:09',	4,	5,	't',	'f',	'f',	'une-photo-zoomer-est-elle-est-un-portrait',	NULL);
+    (9,	'Une photo zoomer est elle est un portrait                                       ',	'2023-08-11 19:37:09',	4,	5,	't',	'f',	'f',	'une-photo-zoomer-est-elle-est-un-portrait',	'https://picsum.photos/seed/picsum/200/300');
 
 DROP TABLE IF EXISTS "esgi_category";
 DROP SEQUENCE IF EXISTS esgi_category_id_seq;
@@ -28,11 +28,13 @@ CREATE SEQUENCE esgi_category_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 
 CREATE TABLE "public"."esgi_category" (
                                           "id" integer DEFAULT nextval('esgi_category_id_seq') NOT NULL,
                                           "title" character(80) NOT NULL,
+                                          "menu" smallint DEFAULT '0' NOT NULL,
+                                          "slug" character varying,
                                           CONSTRAINT "esgi_category_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-INSERT INTO "esgi_category" ("id", "title") VALUES
-    (5,	'portrait                                                                        ');
+INSERT INTO "esgi_category" ("id", "title", "menu", "slug") VALUES
+    (5,	'portrait                                                                        ',	1,	'all-portrait');
 
 DROP TABLE IF EXISTS "esgi_comment";
 DROP SEQUENCE IF EXISTS esgi_comment_id_seq;
@@ -67,11 +69,9 @@ CREATE TABLE "public"."esgi_page" (
 ) WITH (oids = false);
 
 INSERT INTO "esgi_page" ("id", "title", "slug", "description", "status", "content", "updated_at", "menu", "category") VALUES
-    (1,	'',	'',	'ici vous pourrait prendre contact avec nous à n''importe quel moment ! ',	0,	'<div class="row">
-            <div class="col-sm-12 ui-resizable" data-type="container-content"><div data-type="component-form">
-
-            </div><div class="form-data" style="display: none !important;" data-type="component-form">[{"type":"text","subtype":"email","label":"Email","className":"form-control","name":"testexamplefr"},{"type":"textarea","label":"Message","className":"form-control","name":"textarea-1692953228716","subtype":"textarea"},{"type":"button","subtype":"submit","label":"Send","className":"btn btn-info","name":"button-1692953243875","style":"info"}]</div><form class="form-content" data-type="component-form"><div class="fb-text form-group field-testexamplefr"><label for="testexamplefr" class="fb-text-label">Email</label><input type="email" class="form-control" name="testexamplefr" id="testexamplefr"></div><div class="fb-textarea form-group field-textarea-1692953228716"><label for="textarea-1692953228716" class="fb-textarea-label">Message</label><textarea type="textarea" class="form-control" name="textarea-1692953228716" id="textarea-1692953228716"></textarea></div><div class="fb-button form-group field-button-1692953243875"><button type="submit" class="btn btn-info" name="button-1692953243875" style="info" id="button-1692953243875">Send</button></div></form></div>
-        </div>',	'2023-08-25 09:04:46',	0,	NULL);
+    (1,	'Contact',	'contact',	'ici vous pourrait prendre contact avec nous à n''importe quel moment ! ',	1,	'<div class="row">
+            <div class="col-sm-12 ui-resizable" data-type="container-content"><form class="form-content" data-type="component-form"><div class="fb-text form-group field-testexamplefr"><label for="testexamplefr" class="fb-text-label">Email</label><input type="email" class="form-control" name="testexamplefr" id="testexamplefr"></div><div class="fb-textarea form-group field-textarea-1692953228716"><label for="textarea-1692953228716" class="fb-textarea-label">Message</label><textarea type="textarea" class="form-control" name="textarea-1692953228716" id="textarea-1692953228716"></textarea></div><div class="fb-button form-group field-button-1692953243875"><button type="submit" class="btn btn-info" name="button-1692953243875" style="info" id="button-1692953243875">Send</button></div></form><div class="form-data" style="display: none !important;" data-type="component-form"></div></div>
+        </div>',	'2023-08-25 09:04:46',	1,	NULL);
 
 DROP TABLE IF EXISTS "esgi_pageviews";
 DROP SEQUENCE IF EXISTS esgi_pageviews_id_seq;
@@ -97,14 +97,17 @@ INSERT INTO "esgi_pageviews" ("id", "slug", "date_inserted") VALUES
 DROP TABLE IF EXISTS "esgi_setting";
 CREATE TABLE "public"."esgi_setting" (
                                          "id" integer NOT NULL,
-                                         "website_name" smallint NOT NULL,
-                                         "H1_color" character varying NOT NULL,
-                                         "polices" character varying NOT NULL,
-                                         "p_color" character varying NOT NULL,
-                                         "p_size" integer NOT NULL,
-                                         "btn_color" character varying NOT NULL
+                                         "website_name" character varying NOT NULL,
+                                         "h1_color" character varying DEFAULT ' #black' NOT NULL,
+                                         "polices" character varying DEFAULT 'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"' NOT NULL,
+                                         "p_color" character varying DEFAULT '#black' NOT NULL,
+                                         "p_size" character varying DEFAULT '12px' NOT NULL,
+                                         "btn_color" character varying DEFAULT '#0d6efd' NOT NULL,
+                                         CONSTRAINT "esgi_setting_id" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
+INSERT INTO "esgi_setting" ("id", "website_name", "h1_color", "polices", "p_color", "p_size", "btn_color") VALUES
+    (1,	'Adebc',	' #black',	'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',	'#black',	'12px',	'#0d6efd');
 
 DROP TABLE IF EXISTS "esgi_user";
 DROP SEQUENCE IF EXISTS esgi_user_id_seq;
@@ -126,11 +129,9 @@ CREATE TABLE "public"."esgi_user" (
 COMMENT ON COLUMN "public"."esgi_user"."role" IS '[0=>admin,1=>editor,2=>modo,3=>user]';
 
 INSERT INTO "esgi_user" ("id", "firstname", "lastname", "email", "pwd", "role", "token", "date_inserted", "status") VALUES
-                                                                                                                        (7,	'Sabrina                                                         ',	'Banoune                                                                                                                 ',	'banounesabrina@gmail.com',	'$2y$10$Az0x3NYW29z56QTF8DD03O3glwtTG0VcA3srBRI0Df6ROWd2HyYBu',	4,	'0f54      ',	'2023-08-30 08:19:26',	'f'),
-                                                                                                                        (8,	'Sabrina                                                         ',	'Banoune                                                                                                                 ',	'banounesabrina@gmail.com',	'$2y$10$mz6UFIROJklUmesInNUvceKb9KQ7H/1Cq2ddINCeyVOgkSFXR83Q6',	4,	'7d25      ',	'2023-08-30 08:36:42',	'f'),
-                                                                                                                        (1,	'Estelle                                                         ',	'Nkumba                                                                                                                  ',	'nkumba.estelle@gmail.com',	'$2y$10$n2ZGl3NubqQaMI8vALOQ5esKiFNZD8l3EZeD.IZJ6r87HVWcUxnaW',	0,	'd85aca3590',	'2023-08-01 08:51:53.774247',	't'),
-                                                                                                                        (4,	'Kilyan                                                          ',	'KIKI                                                                                                                    ',	'halimikilyan@gmail.com',	'$2y$10$100Mktvn2qS1EuymuUrV4eOtmFFb7Y7kRD1XCO07BzIG7ztlrQHO6',	0,	'18a65a6ee8',	'2023-08-03 08:16:31',	'f'),
-                                                                                                                        (6,	'Sabrina                                                         ',	'Banoune                                                                                                                 ',	'sabrina.banoune@gmail.com',	'$2y$10$aPB3bh00/gEqSibOUV6GNO.Do7vLucbsMHW1fLoOfVASeWTQRtMp.',	4,	'0b77      ',	'2023-08-30 08:11:41',	'f');
+                                                                                                                        (1,	'Estelle                                                         ',	'Nkumba                                                                                                                  ',	'nkumba.estelle@gmail.com',	'$2y$10$n2ZGl3NubqQaMI8vALOQ5esKiFNZD8l3EZeD.IZJ6r87HVWcUxnaW',	0,	'4f3fc3b67e',	'2023-08-01 08:51:53.774247',	't'),
+                                                                                                                        (4,	'Kilyan                                                          ',	'KIKI                                                                                                                    ',	'halimikilyan@gmail.com',	'$2y$10$100Mktvn2qS1EuymuUrV4eOtmFFb7Y7kRD1XCO07BzIG7ztlrQHO6',	0,	'90969a226e',	'2023-08-03 08:16:31',	'f'),
+                                                                                                                        (9,	'Sabrina                                                         ',	'Banoune                                                                                                                 ',	'banounesabrina@gmail.com',	'$2y$10$p9rBZHe3v7v3LiVLGbwkwe0xbHreON0RT8rRbhnOKegfDTnstOi/2',	4,	'3943      ',	'2023-09-08 09:38:59',	'f');
 
 DROP TABLE IF EXISTS "esgi_version";
 DROP SEQUENCE IF EXISTS esgi_version_id_seq;
@@ -145,6 +146,8 @@ CREATE TABLE "public"."esgi_version" (
                                          CONSTRAINT "esgi_version_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
+INSERT INTO "esgi_version" ("id", "created_at", "content", "user_id", "article_id") VALUES
+    (2,	'2023-09-05 08:39:15',	'{"time":1693903155352,"blocks":[{"id":"gyG1Wdrk9F","type":"paragraph","data":{"text":"Test"}}],"version":"2.28.0"}',	1,	9);
 
 ALTER TABLE ONLY "public"."esgi_article" ADD CONSTRAINT "esgi_article_author_fkey" FOREIGN KEY (author) REFERENCES esgi_user(id) NOT DEFERRABLE;
 ALTER TABLE ONLY "public"."esgi_article" ADD CONSTRAINT "esgi_article_category_fkey" FOREIGN KEY (category) REFERENCES esgi_category(id) ON DELETE SET DEFAULT NOT DEFERRABLE;
@@ -154,4 +157,4 @@ ALTER TABLE ONLY "public"."esgi_page" ADD CONSTRAINT "esgi_pages_category_fkey" 
 ALTER TABLE ONLY "public"."esgi_version" ADD CONSTRAINT "esgi_version_article_id_fkey" FOREIGN KEY (article_id) REFERENCES esgi_article(id) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE;
 ALTER TABLE ONLY "public"."esgi_version" ADD CONSTRAINT "esgi_version_user_id_fkey" FOREIGN KEY (user_id) REFERENCES esgi_user(id) NOT DEFERRABLE;
 
--- 2023-09-01 10:48:53.910861+00
+-- 2023-09-08 09:47:57.238024+00
