@@ -1,4 +1,7 @@
 <h2 class="py-3">Edit Article</h2>
+<div class="d-flex justify-content-end my-3">
+    <a class="btn btn-dark" id="save-button"  role="button">Save</a>
+</div>
 <?php
 if (!empty($errors)):
     echo '<div class="alert alert-danger d-flex align-items-center p-2">
@@ -41,6 +44,12 @@ if (!empty($errors)):
         <div id="article-data" data-title="<?= htmlspecialchars($article->getTitle()) ?>"
               data-content="<?=(!empty($version->getContent()))? htmlspecialchars($version->getContent()) :" "?>"   data-id="<?=$article->getId()?>"
         ></div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="isComment"  <?= ($article->isComment())?"checked": ""?> >
+            <label class="form-check-label" for="flexCheckChecked">
+                J'accepte que les utilisateurs puisse commenter cet article
+            </label>
+        </div>
         <div id="editorjs"></div>
         <pre id="output"></pre>
 <?php endif?>

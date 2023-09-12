@@ -54,8 +54,11 @@ class Article extends \App\Core\Sql
         $article = new ModelArticle();
         $firstVersion = new Version();
         $articleAlreadyExist =$article->search(["title"=> trim($requestData["title"])]);
+        if (!empty($requestData["id"])){
+            $article->setId($requestData["id"]);
+        }
         //SI NON EXISTANT  ALORS ON AJOUT SINON ERREUR
-        if (empty($articleAlreadyExist)){
+        if (empty($articleAlreadyExist) || $article->getId()){
             $article->setTitle($requestData["title"]);
             $article->setAuthor($_SESSION["user"]["id"]);
             $article->setCategory($requestData["category"]);
@@ -126,7 +129,6 @@ class Article extends \App\Core\Sql
         } else {
             $response = ["success" => false, "message" => "Invalid request"];
         }
-
         header("Content-Type: application/json");
         return json_encode($response);
     }
