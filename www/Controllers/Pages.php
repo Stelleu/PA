@@ -35,12 +35,11 @@ class Pages extends Sql
         }else{
             $pageAlreadyExist = $pageBuild->search(["id"=> $requestData["pageId"]]);
             $pageBuild->setId($requestData["pageId"]);
+            $pageBuild->setUpdatedAt();
             ($pageAlreadyExist->getContent() != $requestData["content"][0])? $pageBuild->setContent($requestData["content"][0]):$pageBuild->setContent($pageAlreadyExist->getContent());
             if ($pageAlreadyExist->getTitle() != $requestData["title"]) {
                 $pageBuild->setTitle($requestData["title"]);
                 $pageBuild->setSlug();
-                echo $pageBuild->getSlug();
-
             } else {
                 $pageBuild->setTitle($pageAlreadyExist->getTitle());
             }

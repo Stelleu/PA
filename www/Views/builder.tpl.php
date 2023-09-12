@@ -68,9 +68,7 @@
                             pageId: pageId
                         })
                     })
-                        .then(response => {
-                            console.log(response.json());return response.json();
-                        })
+                        .then(response => {return response.json();})
                         .then(data => {
                             console.log(data)
                             if (JSON.parse(data).success) {
