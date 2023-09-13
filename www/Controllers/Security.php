@@ -57,13 +57,30 @@ class Security{
         $form = new AddUser();
         $view = new View("Auth/register", "front");
         $view->assign('form', $form->getConfig());
+        $view->assign('title', "Subscription");
         if($form->isSubmit()){
             $this->errors = Verificator::form($form->getConfig(), $_POST);
-            if(empty($this->errors)){
-                echo "Insertion en BDD";
-            }else{
-                $view->assign('errors', $this->errors);
-            }
+            if (empty($this->errors)) {
+                $user = new ModelUser();
+                $verifyExistenceUser = $user->search(['email' => $_POST["Email"]]);
+                if (!empty($verifyExistenceUser)) {
+                    $this->errors[] = "L'utilisateur que vous essayez de créer existe déjà !";
+                } else {
+                    $user->setEmail($_POST["Email"]);
+                    $user->setLastname($_POST["Lastname"]);
+                    $user->setFirstname($_POST["Firstname"]);
+                    $user->setRole(3);
+                    $user->setPassword($_POST["Password"]);
+                    $user->setToken($user->generateCode());
+                    $user->setDateInserted();
+                    $user->save();
+                    //send mail
+                    (new Security)->sendMail($user);
+                    echo '<script>window.location.replace("/login");</script>';
+                    exit;
+                };
+            };
+            $view->assign("errors",$this->errors);
         }
     }
 

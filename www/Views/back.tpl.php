@@ -136,8 +136,12 @@
     <?= ($title == "Pages")? '<script type="text/javascript" src="/Views/assets/js/pagesTable.js"></script>
 ':"";?>
     <?= ($title == "New Article")?'<script src="../Views/assets/js/editor.js"></script>':"";?>
-    <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body>
-':"";?>
+    <?= ($title == "home")? '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script></body> '?>
+    <?= ($title == "Subscription")? '<script type=text/javascript> 
+        const element = document.getElementsByClassName("form-select");
+        console.log(element)
+        element.style.display = "none"; </script>
+' :"";?>
 
 </body>
 </html>
