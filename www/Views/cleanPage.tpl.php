@@ -198,6 +198,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
     <?=($title!="Home")?'<script src="Views/assets/js/cleanPage.js"></script>':""?>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryFilter = document.getElementById('category-filter');
