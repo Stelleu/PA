@@ -89,10 +89,10 @@
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Times New Roman, serif")?"selected": " " ?>   value="Times New Roman, serif">Times New Roman</option>
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Georgia, serif")?"selected": " "  ?>   value="Georgia, serif">Georgia</option>
                                     <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Roboto</option>
-                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Helvetica Neue</option>
-                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Liberation Sans</option>
-                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">Segoe UI</option>
-                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Roboto, sans-serif")?"selected": " "  ?>   value="Roboto, sans-serif">System-ui,-apple-system</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Helvetica Neue, sans-serif")?"selected": " "  ?>   value="Helvetica Neue, sans-serif">Helvetica Neue</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Liberation Sans, sans-serif")?"selected": " "  ?>   value="Liberation Sans, sans-serif">Liberation Sans</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "Segoe UI, sans-serif")?"selected": " "  ?>   value="Segoe UI, sans-serif">Segoe UI</option>
+                                    <option  <?= (!empty($setting) && $setting->getPolices() == "System-ui,-apple-system, sans-serif")?"selected": " "  ?>   value="System-ui,-apple-system, sans-serif">System-ui,-apple-system</option>
                                 </select>
                             </div>
                         </div>

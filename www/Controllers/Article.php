@@ -67,6 +67,7 @@ class Article extends \App\Core\Sql
             $article->setSlug();
             $article->setImgUrl($requestData["img"]);
             $article->save();
+            var_dump($article);
             $article = $article->search(["title"=> $article->getTitle()]);
             $firstVersion->setArticleId($article->getId());
             $firstVersion->setUserId($_SESSION["user"]["id"]);

@@ -21,7 +21,7 @@ if (!empty($errors)):
     } else:?>
             <div class="col py-3">
                 <div class="form-group">
-                    <label for="inputPassword2" class="form-label">Title <?= $page->getId()?>  </label>
+                    <label for="inputPassword2" class="form-label">Title  </label>
                     <input type="text" class="form-control"  id="title" placeholder="Title" value="<?= $page->getTitle()?>" data-page-id="<?= $page->getId()?>">
                 </div>
                 <div class="mb-3">

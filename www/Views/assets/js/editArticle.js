@@ -5,10 +5,8 @@ const articleId = articleData.dataset.id;
 fillTtitle.value = title
 const saveButton = document.getElementById("save-button");
 
-console.log(title)
 let content = JSON.parse(articleData.getAttribute("data-content"));
 if (content === "{}"){
-    console.log("ok")
     content = {}
 }
 let previousContentText
@@ -177,8 +175,6 @@ function saveInMemento(content) {
         category:document.getElementById("categorie").value,
         comment: (document.getElementById("isComment")).checked
     };
-    console.log(formMemento)
-
     fetch('/dash/savememento', {
         method: 'POST',
         headers: {
@@ -186,7 +182,8 @@ function saveInMemento(content) {
         },
         body: JSON.stringify(formMemento)
     })
-        .then(response => {return response.json();
+        .then(response => {
+            console.log(response.json());return response.json();
         })
         .then(parsedData => {
             console.log(parsedData)
@@ -233,9 +230,12 @@ function restoreVersion(versionId) {
         },
         body: JSON.stringify({ id: versionId })
     })
-        .then(response => response.json())
+        .then(response => {
+           return  response.json()
+        })
         .then(data => {
             const parsedData = JSON.parse(data)
+            console.log(parsedData)
             if (parsedData.success) {
                 const restoredContent = JSON.parse(parsedData.restoredContent); // Parse the JSON content
                 editor.blocks.clear();

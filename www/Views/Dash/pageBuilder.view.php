@@ -10,7 +10,7 @@
         <div id="alertArea" class="container mt-3"></div>
         <div class="col py-3">
             <div class="form-group">
-                <label for="inputPassword2" class="form-label">Title  </label>
+                <label for="inputPassword2" class="form-label">Title </label>
                 <input type="text" class="form-control"  id="title" placeholder="Title">
             </div>
             <div class="mb-3">
