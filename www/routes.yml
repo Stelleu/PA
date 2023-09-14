@@ -4,14 +4,17 @@
   security: false
   role: []
 
+/confirmation:
+  controller: Security
+  action: confirmation
+  security: false
+  role: []
 
 /filterarticle:
   controller: Article
   action: filterArticles
   security: false
   role: []
-
-
 
 /dash/comment:
   controller: Comment

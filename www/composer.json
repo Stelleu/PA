@@ -1,8 +1,11 @@
 {
-    "name": "estelle/pa",
+    "name": "estelle/www",
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
     "autoload": {
         "psr-4": {
-            "Estelle\\Pa\\": "src/"
+            "Estelle\\Www\\": "src/"
         }
     },
     "authors": [
@@ -10,8 +13,5 @@
             "name": "Stelleu",
             "email": "enkumba@myges.fr"
         }
-    ],
-    "require": {
-        "phpmailer/phpmailer": "^6.8"
-    }
+    ]
 }

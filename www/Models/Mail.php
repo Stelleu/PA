@@ -1,17 +1,17 @@
 <?php
 namespace App\Models;
 require_once __DIR__ . '/../vendor/autoload.php';
-//use PHPMailer\PHPMailer\PHPMailer;
-//use PHPMailer\PHPMailer\Exception;
-//use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 //Load Composer's autoloader
-class Mail {
+class Mail
+{
     protected String $message;
     protected String $address;
     protected String $subject;
     protected String $name;
-
 
 
     public function setMessage($message): void

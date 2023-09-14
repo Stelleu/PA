@@ -116,7 +116,7 @@ class Security{
             $user = new User;
             $newUser = $user->search(["token" =>$_GET['key']]);
             if (!empty($newUser)){
-                $newUser->setStatus(1);
+                $newUser->setStatus(true);
                 $newUser->setToken(null);
                 $newUser->save();
                 $this->login();
