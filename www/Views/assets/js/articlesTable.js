@@ -70,7 +70,6 @@ publishButtons.forEach(button => {
             published: !isPublished
         };
 
-        // Envoyer la requête AJAX pour publier ou dépublier l'article
         fetch(`/dash/statusarticle`, {
             method: 'POST',
             headers: {

@@ -132,6 +132,7 @@
     <?= ($title == "Articles")? '<script src="../Views/assets/js/articlesTable.js"></script>':"";?>
     <?= ($title == "Edit Article")? '<script  type="text/javascript" src="../Views/assets/js/editArticle.js"></script>':"";?>
     <?= ($title == "Category")? '<script  type="text/javascript" src="../Views/assets/js/categoryTable.js"></script>':"";?>
+    <?= ($title == "Profil")? '<script  type="text/javascript" src="../Views/assets/js/profil.js"></script>':"";?>
     <?= ($title == "Comments")? '<script  type="text/javascript" src="../Views/assets/js/commentTable.js"></script>':"";?>
     <?= ($title == "Pages")? '<script type="text/javascript" src="/Views/assets/js/pagesTable.js"></script>
 ':"";?>

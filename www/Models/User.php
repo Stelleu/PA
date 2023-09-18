@@ -13,7 +13,7 @@ class User extends Sql {
     protected Int $role = 0;
     protected ?String $token;
     protected String $date_inserted;
-    protected bool $status = false;
+    protected int $status ;
 
     /**
      * @return int
@@ -138,7 +138,7 @@ class User extends Sql {
     /**
      * @param int $status
      */
-    public function setStatus(bool $status): void
+    public function setStatus(int $status): void
     {
         $this->status = $status;
     }

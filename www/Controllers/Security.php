@@ -15,7 +15,6 @@ class Security{
         $form = new LoginUser();
         $view = new View("Auth/login","front");
         $view->assign('form',$form->getConfig());
-
         if ($form->isSubmit()){
             $this->errors = Verificator::form($form->getConfig(),$_POST);
             $email = $_POST["Email"];
@@ -105,7 +104,7 @@ class Security{
                                             <h5 class="card-title"> Adebc vous souhaite la bienvenue ! </h5>
                                             <p class="card-text">Une fois votre compte validé vous pourrez commenter autant que vous le souhaitez !.</p>
                                             <p class="card-text">Oublie pas le respect est OBLIGATOIRE chez nous ;)  .</p>
-                                                <button><a class="btn btn-primary" href="http://193.70.2.69/confirmation?key='.$user->getToken().'"> Confirmer votre mail. </a></button>
+                                                <button><a class="btn btn-primary" href="http://127.0.0.1:81/confirmation?key='.$user->getToken().'"> Confirmer votre mail. </a></button>
                                            </div>');
         $confMail->mail($confMail->initMail());
     }

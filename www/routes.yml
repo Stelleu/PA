@@ -16,6 +16,18 @@
   security: false
   role: []
 
+/dash/profil:
+  controller: User
+  action: profil
+  security: true
+  role: []
+
+/dash/editprofil:
+  controller: User
+  action: editProfil
+  security: true
+  role: []
+
 /dash/comment:
   controller: Comment
   action: listComment
