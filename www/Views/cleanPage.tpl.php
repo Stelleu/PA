@@ -126,7 +126,7 @@
                     <a class="link-secondary" href="/register">Subscribe</a>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="/"><?= $_SESSION["user"]["websiteName"] ?></a>
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="/"><?= $front->getWebsiteName() ?></a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
