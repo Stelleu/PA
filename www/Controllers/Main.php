@@ -36,9 +36,12 @@ class Main{
         $users = $usersModel->getStats();
         $pageViews = PageViews::getInstance();
         $views = $pageViews->getStats();
+        $front = new Setting();
+        $front = $front->search(["id"=>1]);
 
         $view->assign("title", 'Home');
         $view->assign("users",$users);
         $view->assign("views",$views);
+        $view->assign("front",$front);
     }
 }

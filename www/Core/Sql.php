@@ -85,7 +85,6 @@ abstract class Sql{
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-
     public function delete(): void
     {
         $sql = "DELETE FROM ".$this->table." WHERE id = ".$this->getId();
@@ -112,6 +111,37 @@ abstract class Sql{
         }
         return $objects;
     }
+
+    public function selectLimit(array $element, $limit): array
+    {
+        $toSelect = [];
+        $params = [];
+
+        foreach ($element as $key => $value) {
+            $toSelect[] = $key . "=:" . $key;
+            $params[':' . $key] = $value;
+        }
+
+        $sql = "SELECT * FROM " . $this->table . " WHERE " . implode(' AND ', $toSelect) . " ORDER BY created_at ASC LIMIT :limit";
+        $queryPrepared = $this->pdo->prepare($sql);
+
+        // Associer les valeurs des paramètres
+        foreach ($params as $paramName => $paramValue) {
+            $queryPrepared->bindValue($paramName, $paramValue);
+        }
+        $queryPrepared->bindValue(':limit', $limit, $this->pdo::PARAM_INT); // Limite en tant qu'entier
+
+        $queryPrepared->execute();
+
+        $objects = array();
+
+        while ($object = $queryPrepared->fetchObject(get_called_class())) {
+            $objects[] = $object;
+        }
+
+        return $objects;
+    }
+
 
     public function recordView(): array
     {

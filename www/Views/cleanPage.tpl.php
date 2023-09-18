@@ -126,7 +126,7 @@
                     <a class="link-secondary" href="/register">Subscribe</a>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="/"><?= $front->getWebsiteName() ?></a>
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none fw-bold" href="/"><?= $_SESSION["user"]["websiteName"] ?></a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
@@ -138,7 +138,7 @@
         </header>
         <?php if(!empty($pages)): ?>
             <div class=" py-1 mb-3 border-bottom">
-            <nav class="navbar navbar-expand-lg ">
+            <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <button class="navbar-toggler  justify-content-end align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -171,15 +171,20 @@
         <?php endif; ?>
     </div>
     <main>
-        <h1 class="text-center py-2"><?= ($title!= "Home")? ucfirst($title):"" ?></h1>
+<!--        <h1 class="text-center py-2">--><?php //= ($title!= "Home")? ucfirst($title):"" ?><!--</h1>-->
         <?php include $this->view ?>
     </main>
-    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-        <p>Blog  built for <a href="https://getbootstrap.com/">ESGI</a> by <a href="">@Bilel @Paul & @Estelle</a>.</p>
-        <p class="mb-0">
-            <a href="#">Back to top</a>
-        </p>
-    </footer>
+    <div class="container  bottom-0  mt-5">
+        <footer class="py-3 my-4 " >
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="/sitemap" class="nav-link px-2 text-body-secondary">Sitemap</a></li>
+                <li class="nav-item"><a href="https://github.com/Stelleu/PA" class="nav-link px-2 text-body-secondary">Github</a></li>
+
+            </ul>
+            <p class="text-center text-body-secondary">&copy; 2023 Bilel Paul & Estelle, Inc</p>
+        </footer>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>

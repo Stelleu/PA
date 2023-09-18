@@ -80,7 +80,6 @@ class Memento extends \App\Core\Sql
         $version->setCreatedAt();
         $version->setArticleId($requestData['id']);
         $version->save();
-        var_dump($version);
         $latestVersion = (new \App\Models\Version)->getLatestVersion(["article_id"=>$requestData['id']],"created_at","DESC"); // Implémentez cette méthode dans la classe Version pour obtenir la dernière version
         if ($latestVersion) {
             $memento = new VersionMemento($latestVersion->getContent());

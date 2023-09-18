@@ -114,7 +114,6 @@ class User extends Sql
 
         if (isset($_POST['submit']) == "Save changes"){
             //optimiser si temps avec boucle sur l'obj
-            echo $user->getLastname() != $_POST["Lastname"];
             $users->setId($_POST["id"]);
             ($user->getPassword() != $_POST["Password"])? $users->setPassword($_POST["Password"]):$users->setPassword($user->getPassword());
             ($user->getLastname() != $_POST["Lastname"])? $users->setLastname($_POST["Lastname"]):$users->setLastname($user->getLastname());

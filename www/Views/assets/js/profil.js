@@ -70,27 +70,47 @@ saveButton.addEventListener("click",e =>{
         });
 } )
 deleteButton.addEventListener("click",e =>{
-
-    $.ajax({
-        type: "post",
-        url: "deleteUser",
-        data: {id: sessionId},
-        success: function (response) {
-            console.log(response)
-           window.location.replace("/dash/logout")
-
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
-        error: function (error) {
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: "deleteUser",
+                data: {id: sessionId},
+                success: function (response) {
+                    window.location.replace("/dash/logout")
+                },
+                error: function (error) {
+                    swalWithBootstrapButtons.fire(
+                        'Error',
+                        'Something went wrong !',
+                        'error'
+                    )
+                }
+            })
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
-                'Error',
-                'Something went wrong !',
+                'Cancelled',
+                'Your account is safe :)',
                 'error'
             )
         }
     })
-
-
-
 } )
 
 function readonly(input){

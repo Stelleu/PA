@@ -4,6 +4,7 @@ use App\Core\View;
 use App\Forms\AddUser;
 use App\Forms\LoginUser;
 use App\Models\Mail;
+use App\Models\Setting;
 use App\Models\User as ModelUser;
 use App\Core\Verificator;
 
@@ -22,6 +23,8 @@ class Security{
             if (empty($this->errors)){
                 $user = new ModelUser();
                 $user = $user->search(['email'=>$email]);
+                $front = new Setting();
+                $front = $front->search(['id'=>1]);
                 if (!empty($user) && $user->verifPwd($pwd)){
                     $user->generateToken();
                     $user->save();
@@ -34,6 +37,7 @@ class Security{
                         'token'     => $user->getToken(),
                         'status'    => $user->getStatus(),
                         'role'      => $user->getRole(),
+                        'websiteName' => $front->getWebsiteName()
                     ];
 
                     //REDIRECTION DASHBOARD

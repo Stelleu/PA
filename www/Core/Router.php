@@ -82,7 +82,6 @@ class Router extends RouteVerificator
             $this->handleNotFoundError(404);
         }
         if (isset($role)  &&!self::checkWhoIAm($role)) {
-            echo $role;
              $this->handleNotFoundError(500);
         }
 

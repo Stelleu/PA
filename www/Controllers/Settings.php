@@ -70,7 +70,9 @@ class Settings extends Sql
     {
         $article = new ModelArticle();
         $page = new Page();
+        $pages = new Page();
         $slug= trim(strtolower($slug));
+        $pages = $pages->multipleSearch(["status"=>1]);
 
         $article = $article->search(["slug" => $slug]);
         $page = $page->search(["slug" => $slug]);
@@ -89,6 +91,9 @@ class Settings extends Sql
 
         $articles = new ModelArticle();
         $articles = $articles->getAll();
+
+        $lastArticle = new ModelArticle();
+        $lastArticle = $lastArticle->selectLimit(["status"=>1,"category"=> $page->getCategory() ],3);
 
         $version = new Version();
         $versionData = [];
@@ -112,12 +117,15 @@ class Settings extends Sql
 
         } elseif (!empty($page)) {
             $view->assign("title", $page->getTitle());
-            $view->assign("page",$page);
+            $view->assign("pageContent",$page);
+            $view->assign("recentArticles",$lastArticle);
+
         }elseif (!empty($menuCategory)) {
             $view->assign("title", $menuCategory->getTitle());
             $view->assign("menuCategory",$menuCategory);
         }
         $view->assign("menu", $menuData);
+        $view->assign("pages",$pages);
         $view->assign("categories", $categorie);
         $view->assign("comments", $comments);
         $view->assign("front", $setting);

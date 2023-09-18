@@ -81,18 +81,14 @@ class Mail
             //Recipients
             $mail->setFrom('from@example.com', 'Adebc');
             $mail->addAddress($this->address , $this->name);     //Add a recipient
-
             // //Attachments
             // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
             // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = $this->subject;
             $mail->Body    = $this->message;
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            var_dump($mail->send());
             $mail->send();
 
         }catch(Exception $e) {

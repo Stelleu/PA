@@ -56,7 +56,6 @@ class Comment extends Sql
 
     public function deleteComment(): void
     {
-        var_dump($_POST);
         $commentToDelete = new ModelComment();
         $commentToDelete->setId($_POST["id"]);
         $commentToDelete->delete();

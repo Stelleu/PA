@@ -12,9 +12,7 @@ if (!empty($article)):?>
         </div>
     </div>
 </section>
-
-
-    <section class="container-fluid card shadow-0 border" style="background-color: #f0f2f5;" >
+<section class="container-fluid card shadow-0 border" style="background-color: #f0f2f5;" >
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 col-lg-6">
@@ -79,7 +77,7 @@ if (!empty($article)):?>
                     </div>
                 </div>
             </div>
-                        </div>
+        </div>
 
 <?php else:?>
     <div class="alert alert-info" role="alert">
@@ -120,11 +118,41 @@ if (!empty($article)):?>
         </div>
     </section>
 
-<?php  else :?>
+<?php  else :  ?>
     <div class="container">
-        <div class="row mt-5">
-
-            <?php if(!empty($page->getContent())) :echo $page->getContent() ;  endif ?>
+        <div class="row g-5">
+            <div class="col-md-8">
+                <?php  if(!empty($pageContent->getContent())) :echo $pageContent->getContent() ;  endif ?>
+            </div>
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div>
+                        <?php if (!empty($recentArticles)) : ?>
+                            <h4 class="fst-italic">Recent posts</h4>
+                            <ul class="list-unstyled">
+                                <?php foreach ($recentArticles as $article):
+                                        if ($article->getCategory() === $pageContent->getCategory() ):?>
+                                            <li>
+                                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $article->getSlug() ?>">
+    <!--                                                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>-->
+                                                    <img src="<?= $article->getImgUrl() ?>" class="bd-placeholder-img" width="100%" height="96">
+                                                    <div class="col-lg-8">
+                                                        <h6 class="mb-0"><?= $article->getTitle() ?></h6>
+                                                        <small class="text-body-secondary"> <?php $dateString = $article->getCreatedAt() ;
+                                                            $date = new DateTime($dateString);
+                                                            $formattedDate = $date->format('F j, Y');
+                                                            echo $formattedDate; ?>
+                                                        </small>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        <?php endif;
+                                endforeach;?>
+                            </ul>
+                        <?php endif;?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 <?php endif;?>
